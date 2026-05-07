@@ -13,12 +13,12 @@ const INDEX_URL: &str = "static/index.bin";
 
 #[derive(Clone, Routable, PartialEq)]
 enum Route {
-    #[at("/esoiddictionary/")]
+    #[at("/")]
     Home,
-    #[at("/esoiddictionary/:id")]
+    #[at("/:id")]
     Ability { id: u32 },
     #[not_found]
-    #[at("/esoiddictionary/unknown")]
+    #[at("/404")]
     NotFound,
 }
 
@@ -37,7 +37,7 @@ fn switch_with_index(props: &SwitchProps) -> Html {
 
 fn switch(route: Route, index: IndexState) -> Html {
     match route {
-        Route::Home     => html! { <Home /> },
+        Route::Home => html! { <Home /> },
         Route::Ability { id } => html! { <IdData {id} {index} /> },
         Route::NotFound => html! {
             <div>

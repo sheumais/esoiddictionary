@@ -32,7 +32,8 @@ jobs:
           rustup target add wasm32-unknown-unknown
       - name: Run trunk build
         run: RUSTFLAGS='--cfg getrandom_backend="wasm_js"' trunk build --public-url "/esoiddictionary" --release
-
+      - name: Copy index.html to 404.html
+        run: cp dist/index.html dist/404.html
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
