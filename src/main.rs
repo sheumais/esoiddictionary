@@ -1,6 +1,12 @@
+use core::time;
+use std::collections::HashMap;
+use std::sync::OnceLock;
+
+use chrono::Datelike;
+use eso_skill_data::skill_line_name;
 use yew_router::prelude::*;
 use yew::prelude::*;
-use crate::id::IdData;
+use crate::id::{IdData, get_abilities};
 use crate::index_state::IndexState;
 use crate::fetch::fetch_bytes;
 use crate::index_state::parse_index;
@@ -9,7 +15,51 @@ mod id;
 mod fetch;
 mod index_state;
 
-const INDEX_URL: &str = "static/index.bin";
+const SKILL_CSV:   &str = include_str!("../static/player_abilities.csv");
+const INDEX_URL:   &str = "static/index.bin";
+
+static SKILL_GROUPS: OnceLock<Vec<(u32, Vec<u32>)>> = OnceLock::new();
+static TIMESTAMPS: OnceLock<Vec<(u32, Vec<u32>)>> = OnceLock::new();
+
+fn get_groups() -> &'static Vec<(u32, Vec<u32>)> {
+    SKILL_GROUPS.get_or_init(|| {
+        let mut map: HashMap<u32, Vec<u32>> = HashMap::new();
+        for line in SKILL_CSV.lines() {
+            let mut parts = line.splitn(3, ',');
+            if let (Some(id), Some(sl), Some(_ts)) = (parts.next(), parts.next(), parts.next()) {
+                if let (Ok(id), Ok(sl)) = (id.trim().parse::<u32>(), sl.trim().parse::<u32>()) {
+                    map.entry(sl).or_default().push(id);
+                }
+            }
+        }
+        let mut groups: Vec<(u32, Vec<u32>)> = map.into_iter().collect();
+        groups.sort_by_key(|(sl, _)| *sl);
+        for (_, ids) in &mut groups {
+            ids.sort();
+        }
+        groups
+    })
+}
+
+fn get_timestamps() -> &'static Vec<(u32, Vec<u32>)> {
+    TIMESTAMPS.get_or_init(|| {
+        let mut ts_map: HashMap<u32, Vec<u32>> = HashMap::new();
+        for line in SKILL_CSV.lines() {
+            let mut parts = line.splitn(3, ',');
+            if let (Some(id), Some(_sl), Some(ts)) = (parts.next(), parts.next(), parts.next()) {
+                if let (Ok(id), Ok(ts)) = (id.trim().parse::<u32>(), ts.trim().parse::<u32>()) {
+                    ts_map.entry(ts).or_default().push(id);
+                }
+            }
+        }
+        let mut timestamps: Vec<(u32, Vec<u32>)> = ts_map.into_iter().collect();
+        timestamps.sort_by_key(|(ts, _)| *ts);
+        for (_, ids) in &mut timestamps {
+            ids.sort();
+        }
+        timestamps
+    })
+}
 
 #[derive(Clone, Routable, PartialEq)]
 enum Route {
@@ -36,16 +86,102 @@ fn switch_with_index(props: &SwitchProps) -> Html {
 }
 
 fn switch(route: Route, index: IndexState) -> Html {
-    match route {
+    let content = match route {
         Route::Home => html! { <Home /> },
         Route::Ability { id } => html! { <IdData {id} {index} /> },
         Route::NotFound => html! {
             <div>
                 <h1>{ "404" }</h1>
                 <p>{ "No ability with that ID exists." }</p>
-                <a href="/esoiddictionary/">{ "Home" }</a>
+                <a href="/">{ "Home" }</a>
             </div>
         },
+    };
+    html! {
+        <>
+            <div class="content">
+            { content }
+            </div>
+            <footer>
+                {"Made by "}<a href="https://github.com/sheumais">{"sheumais"}</a>{", with huge thanks to Dave from UESP. "}<a href="https://github.com/sheumais/esoiddictionary/">{"Source code"}</a>{" licensed under GPLv2"}
+            </footer>
+        </>
+    }
+}
+
+#[function_component(SkillLineComponent)]
+pub fn skill_line_index() -> Html {
+    let ability_names = get_abilities();
+
+    let groups: Vec<&(u32, Vec<u32>)> = {
+        get_groups()
+            .iter()
+            .filter(|(t, _)| !skill_line_name(t).unwrap_or("").contains("Vengeance"))
+            .collect()
+    };
+
+    let monthly_groups: Vec<((i32, u32), Vec<u32>)> = {
+        let mut month_map: HashMap<(i32, u32), Vec<u32>> = HashMap::new();
+        for (ts, ids) in get_timestamps().iter() {
+            let dt = chrono::DateTime::from_timestamp(*ts as i64, 0)
+                .unwrap_or_default()
+                .with_timezone(&chrono::Utc);
+            let key = (dt.year(), dt.month());
+            month_map.entry(key).or_default().extend(ids);
+        }
+        let mut months: Vec<((i32, u32), Vec<u32>)> = month_map.into_iter().collect();
+        months.sort_by(|(a, _), (b, _)| b.cmp(a));
+        months.truncate(6);
+        for (_, ids) in &mut months {
+            ids.sort();
+        }
+        months
+    };
+
+    html! {
+        <div>
+            <div style="columns:10rem;column-gap:1.5rem;padding-top:3em;">
+                { for groups.iter().map(|(sl, ids)| html! {
+                    <div key={*sl} style="break-inside:avoid;padding-top:1rem">
+                        <h4 style="margin-bottom:0.25em;margin-top:0em;">
+                            { format!("{} ({})", skill_line_name(sl).unwrap_or("Unnamed"), sl) }
+                        </h4>
+                        <div>
+                            { for ids.iter()
+                                .map(|id| html! {
+                                    <div>
+                                        <a style="font-size: 0.9em;" href={format!("/{}", id)} key={*id}>
+                                            { format!("{}", ability_names.get(id).unwrap_or(&"?".to_string())) }
+                                        </a>
+                                        <br />
+                                    </div>
+                                })
+                            }
+                        </div>
+                    </div>
+                })}
+            </div>
+            <div style="display: flex; flex-flow: row wrap; justify-content: space-between; margin-top: 3em;">
+                { for monthly_groups.iter().map(|((year, month), ids)| html! {
+                    <div key={format!("{}-{}", year, month)}>
+                        <h4 style="margin-bottom:0.25em;">
+                            { format!("{} {}", chrono::Month::try_from(*month as u8).map(|m| m.name()).unwrap_or("?"), year) }
+                        </h4>
+                        { for ids.iter()
+                            .filter(|i| !ability_names.get(i).map_or("?", |f| f.as_str()).contains("Vengeance"))
+                            .map(|id| html! {
+                                <div>
+                                    <a style="font-size: 0.9em;" href={format!("/{}", id)} key={*id}>
+                                        { format!("{}", ability_names.get(id).unwrap_or(&"?".to_string())) }
+                                    </a>
+                                    <br />
+                                </div>
+                            })
+                        }
+                    </div>
+                })}
+            </div>
+        </div>
     }
 }
 
@@ -69,21 +205,23 @@ fn home() -> Html {
     };
 
     html! {
-        <div>
-            <header>
-                <h1>{ "ESO ID Dictionary" }</h1>
-            </header>
-            <form onsubmit={onsubmit}>
-                <input
-                    ref={input_ref}
-                    type="number"
-                    placeholder="Enter ability ID"
-                    min="0"
-                    max="300000"
-                    style={"width: 200px;"}
-                />
-                <button type="submit">{ "Search" }</button>
-            </form>
+        <div style="max-width: 66%; margin: 0 auto;">
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10em; min-width: 275px;">
+                <img style="max-width: 10em; height: auto; text-align: center; user-select: none; image-rendering: smooth; user-drag: none;" src="/static/julianos.png" />
+                <header>
+                    <h1>{ "ESO ID Dictionary" }</h1>
+                </header>
+                <form onsubmit={onsubmit}>
+                    <input
+                        ref={input_ref}
+                        type="text"
+                        placeholder="Enter ability ID"
+                        style={"width: 200px; margin-right: 1em;"}
+                    />
+                    <button type="submit">{ "Search" }</button>
+                </form>
+            </div>
+            <SkillLineComponent />
         </div>
     }
 }
