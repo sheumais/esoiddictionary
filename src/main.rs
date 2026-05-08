@@ -150,7 +150,7 @@ pub fn skill_line_index() -> Html {
                             { for ids.iter()
                                 .map(|id| html! {
                                     <div>
-                                        <a style="font-size: 0.9em;" href={format!("/{}", id)} key={*id}>
+                                        <a style="font-size: 0.9em;" href={format!("{}", id)} key={*id}>
                                             { format!("{}", ability_names.get(id).unwrap_or(&"?".to_string())) }
                                         </a>
                                         <br />
@@ -171,7 +171,7 @@ pub fn skill_line_index() -> Html {
                             .filter(|i| !ability_names.get(i).map_or("?", |f| f.as_str()).contains("Vengeance"))
                             .map(|id| html! {
                                 <div>
-                                    <a style="font-size: 0.9em;" href={format!("/{}", id)} key={*id}>
+                                    <a style="font-size: 0.9em;" href={format!("{}", id)} key={*id}>
                                         { format!("{}", ability_names.get(id).unwrap_or(&"?".to_string())) }
                                     </a>
                                     <br />
@@ -207,7 +207,7 @@ fn home() -> Html {
     html! {
         <div style="max-width: 66%; margin: 0 auto;">
             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10em; min-width: 275px;">
-                <img style="max-width: 10em; height: auto; text-align: center; user-select: none; image-rendering: smooth; user-drag: none;" src="/static/julianos.png" />
+                <img style="max-width: 10em; height: auto; text-align: center; user-select: none; image-rendering: smooth; user-drag: none;" src="static/julianos.png" />
                 <header>
                     <h1>{ "ESO ID Dictionary" }</h1>
                 </header>
