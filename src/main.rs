@@ -140,7 +140,7 @@ pub fn skill_line_index() -> Html {
 
     html! {
         <div>
-            <div style="columns:10rem;column-gap:1.5rem;padding-top:3em;">
+            <div style="columns: 10rem; column-gap: 1rem; padding-top: 3em;">
                 { for groups.iter().map(|(sl, ids)| html! {
                     <div key={*sl} style="break-inside:avoid;padding-top:1rem">
                         <h4 style="margin-bottom:0.25em;margin-top:0em;">

@@ -38,6 +38,22 @@ pub struct IdProps {
     pub index: IndexState,
 }
 
+fn format_duration(ms: &u32) -> String { 
+    let hours = ms / 3_600_000;
+    let mins  = (ms % 3_600_000) / 60_000;
+    let secs  = (ms % 60_000) / 1_000;
+    let millis = ms % 1_000;
+
+    match (hours, mins, secs, millis) {
+        (h, 0, 0, 0) if h > 0 => format!("{}h", h),
+        (0, m, 0, 0) if m > 0 => format!("{}m", m),
+        (0, 0, s, 0) if s > 0 => format!("{}s", s),
+        (h, m, 0, 0) if h > 0 => format!("{}h {}m", h, m),
+        (0, m, s, 0) if m > 0 => format!("{}m {}s", m, s),
+        _ => format!("{}ms", ms),
+    }
+}
+
 #[function_component(IdData)]
 pub fn id_data(props: &IdProps) -> Html {
     let abilities = get_abilities();
@@ -100,7 +116,55 @@ pub fn id_data(props: &IdProps) -> Html {
                 <p>{ e }</p>
             </div>
         },
-        FetchState::Done(skill) => html! {
+        FetchState::Done(skill) => {
+            let equation = {
+                let c = &skill.coef;
+                let h1 = c.type1 != 0 || c.coef1 != 0.0;
+                let h2 = c.type2 != 0 || c.coef2 != 0.0;
+                let h3 = c.type3 != 0 || c.coef3 != 0.0;
+                let h4 = c.type4 != 0 || c.coef4 != 0.0;
+
+                let term = |t: u8, _: f32| -> String {
+                    match_coefficient_type(&t).unwrap_or("Unknown".to_string())
+                };
+
+                let is_weapon_spell = |t: u8| matches!(t, 25 | 35);
+                let is_resource    = |t: u8| matches!(t, 4 | 29);
+
+                let paired_term = |t1: u8, t2: u8, coef: f32| -> String {
+                    match (t1, t2) {
+                        // (25, 35) | (35, 25) => format!("{coef}×MaxPower"),
+                        // (4, 29)  | (29, 4)  => format!("{coef}×MaxResource"),
+                        _ => format!(
+                            "{coef}×max({}, {})",
+                            match_coefficient_type(&t1).unwrap_or("Unknown".to_string()),
+                            match_coefficient_type(&t2).unwrap_or("Unknown".to_string()),
+                        ),
+                    }
+                };
+
+                let is_mirror = h1 && h2 && h3 && h4
+                    && c.coef1 == c.coef3 && c.coef2 == c.coef4
+                    && is_weapon_spell(c.type1) && is_weapon_spell(c.type3)
+                    && is_resource(c.type2)     && is_resource(c.type4);
+
+                if !h1 && !h2 && !h3 && !h4 {
+                    None
+                } else if is_mirror {
+                    Some(format!("{} + {}", paired_term(c.type1, c.type3, c.coef1), paired_term(c.type2, c.type4, c.coef2)))
+                } else if h1 && !h2 && h3 && !h4 {
+                    Some(paired_term(c.type1, c.type3, c.coef1))
+                } else {
+                    let mut terms = vec![];
+                    if h1 { terms.push(term(c.type1, c.coef1)); }
+                    if h2 { terms.push(term(c.type2, c.coef2)); }
+                    if h3 { terms.push(term(c.type3, c.coef3)); }
+                    if h4 { terms.push(term(c.type4, c.coef4)); }
+                    Some(terms.join(" + "))
+                }
+            };
+
+            html! {
             <div>
                 <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.base_data.date_time.into(), 0).unwrap())} />
                 if let Some(mech) = match_mechanic(&skill.mechanic) {
@@ -130,22 +194,22 @@ pub fn id_data(props: &IdProps) -> Html {
                     <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
                 }
                 if skill.base_data.value1 != 0 {
-                    <Field label="Value 1: " value={format!("{}", skill.base_data.value1.to_string())} />
+                    <Field label="Value: " value={format!("{}", skill.base_data.value1.to_string())} />
                 }
                 if skill.base_data.value2 != 0 && skill.base_data.value2 != skill.base_data.value1 {
                     <Field label="Value 2: " value={format!("{}", skill.base_data.value2.to_string())} />
                 }
                 if skill.base_data.cast_time != 0 {
-                    <Field label="Cast Time: " value={format!("{}ms", skill.base_data.cast_time.to_string())} />
+                    <Field label="Cast Time: " value={format!("{}", format_duration(&skill.base_data.cast_time) )} />
                 }
                 if skill.base_data.duration != 0 {
-                    <Field label="Duration: " value={format!("{}ms", skill.base_data.duration.to_string())} />
+                    <Field label="Duration: " value={format!("{}", format_duration(&skill.base_data.duration) )} />
                 }
                 if skill.base_data.tick != 0 {
-                    <Field label="Tick: " value={format!("{}ms", skill.base_data.tick.to_string())} />
+                    <Field label="Tick: " value={format!("{}", format_duration(&skill.base_data.tick) )} />
                 }
                 if skill.base_data.start_tick != 0 {
-                    <Field label="Start Tick: " value={format!("{}ms", skill.base_data.start_tick.to_string())} />
+                    <Field label="Start Tick: " value={format!("{}", format_duration(&skill.base_data.start_tick.into()) )} />
                 }
                 if skill.base_data.range != 0 {
                     <Field label="Range: " value={format!("{}m", (skill.base_data.range / 100).to_string())} />
@@ -170,6 +234,9 @@ pub fn id_data(props: &IdProps) -> Html {
                 if skill.coef.coef4 != 0f32 {
                     <Field label="Coef 4: " value={format!("{} ({})", skill.coef.coef4, match_coefficient_type(&skill.coef.type4).unwrap_or("Unknown".to_string()))} />
                 }
+                if let Some(eq) = equation {
+                    <Field label="Equation: " value={eq} />
+                }
                 if !skill.causes_ids.is_empty() {
                     <h4>{ "Causes IDs" }</h4>
                     <div>
@@ -188,6 +255,7 @@ pub fn id_data(props: &IdProps) -> Html {
                     </div>
                 </div>
             </div>
+            }
         },
     };
 
