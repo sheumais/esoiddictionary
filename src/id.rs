@@ -1,27 +1,61 @@
 use std::{collections::HashMap, sync::OnceLock};
 use chrono::DateTime;
-use eso_skill_data::{SkillData34, ability_type_name, match_coefficient_type, match_damage_type, match_mechanic, skill_line_name};
+use eso_skill_data::{SkillData34, ability_type_name, match_coefficient_type, match_damage_type, match_mechanic, skill_line_name, tooltip_type};
 use yew::prelude::*;
 use crate::fetch::fetch_bytes;
 use crate::index_state::{IndexState, find_entry};
 
 const ABILITY_CSV: &str = include_str!("../static/ability_names.csv");
+const TOOLTIP_CSV: &str = include_str!("../static/ability_tooltips.csv");
 const DATA_URL:    &str = "static/data.bin";
 
 static ABILITIES: OnceLock<HashMap<u32, String>> = OnceLock::new();
+static TOOLTIPS:  OnceLock<HashMap<u32, Vec<String>>> = OnceLock::new();
 
 pub fn get_abilities() -> &'static HashMap<u32, String> {
     ABILITIES.get_or_init(|| {
         ABILITY_CSV
             .lines()
             .filter_map(|line| {
-                let mut parts = line.splitn(2, ',');
-                let id: u32 = parts.next()?.trim().parse().ok()?;
-                let name    = parts.next()?.trim().to_string();
+                let parts = csv_split(line);
+                let id: u32 = parts.first()?.trim().parse().ok()?;
+                let name    = parts.last()?.trim().to_string();
                 Some((id, name))
             })
             .collect()
     })
+}
+
+pub fn get_tooltips() -> &'static HashMap<u32, Vec<String>> {
+    TOOLTIPS.get_or_init(|| {
+        TOOLTIP_CSV
+            .lines()
+            .filter_map(|line| {
+                let parts = csv_split(line);
+                let id: u32 = parts.first()?.trim().parse().ok()?;
+                let tooltip = parts[1..].iter().map(|s| s.trim_matches('"').to_string()).collect::<Vec<String>>();
+                Some((id, tooltip))
+            })
+            .collect()
+    })
+}
+
+fn csv_split(line: &str) -> Vec<&str> {
+    let mut parts = Vec::new();
+    let mut start = 0;
+    let mut in_quotes = false;
+    for (i, c) in line.char_indices() {
+        match c {
+            '"' => in_quotes = !in_quotes,
+            ',' if !in_quotes => {
+                parts.push(&line[start..i]);
+                start = i + 1;
+            }
+            _ => {}
+        }
+    }
+    parts.push(&line[start..]);
+    parts
 }
 
 #[derive(Clone, PartialEq)]
@@ -57,6 +91,7 @@ fn format_duration(ms: &u32) -> String {
 #[function_component(IdData)]
 pub fn id_data(props: &IdProps) -> Html {
     let abilities = get_abilities();
+    let tooltips = get_tooltips();
     let skill_state = use_state(|| FetchState::<SkillData34>::Idle);
     let id = props.id;
 
@@ -222,20 +257,38 @@ pub fn id_data(props: &IdProps) -> Html {
                         <Field label="Resource Cost: " value={format!("{} ({})", skill.base_data.cost.to_string(), mech)} />
                     }
                 }
-                if skill.coef.coef1 != 0f32 {
-                    <Field label="Coef 1: " value={format!("{} ({})", skill.coef.coef1, match_coefficient_type(&skill.coef.type1).unwrap_or("Unknown".to_string()))} />
-                }
-                if skill.coef.coef2 != 0f32 {
-                    <Field label="Coef 2: " value={format!("{} ({})", skill.coef.coef2, match_coefficient_type(&skill.coef.type2).unwrap_or("Unknown".to_string()))} />
-                }
-                if skill.coef.coef3 != 0f32 {
-                    <Field label="Coef 3: " value={format!("{} ({})", skill.coef.coef3, match_coefficient_type(&skill.coef.type3).unwrap_or("Unknown".to_string()))} />
-                }
-                if skill.coef.coef4 != 0f32 {
-                    <Field label="Coef 4: " value={format!("{} ({})", skill.coef.coef4, match_coefficient_type(&skill.coef.type4).unwrap_or("Unknown".to_string()))} />
-                }
+                // if skill.coef.coef1 != 0f32 {
+                //     <Field label="Coef 1: " value={format!("{} ({})", skill.coef.coef1, match_coefficient_type(&skill.coef.type1).unwrap_or("Unknown".to_string()))} />
+                // }
+                // if skill.coef.coef2 != 0f32 {
+                //     <Field label="Coef 2: " value={format!("{} ({})", skill.coef.coef2, match_coefficient_type(&skill.coef.type2).unwrap_or("Unknown".to_string()))} />
+                // }
+                // if skill.coef.coef3 != 0f32 {
+                //     <Field label="Coef 3: " value={format!("{} ({})", skill.coef.coef3, match_coefficient_type(&skill.coef.type3).unwrap_or("Unknown".to_string()))} />
+                // }
+                // if skill.coef.coef4 != 0f32 {
+                //     <Field label="Coef 4: " value={format!("{} ({})", skill.coef.coef4, match_coefficient_type(&skill.coef.type4).unwrap_or("Unknown".to_string()))} />
+                // }
                 if let Some(eq) = equation {
                     <Field label="Equation: " value={eq} />
+                }
+                if let Some(tooltip) = tooltips.get(&skill.ability_id1) {
+                    <h4>{"Tooltip"}</h4>
+                    for t in tooltip {
+                        <div>{t.to_owned()}</div>
+                    }
+                    { for skill.tooltip_data.iter().flat_map(|td| {
+                        td.tooltip_ids.iter().zip(td.tooltip_types.iter()).enumerate().map(|(i, (id, ty))| {
+                            let label: String = format!("{} ({}): ", i+1, tooltip_type(ty).unwrap_or(ty.to_string())).into();
+                            let value: String = format!("{} ({})", abilities.get(&id).unwrap_or(&"???".to_string()), id).into();
+                            html! {
+                                <div>
+                                    <span>{ label }</span>
+                                    <span>{ value }</span>
+                                </div>
+                            }
+                        })
+                    }) }
                 }
                 if !skill.causes_ids.is_empty() {
                     <h4>{ "Causes IDs" }</h4>
