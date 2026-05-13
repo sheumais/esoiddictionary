@@ -1,9 +1,10 @@
 use std::{collections::HashMap, sync::OnceLock};
 use chrono::DateTime;
-use eso_skill_data::{SkillData34, ability_type_name, match_coefficient_type, match_damage_type, match_mechanic, skill_line_name, tooltip_type};
+use eso_skill_data::{SkillData34, data_enum::*};
 use yew::prelude::*;
 use crate::fetch::fetch_bytes;
 use crate::index_state::{IndexState, find_entry};
+
 
 const ABILITY_CSV: &str = include_str!("../static/ability_names.csv");
 const TOOLTIP_CSV: &str = include_str!("../static/ability_tooltips.csv");
@@ -159,10 +160,6 @@ pub fn id_data(props: &IdProps) -> Html {
                 let h3 = c.type3 != 0 || c.coef3 != 0.0;
                 let h4 = c.type4 != 0 || c.coef4 != 0.0;
 
-                let term = |t: u8, _: f32| -> String {
-                    match_coefficient_type(&t).unwrap_or("Unknown".to_string())
-                };
-
                 let is_weapon_spell = |t: u8| matches!(t, 25 | 35);
                 let is_resource    = |t: u8| matches!(t, 4 | 29);
 
@@ -172,8 +169,8 @@ pub fn id_data(props: &IdProps) -> Html {
                         // (4, 29)  | (29, 4)  => format!("{coef}×MaxResource"),
                         _ => format!(
                             "{coef}×max({}, {})",
-                            match_coefficient_type(&t1).unwrap_or("Unknown".to_string()),
-                            match_coefficient_type(&t2).unwrap_or("Unknown".to_string()),
+                            CoefficientType::from_id(&t1).unwrap().as_str(),
+                            CoefficientType::from_id(&t2).unwrap().as_str(),
                         ),
                     }
                 };
@@ -191,10 +188,10 @@ pub fn id_data(props: &IdProps) -> Html {
                     Some(paired_term(c.type1, c.type3, c.coef1))
                 } else {
                     let mut terms = vec![];
-                    if h1 { terms.push(term(c.type1, c.coef1)); }
-                    if h2 { terms.push(term(c.type2, c.coef2)); }
-                    if h3 { terms.push(term(c.type3, c.coef3)); }
-                    if h4 { terms.push(term(c.type4, c.coef4)); }
+                    if h1 { terms.push(CoefficientType::from_id(&c.type1).unwrap().as_str()); }
+                    if h2 { terms.push(CoefficientType::from_id(&c.type2).unwrap().as_str()); }
+                    if h3 { terms.push(CoefficientType::from_id(&c.type3).unwrap().as_str()); }
+                    if h4 { terms.push(CoefficientType::from_id(&c.type4).unwrap().as_str()); }
                     Some(terms.join(" + "))
                 }
             };
@@ -202,10 +199,10 @@ pub fn id_data(props: &IdProps) -> Html {
             html! {
             <div>
                 <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.base_data.date_time.into(), 0).unwrap())} />
-                if let Some(mech) = match_mechanic(&skill.mechanic) {
+                if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
                     <Field label="Mechanic: " value={format!("{} ({})", mech, skill.mechanic.to_string())} />
                 }
-                if let Some(skill_line) = skill_line_name(&skill.base_data.skill_line_id) {
+                if let Some(skill_line) = SkillLine::from_id(&skill.base_data.skill_line_id) {
                     <Field label="Skill Line: " value={format!("{} ({})", skill_line, skill.base_data.skill_line_id)} />
                 } else if skill.base_data.skill_line_id != 0 {
                     <Field label="Skill Line: " value={format!("? ({})", skill.base_data.skill_line_id)} />
@@ -220,12 +217,12 @@ pub fn id_data(props: &IdProps) -> Html {
                         </span>
                     </div>
                 }
-                if let Some(ability_type) = ability_type_name(&skill.base_data.ability_type) && skill.base_data.ability_type != 0 {
+                if let Some(ability_type) = AbilityType::from_id(&skill.base_data.ability_type) && skill.base_data.ability_type != 0 {
                     <Field label="Ability Type: " value={format!("{} ({})", ability_type, skill.base_data.ability_type)} />
                 } else if skill.base_data.ability_type != 0 {
                     <Field label="Ability Type: " value={format!("? ({})", skill.base_data.ability_type)} />
                 }
-                if let Some(damage_type) = match_damage_type(&skill.u4[3]) && skill.u4[3] != 1 {
+                if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) && skill.u4[3] != 1 {
                     <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
                 }
                 if skill.base_data.value1 != 0 {
@@ -252,7 +249,7 @@ pub fn id_data(props: &IdProps) -> Html {
                 if skill.base_data.radius != 0 {
                     <Field label="Radius: " value={format!("{}m", (skill.base_data.radius / 100).to_string())} />
                 }
-                if let Some(mech) = match_mechanic(&skill.mechanic) {
+                if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
                     if skill.base_data.cost != 0 {
                         <Field label="Resource Cost: " value={format!("{} ({})", skill.base_data.cost.to_string(), mech)} />
                     }
@@ -279,12 +276,50 @@ pub fn id_data(props: &IdProps) -> Html {
                     }
                     { for skill.tooltip_data.iter().flat_map(|td| {
                         td.tooltip_ids.iter().zip(td.tooltip_types.iter()).enumerate().map(|(i, (id, ty))| {
-                            let label: String = format!("{} ({}): ", i+1, tooltip_type(ty).unwrap_or(ty.to_string())).into();
-                            let value: String = format!("{} ({})", abilities.get(&id).unwrap_or(&"???".to_string()), id).into();
+                            let tooltip_type = TooltipType::from_id(ty).unwrap();
+                            let label: String = format!("{} ({}): ", i + 1, tooltip_type).into();
+
+                            let is_ability = *id >= u8::MAX as u32;
+
                             html! {
                                 <div>
                                     <span>{ label }</span>
-                                    <span>{ value }</span>
+
+                                    {
+                                        if is_ability {
+                                            let ability_name = abilities
+                                                .get(id)
+                                                .unwrap_or(&"???".to_string())
+                                                .clone();
+
+                                            html! {
+                                                <a href={format!("/esoiddictionary/{}", id)}>
+                                                    { format!("{} ({})", ability_name, id) }
+                                                </a>
+                                            }
+                                        } else {
+                                            let value = match tooltip_type {
+                                                TooltipType::BuffExplanationText => {
+                                                    MajorMinorBuff::from_id(id)
+                                                        .map(|buff| buff.tooltip_value().to_string())
+                                                        .unwrap_or_else(|| {
+                                                            format!("Missing Tooltip Major/Minor Buff ({})", id)
+                                                        })
+                                                },
+                                                _ => {
+                                                    MajorMinorBuff::from_id(id)
+                                                        .map(|buff| buff.to_string())
+                                                        .unwrap_or_else(|| {
+                                                            format!("Missing Tooltip Major/Minor Buff ({})", id)
+                                                        })
+                                                },
+                                            };
+
+                                            html! {
+                                                <span>{ value }</span>
+                                            }
+                                        }
+                                    }
                                 </div>
                             }
                         })

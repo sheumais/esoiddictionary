@@ -2,13 +2,13 @@ use std::collections::HashMap;
 use std::sync::OnceLock;
 
 use chrono::Datelike;
-use eso_skill_data::skill_line_name;
 use yew_router::prelude::*;
 use yew::prelude::*;
 use crate::id::{IdData, get_abilities};
 use crate::index_state::IndexState;
 use crate::fetch::fetch_bytes;
 use crate::index_state::parse_index;
+use eso_skill_data::data_enum::*;
 
 mod id;
 mod fetch;
@@ -115,7 +115,11 @@ pub fn skill_line_index() -> Html {
     let groups: Vec<&(u32, Vec<u32>)> = {
         get_groups()
             .iter()
-            .filter(|(t, _)| !skill_line_name(t).unwrap_or("").contains("Vengeance"))
+            .filter(|(t, _)| {
+                !SkillLine::from_id(t)
+                    .map(|s| s.is_vengeance())
+                    .unwrap_or(false)
+                })
             .collect()
     };
 
@@ -143,7 +147,7 @@ pub fn skill_line_index() -> Html {
                 { for groups.iter().map(|(sl, ids)| html! {
                     <div key={*sl} style="break-inside:avoid;padding-top:1rem">
                         <h4 style="margin-bottom:0.25em;margin-top:0em;">
-                            { format!("{} ({})", skill_line_name(sl).unwrap_or("Unnamed"), sl) }
+                            { format!("{} ({})", SkillLine::from_id(sl).unwrap(), sl) }
                         </h4>
                         <div>
                             { for ids.iter()
