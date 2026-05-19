@@ -81,7 +81,8 @@ fn format_duration(ms: &u32) -> String {
 
     match (hours, mins, secs, millis) {
         (h, 0, 0, 0) if h > 0 => format!("{}h", h),
-        (0, m, 0, 0) if m > 0 => format!("{}m", m),
+        (0, m, 0, 0) if m > 1 => format!("{}mins", m),
+        (0, m, 0, 0) if m > 0 => format!("{}min", m),
         (0, 0, s, 0) if s > 0 => format!("{}s", s),
         (h, m, 0, 0) if h > 0 => format!("{}h {}m", h, m),
         (0, m, s, 0) if m > 0 => format!("{}m {}s", m, s),
@@ -196,6 +197,17 @@ pub fn id_data(props: &IdProps) -> Html {
                 }
             };
 
+            let mut tags: Vec<String> = Vec::new();
+            for id in &skill.ability_tags {
+                let s = match AbilityTag::from_id(id) {
+                    Some(i) => {format!("{} ({})", i.as_str().to_string(), id)},
+                    None => {format!("{}", id)},
+                };
+                tags.push(s);
+            }
+
+            let tags = html! { <Field label={"Ability Tags: "} value={ tags.join(", ") } /> };
+
             html! {
             <div>
                 <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.base_data.date_time.into(), 0).unwrap())} />
@@ -253,6 +265,9 @@ pub fn id_data(props: &IdProps) -> Html {
                     if skill.base_data.cost != 0 {
                         <Field label="Resource Cost: " value={format!("{} ({})", skill.base_data.cost.to_string(), mech)} />
                     }
+                }
+                if !skill.ability_tags.is_empty() {
+                    { tags }
                 }
                 // if skill.coef.coef1 != 0f32 {
                 //     <Field label="Coef 1: " value={format!("{} ({})", skill.coef.coef1, match_coefficient_type(&skill.coef.type1).unwrap_or("Unknown".to_string()))} />

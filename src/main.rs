@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::sync::OnceLock;
 
 use chrono::Datelike;
+use web_sys::HtmlInputElement;
 use yew_router::prelude::*;
 use yew::prelude::*;
 use crate::id::{IdData, get_abilities};
@@ -64,6 +65,8 @@ fn get_timestamps() -> &'static Vec<(u32, Vec<u32>)> {
 enum Route {
     #[at("/")]
     Home,
+    #[at("/search")]
+    Search,
     #[at("/:id")]
     Ability { id: u32 },
     #[not_found]
@@ -87,12 +90,14 @@ fn switch_with_index(props: &SwitchProps) -> Html {
 fn switch(route: Route, index: IndexState) -> Html {
     let content = match route {
         Route::Home => html! { <Home /> },
+        Route::Search => html! { <Search /> },
         Route::Ability { id } => html! { <IdData {id} {index} /> },
         Route::NotFound => html! {
             <div>
                 <h1>{ "404" }</h1>
                 <p>{ "No ability with that ID exists." }</p>
-                <a href="/">{ "Home" }</a>
+                <a href="/esoiddictionary/search/">{ "Search by name" }</a>
+                <a href="/esoiddictionary/">{ "Home" }</a>
             </div>
         },
     };
@@ -143,7 +148,8 @@ pub fn skill_line_index() -> Html {
 
     html! {
         <div>
-            <div style="columns: 10rem; column-gap: 1rem; padding-top: 3em;">
+            <h2 style="margin-top: 3em; text-align: center;">{"Player Skills"}</h2>
+            <div style="columns: 10rem; column-gap: 1rem;">
                 { for groups.iter().map(|(sl, ids)| html! {
                     <div key={*sl} style="break-inside:avoid;padding-top:1rem">
                         <h4 style="margin-bottom:0.25em;margin-top:0em;">
@@ -164,7 +170,8 @@ pub fn skill_line_index() -> Html {
                     </div>
                 })}
             </div>
-            <div style="display: flex; flex-flow: row wrap; justify-content: space-between; margin-top: 3em;">
+            <h2 style="margin-top: 3em; text-align: center;">{"Player Skills by Recently Edited"}</h2>
+            <div style="display: flex; flex-flow: row wrap; justify-content: space-between;">
                 { for monthly_groups.iter().map(|((year, month), ids)| html! {
                     <div key={format!("{}-{}", year, month)}>
                         <h4 style="margin-bottom:0.25em;">
@@ -221,10 +228,73 @@ fn home() -> Html {
                         placeholder="Enter ability ID"
                         style={"width: 200px; margin-right: 1em;"}
                     />
-                    <button type="submit">{ "Search" }</button>
+                    <button type="submit">{ "Go" }</button>
                 </form>
+                <span style="margin: 1em;"> 
+                {"or "}
+                <a href="/esoiddictionary/search">{"search by name"}</a>
+                </span>
             </div>
             <SkillLineComponent />
+        </div>
+    }
+}
+
+#[function_component(Search)]
+pub fn list_component() -> Html {
+    let ability_names = get_abilities();
+    let query = use_state(|| String::new());
+
+    let on_input = {
+        let query = query.clone();
+        Callback::from(move |e: InputEvent| {
+            let input = e.target_unchecked_into::<HtmlInputElement>();
+            query.set(input.value());
+        })
+    };
+
+    let filtered: Vec<_> = {
+        let q = query.to_lowercase();
+        if q.is_empty() {
+            let mut v: Vec<_> = ability_names.iter().collect();
+            v.sort_by_key(|(id, _)| *id);
+            v.into_iter().take(50).collect()
+        } else if q.trim().len() <= 5 {
+            let mut v: Vec<_> = ability_names.iter()
+                .filter(|(id, name)| {
+                    name.to_lowercase().contains(&q) || id.to_string().contains(&q)
+                })
+                .collect();
+            v.sort_by_key(|(id, _)| *id);
+            v.into_iter().take(50).collect()
+        } else {
+            let mut v: Vec<_> = ability_names.iter()
+                .filter(|(id, name)| {
+                    name.to_lowercase().contains(&q) || id.to_string().contains(&q)
+                })
+                .collect();
+            v.sort_by_key(|(id, _)| *id);
+            v.into_iter().collect()
+        }
+    };
+
+    html! {
+        <div>
+            <nav style="margin-bottom: 1em;">
+                <a href="/esoiddictionary/">{ "ESO ID Dictionary" }</a>
+                <span>{ " / " }</span>
+                <span>{ "Search" }</span>
+            </nav>
+            <input
+                type="text"
+                placeholder="Search by name or ID"
+                oninput={on_input}
+                value={(*query).clone()}
+            />
+            <p>{ format!("Showing {} results", filtered.len()) }</p>
+            { filtered.iter().map(|(id, name)| html! {
+                <><a href={format!("/esoiddictionary/{}", id)}>{ format!("{} ({})", name, id) }</a><br/></>
+            }).collect::<Html>() }
         </div>
     }
 }
@@ -245,7 +315,7 @@ fn app() -> Html {
 
                 index.set(match result {
                     Ok(entries) => IndexState::Ready(entries),
-                    Err(e)      => IndexState::Failed(e),
+                    Err(e)                    => IndexState::Failed(e),
                 });
             });
             || ()
