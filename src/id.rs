@@ -338,7 +338,15 @@ pub fn id_data(props: &IdProps) -> Html {
                                     <span>{ label }</span>
 
                                     {
-                                        if is_ability {
+                                        if tooltip_type == TooltipType::FlatConstant {
+                                            html! {
+                                                <span>{ id }</span>
+                                            }
+                                        }  else if tooltip_type == TooltipType::PercentageConstant {
+                                            html! {
+                                                <span>{ format!("{}%", id) }</span>
+                                            }
+                                        } else if is_ability {
                                             let ability_name = abilities
                                                 .get(id)
                                                 .unwrap_or(&"???".to_string())
