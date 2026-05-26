@@ -153,7 +153,7 @@ pub fn skill_line_index() -> Html {
                 { for groups.iter().map(|(sl, ids)| html! {
                     <div key={*sl} style="break-inside:avoid;padding-top:1rem">
                         <h4 style="margin-bottom:0.25em;margin-top:0em;">
-                            { format!("{} ({})", SkillLine::from_id(sl).unwrap(), sl) }
+                            { format!("{} ({})", SkillLine::from_id(sl).unwrap_or(SkillLine::Scrying), sl) }
                         </h4>
                         <div>
                             { for ids.iter()

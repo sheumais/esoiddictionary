@@ -155,14 +155,8 @@ pub fn id_data(props: &IdProps) -> Html {
         },
         FetchState::Done(skill) => {
             let equation = {
-                let c = &skill.coef;
-                let h1 = c.type1 != 0 || c.coef1 != 0.0;
-                let h2 = c.type2 != 0 || c.coef2 != 0.0;
-                let h3 = c.type3 != 0 || c.coef3 != 0.0;
-                let h4 = c.type4 != 0 || c.coef4 != 0.0;
-
                 let is_weapon_spell = |t: u8| matches!(t, 25 | 35);
-                let is_resource    = |t: u8| matches!(t, 4 | 29);
+                let is_resource = |t: u8| matches!(t, 4 | 29);
 
                 let paired_term = |t1: u8, t2: u8, coef: f32| -> String {
                     match (t1, t2) {
@@ -176,24 +170,64 @@ pub fn id_data(props: &IdProps) -> Html {
                     }
                 };
 
-                let is_mirror = h1 && h2 && h3 && h4
-                    && c.coef1 == c.coef3 && c.coef2 == c.coef4
-                    && is_weapon_spell(c.type1) && is_weapon_spell(c.type3)
-                    && is_resource(c.type2)     && is_resource(c.type4);
+                let render_coef = |c: &eso_skill_data::SkillCoef| -> Option<String> {
+                    let h1 = c.type1 != 0 || c.coef1 != 0.0;
+                    let h2 = c.type2 != 0 || c.coef2 != 0.0;
+                    let h3 = c.type3 != 0 || c.coef3 != 0.0;
+                    let h4 = c.type4 != 0 || c.coef4 != 0.0;
 
-                if !h1 && !h2 && !h3 && !h4 {
-                    None
-                } else if is_mirror {
-                    Some(format!("{} + {}", paired_term(c.type1, c.type3, c.coef1), paired_term(c.type2, c.type4, c.coef2)))
-                } else if h1 && !h2 && h3 && !h4 {
-                    Some(paired_term(c.type1, c.type3, c.coef1))
-                } else {
+                    let is_mirror =
+                        h1 && h2 && h3 && h4
+                            && c.coef1 == c.coef3
+                            && c.coef2 == c.coef4
+                            && is_weapon_spell(c.type1)
+                            && is_weapon_spell(c.type3)
+                            && is_resource(c.type2)
+                            && is_resource(c.type4);
+
+                    if !h1 && !h2 && !h3 && !h4 {
+                        return None;
+                    }
+
+                    if is_mirror {
+                        return Some(format!(
+                            "{} + {}",
+                            paired_term(c.type1, c.type3, c.coef1),
+                            paired_term(c.type2, c.type4, c.coef2),
+                        ));
+                    }
+
+                    if h1 && !h2 && h3 && !h4 {
+                        return Some(paired_term(c.type1, c.type3, c.coef1));
+                    }
+
                     let mut terms = vec![];
-                    if h1 { terms.push(CoefficientType::from_id(&c.type1).unwrap().as_str()); }
-                    if h2 { terms.push(CoefficientType::from_id(&c.type2).unwrap().as_str()); }
-                    if h3 { terms.push(CoefficientType::from_id(&c.type3).unwrap().as_str()); }
-                    if h4 { terms.push(CoefficientType::from_id(&c.type4).unwrap().as_str()); }
+                    if h1 {
+                        terms.push(CoefficientType::from_id(&c.type1).unwrap().as_str());
+                    }
+                    if h2 {
+                        terms.push(CoefficientType::from_id(&c.type2).unwrap().as_str());
+                    }
+                    if h3 {
+                        terms.push(CoefficientType::from_id(&c.type3).unwrap().as_str());
+                    }
+                    if h4 {
+                        terms.push(CoefficientType::from_id(&c.type4).unwrap().as_str());
+                    }
+
                     Some(terms.join(" + "))
+                };
+
+                let mut parts: Vec<String> = skill
+                    .coef
+                    .iter()
+                    .filter_map(render_coef)
+                    .collect();
+
+                if parts.is_empty() {
+                    None
+                } else {
+                    Some(parts.join(" + "))
                 }
             };
 
@@ -237,8 +271,11 @@ pub fn id_data(props: &IdProps) -> Html {
                 if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) && skill.u4[3] != 1 {
                     <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
                 }
+                if skill.base_data.value0 != 0 {
+                    <Field label="Value 0: " value={format!("{}", skill.base_data.value1.to_string())} />
+                }
                 if skill.base_data.value1 != 0 {
-                    <Field label="Value: " value={format!("{}", skill.base_data.value1.to_string())} />
+                    <Field label="Value 1: " value={format!("{}", skill.base_data.value1.to_string())} />
                 }
                 if skill.base_data.value2 != 0 && skill.base_data.value2 != skill.base_data.value1 {
                     <Field label="Value 2: " value={format!("{}", skill.base_data.value2.to_string())} />

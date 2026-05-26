@@ -35,7 +35,7 @@
 732,Death Debuff
 745,Teleported
 763,Ranged Attack
-764,Ranged Attack 39797
+764,Ranged Attack CD
 765,Ranged Dummy
 788,DUN_VOM Disappearing Floor
 822,Ward
@@ -3110,7 +3110,7 @@
 18875,Daedric Tempest
 18914,Q4092 Camera Shake
 18916,Rala's Blessing
-18929,Slaughter
+18929,Focused Killer
 18943,MT-JS Handsglow Dummy
 18950,Majorn's Embrace
 18951,Majorn's Embrace
@@ -6825,7 +6825,7 @@
 30859,Corruption
 30869,Absorb
 30872,Controlled Fury
-30873,Dual Wield Expert
+30873,Ambidextrous
 30876,Corruption
 30877,True Form
 30878,Transforming
@@ -7661,12 +7661,12 @@
 32626,Flame of Adrys
 32632,Pounce
 32633,Roar
-32634,Devour
-32636,Pursuit
+32634,Insatiable Hunger
+32636,Master of the Chase
 32637,Blood Rage
-32638,Savage Strength
-32639,Bloodmoon
-32641,Call of the Pack
+32638,Feral Cruelty
+32639,Shadow of the Bloodmoon
+32641,Call of the Hunt
 32643,Frost Mage
 32645,Pounce
 32646,Thallik's Embrace
@@ -7767,7 +7767,6 @@
 32793,Haqmir SAT
 32794,Soul of Flame
 32795,Deep Breath
-32796,Soul of Flame
 32797,Soul of Flame
 32799,Alessia's Bulwark
 32800,Elf Bane
@@ -7934,8 +7933,8 @@
 33195,Path of Darkness
 33197,Path of Darkness
 33198,Path of Darkness
-33208,Devour
-33209,Devour
+33208,Insatiable Hunger
+33209,Insatiable Hunger
 33211,Summon Shade
 33212,Enervating Stone
 33213,Daedra Portal
@@ -9604,7 +9603,7 @@
 37224,Q4854 Lower Barrier
 37228,Q4854 Parent Vis
 37232,Steadfast Ward
-37233,Devour
+37233,Insatiable Hunger
 37238,Inc
 37239,Crownado
 37243,Blessing of Protection
@@ -9767,7 +9766,7 @@
 38118,Caltrops
 38119,Caltrops
 38125,Caltrops
-38127,Remove Sprint
+38127,Remove Crouch
 38129,Q4701 Destroy Stones
 38139,Sneak Attack
 38141,Lady Laurent Delay
@@ -10196,11 +10195,11 @@
 39034,Werewolf Transform
 39035,Werewolf Transform
 39036,Werewolf Transform
-39038,Werewolf Effects Setup
-39039,Bonus Stamina
-39046,Add Guild Rep
-39050,Devour Passive
-39051,Kill Trigger
+39038,Werewolf Transformation
+39039,Call of the Pack
+39046,Werewolf Transformation
+39050,Insatiable Hunger
+39051,Werewolf Transformation
 39052,Unstable Wall of Elements
 39053,Unstable Wall of Fire
 39054,Unstable Wall of Fire
@@ -12282,8 +12281,8 @@
 45471,Fortress
 45472,Deflect Bolts
 45473,Battlefield Mobility
-45476,Slaughter
-45477,Dual Wield Expert
+45476,Focused Killer
+45477,Ambidextrous
 45478,Controlled Fury
 45479,Q3638Ability
 45480,Q4304 MeadKnockout
@@ -12539,10 +12538,10 @@
 46127,Summon
 46133,Rending the Skein
 46135,Blood Rage
-46137,Call of the Pack
+46137,Call of the Hunt
 46138,Discovered
-46139,Savage Strength
-46142,Pursuit
+46139,Feral Cruelty
+46142,Master of the Chase
 46144,Q4386 Ukaezai Boss Recover
 46146,Q4386 Ukaezai Book Summon
 46147,Summon Swam
@@ -18627,9 +18626,9 @@
 58399,Set Summon CD
 58400,Set Summon CD
 58401,Summon Portal
-58405,Piercing Howl
+58405,Gnash
 58408,Can Void Blast
-58416,Piercing Howl
+58416,Gnash
 58420,Fiend Speed
 58422,Poison
 58426,CLDA - Drop Hate
@@ -18708,16 +18707,16 @@
 58730,Volley
 58733,Volley
 58734,Volley
-58742,Howl of Despair
-58744,Howl of Despair Synergy
-58745,Feeding Frenzy
+58742,Rip and Tear
+58744,Rip and Tear Execute
+58745,Rip and Tear
 58775,Feeding Frenzy
 58781,Nirnhoned
 58782,Stitching
 58783,Carpentry
 58784,Metallurgy
-58798,Howl of Agony
-58801,Howl of Agony Bonus
+58798,Bloody Gnash
+58801,Bloody Gnash
 58813,Feeding Frenzy
 58814,Collective Defense 1
 58815,Collective Defense 2
@@ -18735,19 +18734,19 @@
 58847,Heal
 58848,Awaken
 58849,Call Shades
-58850,Infectious Claws
-58855,Infectious Claws
-58856,Infectious Claws
+58850,Rending Claws
+58855,Rending Claws
+58856,Rending Claws
 58861,Remove
-58864,Claws of Anguish
-58865,Claws of Anguish
+58864,Claw Fury
+58865,Claw Fury
 58866,Remove
 58867,Remove
 58868,Remove
-58869,Major Defile
-58879,Claws of Life
-58880,Claws of Life
-58881,Claws of Life
+58869,Claw Fury
+58879,Bloodclaws
+58880,Bloodclaws
+58881,Bloodclaws
 58882,Flurry
 58883,Flurry
 58884,Slash
@@ -28823,9 +28822,9 @@
 80179,Follower Fake Combat
 80180,Birth Direwolf
 80181,Familiar Set Target
-80184,Lunge
-80189,Gnash
-80190,Gnash
+80184,Direwolf Lunge
+80189,Direwolf Gnash
+80190,Direwolf Gnash
 80194,Remove Pets
 80204,Monk Disguise
 80207,Orb of Spite
@@ -46896,7 +46895,7 @@
 111784,Spirit Energy
 111785,Spirit Ignition
 111786,Spirit Ignition
-111788,Major Breach
+111788,Major Cowardice
 111789,Mount Block
 111790,Mount Block
 111791,Mount Block
@@ -52139,7 +52138,7 @@
 120007,Crusher
 120008,Minor Berserk
 120010,Major Breach
-120011,Warmth
+120011,Traumatic Burns
 120013,Major Force
 120014,Off Balance
 120015,Major Courage
@@ -55165,8 +55164,8 @@
 124997,Earthspike
 124998,Earth Spike
 124999,Undead Confederate Tracker
-125004,Terrified
-125007,Terrified
+125004,Feeding Frenzy
+125007,Ferocious Roar
 125009,Strafing Run
 125010,Strafe
 125011,Lightning Trail
@@ -59401,7 +59400,7 @@
 131350,Major Brutality
 131351,Bull Netch
 131352,Chilling Comet
-131353,Empower
+131353,Feeding Frenzy
 131354,Necro Buff UFX
 131356,Transformation
 131357,Lost to the Depths
@@ -63419,7 +63418,6 @@
 137164,Feral Carnage
 137165,Feral Carnage
 137166,Feral Carnage
-137167,Feral Carnage
 137168,Feral Carnage
 137169,Phase Location
 137174,Phase Toward
@@ -63441,7 +63439,7 @@
 137190,Phase Toward
 137191,Phase Bomb
 137192,Reap
-137193,Major Brutality
+137193,Hircine's Bounty
 137194,Necrotic Barrage
 137195,Necrotic Barrage
 137196,No com
@@ -63454,7 +63452,7 @@
 137203,Phase Bomb
 137204,Hircine's Rage
 137205,Hircine's Rage
-137206,Major Berserk
+137206,Hircine's Rage
 137208,Phase Sludge
 137209,Hircine's Fortitude
 137210,Minor Fortitude
@@ -63525,13 +63523,13 @@
 137284,Slash
 137285,Rive
 137286,Set CD for Colossus Fireball
-137287,Ferocious Roar
+137287,Feeding Frenzy
 137289,Infuse
 137290,Rive
 137291,Rive
 137292,Infused
 137293,Target Allies
-137295,Ferocious Roar
+137295,Major Courage
 137296,Chaurus Venom
 137297,Chaurus Venom
 137298,Unstable
@@ -63546,16 +63544,16 @@
 137307,Pool of Shadow
 137308,Pool of Shadow
 137309,Pool of Shadow
-137311,Minor Maim
+137311,Major Maim
 137312,Off Balance
 137313,Mother Ciannait
 137314,Feed
 137315,Feast
 137316,Rive
-137317,Piercing Howl
+137317,Gnash
 137318,Summon Adds
 137320,Summon Adds
-137321,Piercing Howl
+137321,Major Breach
 137322,Sapping Freeze
 137323,Flight
 137324,Sapping Freeze
@@ -63578,7 +63576,7 @@
 137344,Counter
 137345,Spiked Ice
 137346,Frost Nova
-137347,Pack Leader
+137347,Major Protection
 137348,Minor Courage
 137349,Torturer Teleport
 137350,Stun
@@ -65709,7 +65707,7 @@
 140305,Blast
 140306,Blast
 140307,Blast
-140322,Devour
+140322,Insatiable Hunger
 140324,Flare Up
 140325,Flare Up
 140326,Devour
@@ -68486,8 +68484,8 @@
 144205,FUNC HM Toggle On RST
 144206,HM Toggle On RST
 144207,Zap
-144208,Blood Rage
-144209,Blood Rage
+144208,Werewolf Transformation
+144209,Werewolf Transformation
 144210,Blood Rage
 144211,Blood Rage
 144214,Dark Connection
@@ -73251,7 +73249,7 @@
 150996,Resist Affliction
 150997,Resist Affliction
 150998,Major Resolve
-150999,Major Resolve
+150999,Call of the Hunt
 151001,Tectonic Slam
 151002,Tectonic Slam
 151003,Tectonic Slam
@@ -76931,7 +76929,7 @@
 156100,Dissolving Acid
 156101,Bash Through
 156102,Bash Through
-156103,Major Sorcery
+156103,Hircine's Fortitude
 156104,Bash Through
 156105,Bash Through
 156106,Bash Through
@@ -87915,9 +87913,6 @@
 170650,Wild Stampede
 170651,Wild Stampede
 170652,Wild Stampede
-170654,Cinder Cleave
-170655,Cinder Cleave
-170656,Cinder Cleave
 170657,Wild Stampede
 170658,Wild Stampede
 170659,Thunder Bite
@@ -92107,7 +92102,7 @@
 176807,Teleport Failsafe
 176808,Teleport Failsafe
 176809,Teleport Failsafe
-176811,Infectious Claws
+176811,Rending Claws
 176812,Archdruid Devyric
 176813,Archdruid Devyric
 176815,Major Vulnerability
@@ -108386,7 +108381,7 @@
 200735,BloodPool 1
 200736,Min Empower Self
 200737,Empowered Heartstone
-200739,BloodPool
+200739,Blood Pool
 200742,Persistent Pain
 200743,Hammering Blows CPN Apply
 200744,Hammering Blows
@@ -112584,7 +112579,6 @@
 207257,Brazier
 207258,Mushroom Tracker
 207259,Construction Tele FX
-207266,U40 Class Set: Dawn's Wrath - Proto 3
 207268,VFXHolder_Temp
 207269,VFXHolder_DK
 207270,VFXHolder_Arcanist
@@ -112770,7 +112764,6 @@
 207585,Hallucination Mushroom
 207586,Hallucination Mushroom
 207587,Interact
-207589,Radiation Poisoning
 207590,Seeking Runescrawl
 207591,Seeking Runescrawl
 207592,Seeking Runescrawl
@@ -112837,13 +112830,9 @@
 207694,Driving Strike
 207695,Tail Swipe
 207696,Tail Swipe Snare
-207698,Radiation Poisoning
 207701,Tail Swipe
 207703,Malediction
 207705,Malediction
-207706,Radiation Poisoning
-207712,Collapsing Star
-207716,Radiation Poisoning Remover
 207717,Shadeblast
 207718,Shadeblast Snare
 207719,Shadeblast
@@ -112889,7 +112878,6 @@
 207791,Angered
 207792,Enraged
 207796,Enraged
-207797,Tooltip Helper
 207798,Glass Sky
 207799,Reduce Incoming Damage
 207801,Immunities
@@ -114975,7 +114963,6 @@
 210504,Frost Bombardment Target AOE
 210505,Frost Bombardment Proj
 210506,Remove Aiming
-210508,U40 Class Set: Dawn's Wrath - Proto 3
 210510,Frost Bombardment
 210511,Taking Aim
 210512,Taking Aim
@@ -123997,7 +123984,7 @@
 222724,Summon Tank
 222725,Summon Tank
 222726,Shield Charge
-222727,Major Protection
+222727,Major Evasion
 222728,Fire Chain
 222729,Fiery Grip
 222730,Fiery Grip
@@ -125898,7 +125885,7 @@
 226407,Necrotic Corrosion
 226408,Necrotic Corrosion
 226417,Globule Goop
-226418,Pyrebrand
+226418,damage over time effect
 226419,Pyreburst
 226428,Sundering Chant 1
 226429,Noxious Aura
@@ -127164,7 +127151,7 @@
 228166,Containment
 228167,Containment
 228168,Containment
-228176,Deafening Roar
+228176,Minor Protection
 228177,u45-DUN2 MB2 Vanishing Powder UP == Oil
 228178,Vanish Stun Self
 228179,Remove Tele Tracker
@@ -133902,6 +133889,7 @@
 238229,Minor Maim
 238230,Vengeance Grave Grasp
 238231,Bubble
+238232,Inexorable Descent
 238233,The Unblinking Eye
 238234,Heavy Attack
 238236,Vengeance Bone Goliath Transformation
@@ -134160,9 +134148,6 @@
 238581,Fire-bound
 238588,Fire-bound
 238608,Fire-bound
-238612,Vengeance Attack Override
-238613,Vengeance Light Attack
-238614,Vengeance Light Attack
 238615,Charging Devastation
 238616,Charging Devastation
 238617,Charging Devastation
@@ -134199,11 +134184,6 @@
 238649,Deadstar
 238651,Charging Devastation
 238652,Charging Devastation
-238653,Vengeance Heavy Attack
-238654,Vengeance Heavy Attack
-238655,Vengeance Heavy Attack
-238656,Vengeance Heavy Attack
-238657,Vengeance Heavy Attack
 238664,Scathing Evisceration
 238665,Scathing Evisceration
 238673,Scathing Evisceration
@@ -134218,11 +134198,6 @@
 238708,Cooldown
 238709,Cooldown
 238710,Cooldown
-238711,Vengeance Heavy Attack
-238712,Vengeance Heavy Attack
-238713,Vengeance Heavy Attack
-238714,Vengeance Heavy Attack
-238715,Vengeance Heavy Attack
 238717,Charging Devastation
 238719,Charging Devastation
 238721,Charging Devastation
@@ -135254,7 +135229,7 @@
 240178,Hurtling Crash IN
 240179,Hurtling Crash
 240180,Pulverizing Slam
-240182,Hurtling Crash COST BON
+240182,Hurtling Crash DisableGameplayMechs
 240183,Hurtling Crash END STN
 240187,Soul Gem Shards
 240189,Shards DMG AL
@@ -135321,6 +135296,7 @@
 240262,Hate PC AL
 240264,Rupture MovComp Track
 240265,Rupture MovComp Track
+240268,Booming Voice
 240270,Light Empowerment
 240271,Hurling Crash Track
 240272,Hurling Crash END Track
@@ -136790,7 +136766,6 @@
 242401,Timer New Waypoint Path Kickoff
 242403,Spinning Vos-Rus
 242404,Mara's Blessing Veil
-242405,Mara's Blessing Veil
 242406,Cluster REM
 242407,Soul Storm
 242408,Soul Storm
@@ -137700,8 +137675,8 @@
 243653,Dead
 243655,Add Counter SC 0
 243656,Dead
-243657,OD Veteran
-243658,Mike's Debuff
+243657,Vestige
+243658,Vestige
 243659,Essence Drain CASTER
 243660,Saw Blade
 243661,Essence Drain CASTER
@@ -139982,15 +139957,11 @@
 246677,Flaming Charge
 246678,Flaming Charge
 246679,Flaming Charge
-246680,Flaming Charge
 246681,Flaming Charge
-246682,Flaming Charge
 246683,Flaming Charge
 246684,Flaming Charge
 246685,Flaming Charge
 246686,Flaming Charge
-246687,Remove Charge
-246688,Been blocked
 246689,Flaming Charge
 246707,Regeneration
 246734,Frost Adaptation
@@ -140023,12 +139994,6 @@
 246981,Carrion Portal
 246982,Leave
 246983,Leave
-247004,Vengeance Elemental Storm
-247005,Vengeance Elemental Storm
-247006,Vengeance Elemental Storm
-247007,Vengeance Elemental Storm
-247008,Vengeance Elemental Storm
-247009,Vengeance Elemental Storm
 247017,Dalenor Summon Atronachs
 247044,Relocate
 247045,Giant Sword
@@ -140047,8 +140012,6 @@
 247075,Shouted
 247076,Player Enter Platform RT
 247077,adw
-247078,Vengeance Elemental Storm
-247079,Vengeance Elemental Storm
 247093,Vengeance Scorch
 247094,Vengeance Scorch
 247095,Trig
@@ -140914,6 +140877,11 @@
 248611,Siege Safeguard
 248612,Efficient Repair
 248613,Siege Sight
+248614,Revenant's Sacrifice
+248616,Revenant's Sacrifice
+248617,Revenant's Sacrifice
+248618,Revenant's Sacrifice
+248619,Revenant's Sacrifice
 248620,Bone Armor
 248621,IS
 248622,Enter Subzone
@@ -140950,7 +140918,7 @@
 248655,Red - Fortify Direct Cures
 248656,Red - Fortify Direct Cures
 248662,Bar-Sakka Damage Shield
-248663,Red - Fortify Cohort Guard
+248663,Vigilant Guard
 248664,Swinging Pendulum
 248665,Swinging Pendulum
 248666,Red - Fortify Widened Guard
@@ -140996,7 +140964,7 @@
 248718,Reveal
 248719,Cognitive Reserve
 248720,Athletic Reserve
-248721,Blue - Refreshing Stride
+248721,Refreshing Stride
 248722,Reveal
 248724,Rem 237067
 248725,Rem 237067
@@ -141060,13 +141028,13 @@
 248790,Overheat
 248791,Overheat
 248792,Light Foot
-248793,Blue - Deft Acrobat
+248793,Tumbling
 248794,Blue - Deft Defiance
 248795,Inhabit
 248796,Blue - Deft Bash
 248797,Sprint Adept
 248798,Yellow - Deft Feet
-248799,Blue - Deft Guard
+248799,Tireless Guardian
 248801,Red - Fortify Brace
 248802,Overheat
 248803,Red - Fortify Bash
@@ -141121,12 +141089,12 @@
 248858,Blue - Fortify Recovery
 248859,Bolster Resistance
 248860,Bolster Resistance
-248867,Blue - Quicker Potions
+248867,Alchemical Acceleration
 248868,Feat Adept
 248869,Feat Adept
 248870,Spell Adept
 248871,Spell Adept
-248872,Blue - Deft Ultimate
+248872,Ultimate Adept
 248873,Necrotic Step
 248874,Necrotic Step
 248875,Teleport Ground
@@ -141179,6 +141147,9 @@
 248935,Red - Fortify Heavy Attack
 248936,Black Foundry Steel
 248938,Vile Leap
+248939,Bolster Efficacy
+248940,Bolster Efficacy
+248941,Bolster Efficacy
 248942,Black Foundry Steel
 248943,Red - Fortify Flame
 248944,Red - Fortify Flame
@@ -141366,17 +141337,17 @@
 249242,Ancient Tuning
 249243,Ancient Tuning
 249244,Lava
-249247,Red - Fortify Pride
-249248,Red - Fortify Pride
-249249,Red - Fortify Pride
-249250,Red - Fortify Pride
+249247,Bolster Temerity
+249248,Bolster Temerity
+249249,Bolster Temerity
+249250,Bolster Temerity
 249251,Lava
 249252,Lava
 249253,Manni Before Death
 249254,Blue - Adept Escapist
 249255,Blue - Adept Escapist
-249256,Blue - Freedom of Movement
-249257,Blue - Freedom of Movement
+249256,Freedom of Movement
+249257,Freedom of Movement
 249259,Bone Armor
 249260,Necrotic Step
 249262,Soul Harbinger
@@ -141488,9 +141459,9 @@
 249387,Red - Specialist
 249388,Red - Specialist
 249389,Red - Specialist
-249390,Red - Martyr
-249391,Red - Martyr
-249392,Red - Martyr
+249390,Incendiary Retaliation
+249391,Incendiary Retaliation
+249392,Incendiary Retaliation
 249393,Aim
 249394,Aim
 249395,Statue Form
@@ -143546,7 +143517,7 @@
 252082,Firebolt Ballista Default Fx
 252083,Skitter
 252085,Skein Spider Swarm
-252086,USE ME
+252086,Prowl
 252087,Yellow - Deft Rider
 252105,Shadowy Clones
 252106,Shadowy Duplicate
@@ -143761,9 +143732,6 @@
 252337,Bolt Discharge
 252338,Bolt Discharge
 252339,Bolt Discharge
-252340,Bolt Discharge
-252341,Bolt Discharge
-252342,Bolt Discharge
 252343,Booming Feedback
 252344,Storm Snare
 252345,Serpentine Charge
@@ -143778,6 +143746,9 @@
 252363,CON_AOE_Template1
 252365,Piercing Shriek
 252367,Clawed Swipe
+252368,Slaughter
+252371,Slaughter
+252372,Slaughter
 252379,Cleave
 252380,Rain of Arrows
 252383,Cooldown
@@ -144031,7 +144002,6 @@
 252829,Crush
 252831,u49-AZ TP MB A2 Summon Adds
 252832,Crush
-252833,u49-AZ TP MB A2 Summon Adds
 252834,VO Ability Stub SB
 252835,VO Ability Stub 1
 252836,VO Ability Stub 2
@@ -144092,12 +144062,6 @@
 252893,CG6 Jeetra Dagger Toss
 252894,SetCounter0=0
 252895,Fire Soul
-252896,Diseased Spores
-252897,Diseased Spores
-252898,Diseased Spores
-252899,Diseased Spores
-252904,Diseased Spores
-252905,Diseased Spores
 252915,DSpore Speed
 252916,Venom Sacs
 252921,Explosive Venom Sac
@@ -144130,7 +144094,6 @@
 253028,Necrotic Explosion
 253029,Necrotic Explosion
 253030,Necrotic Explosion
-253033,Summon Stack
 253034,Summon Hoarvor
 253035,Summon Hoarvor
 253036,Summon Hoarvor
@@ -144370,7 +144333,6 @@
 253305,Spitfire Singe
 253308,Darklight Blast
 253309,Darklight Blast
-253310,Darklight Blast
 253311,Darklight Blast
 253312,Darklight Rupture
 253314,Teleport
@@ -144640,7 +144602,6 @@
 253611,Mote of Magicka
 253612,Mote of Magicka
 253613,Despawn Extender
-253614,Mote of Magicka
 253615,Dig
 253616,Dig
 253617,Dig
@@ -144770,10 +144731,10 @@
 253754,Digestion
 253755,Lost Souls 2x Branch
 253760,Petrify
-253761,OD Adventurer
-253762,Mike's Debuff
-253763,OD Journeyman
-253764,Mike's Debuff
+253761,Master
+253762,Master
+253763,Seasoned
+253764,Seasoned
 253765,Petrify
 253766,Iron Claw
 253767,Iron Jaw
@@ -145838,6 +145799,8 @@
 255054,Shadow Flurry
 255055,Shadow Flurry Track REM
 255056,Self Shadow Flurry CD
+255057,Sweeping Assault
+255058,Sweeping Assault Dummy
 255068,Fright Force
 255069,Shadeway
 255070,Shadeway
@@ -145909,12 +145872,15 @@
 255161,Shadow Ward
 255162,Shadow Cleave
 255163,Shadow Cleave Snare
+255164,Battle Trauma
+255165,Battle Trauma
 255166,Feet of Fire
 255167,Feet of Fire
 255168,Feet of Fire
 255169,Feet of Fire
 255170,Feet of Fire
 255171,Feet of Fire
+255172,Battle Trauma Dummy
 255173,Heavy Flourish
 255174,Heavy Strike Stagger
 255175,Biting Winds
@@ -145926,12 +145892,19 @@
 255181,Shadow Flurry
 255182,Shadow Flurry
 255183,Shadow Flurry
+255184,Stand Firm
+255185,Stand Firm
 255186,Taunt
 255187,Taunt
+255188,Stand Firm Dummy
+255189,Regroup
+255190,Major Intellect
+255191,Regroup
 255192,track
 255193,Summon Spiderling
 255194,Summon Spiderling
 255195,Strike
+255196,Regroup Dummy
 255197,Summon Spiderling
 255198,Summon Spiderling
 255199,Summon Spiderling
@@ -146028,6 +146001,9 @@
 255320,Respawn Hunger Trig
 255321,Respawn Hunger Wait
 255322,Respawn Hunger
+255326,Marshaling Cry
+255327,Minor Berserk
+255328,Marshaling Cry Dummy
 255329,Haunting
 255330,Haunting
 255331,Haunting
@@ -146154,10 +146130,13 @@
 255476,Beat
 255477,Furious Talons
 255478,Furious Talons
+255479,Detonating Strike
+255480,Detonating Strike
 255481,Snap
 255482,Stab
 255483,Retch
 255485,Retch
+255486,Detonating Strike
 255487,Retch
 255488,Retch
 255489,Tail Lash
@@ -146168,11 +146147,13 @@
 255494,Bonus
 255495,Bonus
 255496,Heal
+255498,Detonating Strike
 255499,Death Burst
 255500,Death Burst
 255502,Death Burst
 255503,Death Burst
 255507,Death Burst
+255512,Detonating Strike
 255513,Sunburst
 255514,Sunburst
 255516,Sunburst
@@ -146204,6 +146185,7 @@
 255545,Night Shroud
 255548,Night Shroud
 255549,Entangle
+255550,Detonating Strike
 255551,Telegraph Check > 0
 255552,Execute
 255553,Telegraph Check == 0
@@ -146243,6 +146225,7 @@
 255593,Spark
 255594,Bolt
 255595,Prelude Mini Select
+255596,Detonating Strike Dummy
 255597,Prelude Mini Select Branch
 255598,Prelude Select Skittering
 255599,Prelude Select Skittering Track
@@ -146283,6 +146266,9 @@
 255644,Default Facing
 255646,Summon Daedroth
 255649,CLDOWN
+255650,Shoulder Toss
+255651,Shoulder Toss
+255652,Shoulder Toss
 255654,Nest Rebuild
 255655,Seeking Runescrawl
 255656,Summon Daedroth
@@ -146294,21 +146280,34 @@
 255662,Summon Flesh Atronach Clean
 255663,Summon Flesh Atronach
 255664,Summon Wraith of Crows
+255665,Shoulder Toss Dummy
 255666,CLDOWN
 255667,Entangle
 255668,Entangle
 255669,Bonus
 255670,Bonus
 255671,Heal
+255673,Ensnaring Chains
+255674,Minor Maim
 255675,PauseCD
 255676,Stun
 255677,Aim
+255678,Ensnaring Chains Dummy
 255679,Nest Rebuild
 255680,Nest Rebuild
+255681,In The Fray
+255682,In The Fray
 255683,Fireball
 255684,Speed debuff
 255685,Summon Flameshaper
 255686,Summon Flameshaper Clean
+255687,In The Fray
+255688,In The Fray Dummy
+255689,Warding Interception
+255690,Warding Interception
+255691,Lion Guard Disguise
+255692,IS
+255693,Enter Subzone
 255694,Exploding Charge
 255695,Exploding Charge Stun
 255696,Exploding Charge
@@ -146380,6 +146379,8 @@
 255774,Quick Strike
 255775,Quick Strike
 255776,Wake Stone Indrik
+255787,Warding Interception Dummy
+255789,Unleashed Fury
 255790,Dark Shadow
 255791,Dark Shadow
 255792,Dark Shadow
@@ -146448,6 +146449,9 @@
 255863,Dark Shadow Clean
 255865,Dark Shadow
 255866,Dark Shadow Despawn
+255873,True-Sight
+255874,True-Sight
+255875,True-Sight
 255876,Seen DA Ph1
 255877,Taunt Immune
 255878,CGOBJ9_GG_Cold_Firebolt_Ballista
@@ -146489,6 +146493,7 @@
 255936,Stun
 255937,Aim
 255938,Selective Attention
+255940,Unleashed Fury
 255941,Interior Border Helper
 255942,Opulent Ordeal
 255943,Mod Cooldown Shade Impulse
@@ -146499,6 +146504,9 @@
 255948,Selective Attention
 255949,Selective Attention
 255950,Selective Attention
+255951,Unleashed Fury Dummy
+255952,Demoralizing Disruption
+255953,Demoralizing Disruption
 255954,Summon Night Terror
 255955,Summon Night Terror
 255956,Summon Night Terror
@@ -146530,6 +146538,7 @@
 255987,Summon Webspinner
 255988,Create Trebuchet…
 255989,Webbed
+255990,Demoralizing Disruption Dummy
 255991,Burning Talons
 255992,Choking Talons
 255993,Coagulating Blood
@@ -146662,11 +146671,13 @@
 256170,Select Bomb Spawn
 256175,Slam
 256176,Slam
+256177,Field Mending
 256178,Exsanguinate
 256179,Weight of Weakness
 256180,Open Wounds
 256184,Transfusion
 256185,Transfusion
+256188,Field Mending Dummy
 256189,Reapply Sword
 256190,Green Spider
 256191,Reapply Sword
@@ -146688,6 +146699,8 @@
 256209,Radiance Stun
 256210,Rebirth
 256211,Radiance
+256214,Battle Shield
+256215,Battle Shield
 256216,Flame Aura
 256220,Flame Aura
 256221,Fire Aura
@@ -146752,6 +146765,12 @@
 256290,Removal
 256291,Gold
 256293,Gilded Stacks
+256294,Battle Shield Dummy
+256295,Spirit Bolt
+256296,Spirit Bolt
+256297,Spirit Bolt
+256298,Bolster Spirit
+256299,Spirit Bolt Synergy
 256300,Bountiful Resources
 256301,Stamina Restore
 256302,Magicka Restore
@@ -146798,6 +146817,8 @@
 256347,Mind Bend
 256348,Mind Bend
 256349,Alchemical Globule
+256350,Spirit Bolt Dummy
+256351,Expeditious Ward
 256353,Scurry
 256354,Harvester's Wrath
 256355,Scurry
@@ -146834,6 +146855,7 @@
 256389,Skittering Soak CHNL TRGT
 256390,CON_Knockback&KnockdownSelf
 256391,Fire Backlash
+256392,Expeditious Ward Shield Dummy
 256394,Skittering Bomb
 256395,Skittering Soak PC DMG SUCCESS
 256396,Skittering Bomb
@@ -146876,6 +146898,8 @@
 256445,Parch Bomb
 256446,Warming
 256447,Arid Varlet Essence
+256448,Splinters of Chaos
+256449,Splinters of Chaos
 256450,Arid Varlet Essence
 256451,Parch Bomb
 256452,Parch Bomb
@@ -146915,6 +146939,9 @@
 256486,Unmitigated Burning Essence
 256487,Unstable Arid Varlet Essence
 256488,Arid Varlet Retribution
+256489,Splinters of Chaos Dummy
+256490,Combat Intercession
+256491,Combat Intercession
 256492,Sorrow Bomb FS Track
 256493,Select Sorrow Bomb Track
 256494,Select Sorrow Bomb
@@ -146960,10 +146987,13 @@
 256551,Sorrow Bomb
 256552,Sorrow Bomb
 256553,Sorrow Bomb
+256554,Combat Intercession Dummy
 256555,Webbed
 256556,Hearts Week Amulet Timed Activity
+256557,Blade Bite
 256558,Unstable Knightshade Essence
 256559,Knightshade Descent
+256560,Blade Bite
 256561,Pitch Essence
 256562,Sorrow Soak APPLY
 256563,Sorrow Soak End Trig
@@ -146986,6 +147016,8 @@
 256580,Light Empowerment
 256581,Light Empowerment
 256582,Light Empowerment
+256584,Blade Bite
+256585,Blade Bite Dummy
 256586,Mitigated Pitch Essence
 256587,Unmitigated Pitch Essence
 256588,FS Track REM
@@ -147077,8 +147109,15 @@
 256680,Cobwebs Affinity
 256681,Drylands Affinity
 256682,Eclipse Affinity
+256690,Nimble Feint
+256691,Nimble Feint
+256692,Nimble Feint Fatigue
+256693,Nimble Feint Dummy
+256694,Stalker's Quarry
+256695,Stalker's Quarry
 256696,Opulent Ordeal
 256697,Bomb Phase In Progress REM
+256698,Minor Force
 256699,Overheat
 256700,Cobwebs Curse
 256701,Traversal Rejection
@@ -147092,9 +147131,16 @@
 256709,Traversal Rejection Tele 6
 256710,Drylands Curse
 256711,Eclipse Curse
+256712,Stalker's Quarry Dummy
+256713,Cleansing Shadow
+256714,Cleansing Shadow
+256715,Cleansing Shadow Dummy
+256716,Burst of Speed
 256717,Jump Pad
 256718,Jump Pad
+256720,Burst of Speed Dummy
 256722,Traversal Rejection Track
+256723,Burst of Speed
 256724,Opulent Ordeal
 256725,Interior Rejection TRGT
 256726,Interior Rejection Raid Wipe TRIG
@@ -147106,6 +147152,8 @@
 256732,Arid Varlet Retribution
 256733,Knightshade Descent
 256734,Knightshade Descent
+256736,Focus Fire
+256737,Focus Fire
 256738,Mod Cool Wrathstorm
 256739,Web Eater Vindication
 256740,Web Eater Vindication
@@ -147134,6 +147182,7 @@
 256768,Immolating Sphere
 256769,Immolating Sphere
 256770,Smothering Webs
+256771,Focus Fire Dummy
 256772,Opulent Ordeal
 256773,Opulent Ordeal
 256774,Intro
@@ -147597,7 +147646,6 @@
 257370,Molten Rain
 257372,Molten Shrapnel
 257373,Molten Rain
-257374,Fire Swarm
 257375,Fire Swarm
 257376,Swarming Flames
 257377,Fire Swarm
@@ -147676,6 +147724,11 @@
 257456,Summon 4
 257465,Summon Hagraven AL
 257466,Summon Nixad AL
+257468,Distracted
+257469,Distraction removal
+257470,Distraction removal
+257471,test
+257472,Removal
 257473,Map
 257474,u49-AZ Parch-DQ-4 CV Delay 12H
 257475,UseDeviceFX
@@ -147891,6 +147944,7 @@
 257753,Smothering Webs
 257754,Incinerate
 257755,Shock
+257756,Spirit Bolt
 257757,Shock
 257758,Fire Swarm
 257759,Shock
@@ -147930,6 +147984,7 @@
 257803,Face Trgt
 257804,No Aim
 257805,Face Trgt
+257806,Spirit Bolt
 257807,Lava Geyser
 257808,Flare
 257809,Flare
@@ -147960,6 +148015,7 @@
 257834,Swipe
 257835,Slash
 257836,Slash
+257837,Sheogorath Mote Energy
 257838,Summon Zombie
 257839,Summon Flameshaper
 257840,Summon 2
@@ -148274,7 +148330,6 @@
 258205,Spring
 258206,Bite
 258207,Constricting Strike
-258208,Constricting Strike
 258209,Spring
 258210,Sap Shield
 258211,Archaic Totem
@@ -148462,6 +148517,12 @@
 258439,Arcing Blaze
 258440,Arcing Blaze
 258441,Graveyard Exit
+258442,Overland Engram - Mother's Sorrow - Green
+258443,Overland Engram - Mother's Sorrow - Purple
+258444,Overland Engram - Mother's Sorrow - Gold
+258445,Dungeon Engram - Burning Spellweave - Blue
+258446,Dungeon Engram - Burning Spellweave - Purple
+258447,Dungeon Engram - Burning Spellweave - Gold
 258448,Call Lightning
 258450,Curative Succor
 258453,u49-AZ Skittering DQ-1 CV Delay 12H
@@ -148628,6 +148689,12 @@
 258641,Horrible Shock
 258642,Shadow Dance Set CD
 258643,Hunger Pangs
+258644,Lightning Grasp
+258645,Lightning Grasp
+258646,Lightning Grasp
+258647,Lightning Grasp
+258648,Lightning Grasp
+258649,Lightning Grasp
 258651,Fangs of Mephala DMG AL
 258652,Face Trgt
 258653,Face Trgt
@@ -148640,6 +148707,7 @@
 258661,Molten Armaments
 258665,Igneous Weapons
 258666,Igneous Weapons
+258667,Lightning Grasp
 258669,Glittering Goad
 258671,Fangs of Mephala
 258672,Fangs of Mephala INIT STN REM
@@ -148651,6 +148719,29 @@
 258683,Fangs of Mephala
 258686,Glittering Goad
 258687,Glittering Goad
+258689,Houndsman Transform
+258690,Houndsman Regen
+258691,Houndsman Stun
+258692,Houndsman Watch
+258693,Houndsman Delay
+258694,Houndsman Removal
+258695,Alpha Leap
+258696,Rending Leap
+258697,Rending Leap
+258699,Knockdown
+258700,Charging Leap
+258701,Remove Stun
+258702,Blood Scent
+258703,Blood Scent
+258704,Blood Scent
+258705,MT Houndsman Removal
+258706,MT Houndsman Removal
+258707,MT Houndsman
+258708,MT Houndsman Remove
+258709,MT Houndsman Remove
+258710,MT Houndsman Removal
+258711,MT Houndsman Removal
+258712,MT Houndsman Removal
 258713,The Ruckus
 258714,Venomous Webs
 258715,Binding Webs
@@ -148826,13 +148917,17 @@
 258924,Binding Webs Trgt Track
 258925,Fangs of Mephala
 258926,Sovereign Darkness
+258928,Werewolf Transformation
 258929,Codename
 258930,Codename
 258931,CA Wayshrine Low (U36)
 258932,CA Wayshrine Low (U36)
+258937,Werewolf Transformation
+258938,Werewolf Transformation
 258940,Sandstorm
 258941,Sandstorm
 258942,Sandstorm
+258944,Stunned & Bound
 258952,Baleful Darkness
 258953,Carry Dregs
 258954,Carry Dregs WW Resource Track
@@ -148852,6 +148947,17 @@
 258978,Rending Souls
 258979,Ethereal Fire
 258980,Ethereal Fire
+258981,Clairvoyance
+258982,Clairvoyance
+258983,Clairvoyance
+258984,Clairvoyance
+258985,Clairvoyance
+258986,Clairvoyance
+258987,Clairvoyance
+258988,Clairvoyance
+258989,Revealed
+258990,Revealed
+258996,Clairvoyance
 259001,Eye of the Storm REM
 259002,Hidden
 259004,Hidden REM
@@ -148870,6 +148976,9 @@
 259019,Nest REM
 259020,Dark Mote
 259021,Dark Mote REM
+259026,Trial Engram - Eternal Warrior - Blue
+259027,Trial Engram - Eternal Warrior - Purple
+259028,Trial Engram - Eternal Warrior - Gold
 259030,Map
 259031,UseDeviceFX
 259032,Map
@@ -148885,7 +148994,8 @@
 259046,Despawn
 259047,Despawn
 259049,Removal
-259050,DSpore Summon
+259054,Summon Wisp
+259055,Summon Wisp
 259056,Summon Flame Atronachs
 259063,Caustic Explosion
 259064,Lava Pool
@@ -148907,6 +149017,8 @@
 259080,Radiance
 259081,Lava Geyser
 259082,Lava Geyser
+259083,Summon Crystaljack
+259084,Summon Crystaljack
 259086,Modify Boss Teleport Abilities
 259088,Minor Vulnerability
 259089,Minor Breach
@@ -149005,15 +149117,19 @@
 259202,Sovereign Darkness
 259203,Fangs of Mephala
 259204,Webbed
+259205,Hidden
 259212,The Storm Voice
 259213,The Storm Voice
 259214,The Storm Voice
 259215,The Storm Voice
 259216,The Storm Voice
 259217,The Storm Voice
+259219,Summon Tomeshell
+259220,Summon Tomeshell
 259221,The Storm Voice
 259222,The Storm Voice
 259223,Battle Roar
+259224,Wildfire Embers
 259225,The Storm Voice
 259226,The Storm Voice
 259227,BOSS Gloam Knight Modify Heavy
@@ -149028,6 +149144,7 @@
 259237,BOSS Executioner Arcing Blaze
 259238,BOSS Executioner Modify Emblazoned Stomp
 259239,Removal
+259240,Summon Tomeshell
 259241,Landslide
 259245,Sovereign Darkness
 259253,Mountain Giant
@@ -149054,13 +149171,26 @@
 259276,Lightning Onslaught
 259277,Lightning Onslaught
 259278,Lightning Onslaught
+259279,Tomeshell Explosion
+259280,Tomeshell Explosion
 259282,Modify PC Trgt Abilities
 259283,Modify PC Trgt Abilities
 259284,Modify PC Trgt Abilities
 259285,Modify PC Trgt Abilities
+259286,Bloodthorn Disguise
+259287,IS
+259288,Enter Subzone
 259295,Modify Boss Teleport Abilities
 259296,Modify Boss Teleport Abilities
 259297,Modify Boss Teleport Abilities
+259298,Empty
+259299,Remove Disguise
+259300,Disguised
+259301,Register Discovered
+259302,Remove Disguise
+259303,Remove Disguise
+259304,Remove
+259305,Discovered
 259306,Teleport Gate
 259307,Teleport Gate
 259308,Teleport Gate
@@ -149088,7 +149218,6 @@
 259335,u49-AZ SP MB A1 Spores (Melee)
 259336,u49-AZ SP MB A1 Spores (Melee)
 259337,u49-AZ SP MB A1 Spores (Melee)
-259338,Mod Cooldown MSpores
 259339,Mod Cooldown Charge
 259340,Pick Up Dregs
 259342,Remove Webs WW Resource Track
@@ -149110,6 +149239,7 @@
 259366,Incandescent Pod
 259368,Windglass
 259372,Take Flight
+259373,Somnal Powder
 259375,FUNC Spawn Location Chk
 259380,FUNC Spawned In Skittering
 259381,FUNC Spawned In Parch
@@ -149118,6 +149248,8 @@
 259386,Spider Intro
 259399,Spider Intro
 259400,Spider Intro
+259401,Somnal Powder
+259402,Somnal Powder
 259407,Boulder
 259408,Jagged Claw
 259409,Burning Jaws
@@ -149285,15 +149417,29 @@
 259632,Reap
 259633,u49-AZ SF IB WoC Subzone Enrage
 259634,Minor Courage
+259638,Awareness
+259639,Spotted
+259640,Clairvoyance
+259641,Clairvoyance
+259642,Clairvoyance
+259643,Clairvoyance
+259644,Clairvoyance
+259645,Clairvoyance
+259646,Clairvoyance
+259647,Revealed
 259648,Blood of the Elder Dragon
+259649,Spotted
 259651,Vicious Harvest
 259652,Vicious Harvest
 259653,Vicious Harvest
 259654,Modify Ally Vicious Harvest
 259655,Vicious Harvest
 259656,Vicious Harvest
+259657,Spotted
 259658,Cast Beams
 259659,Cast Beams
+259660,Kicked Out
+259662,Flee
 259663,Scorching Wave
 259664,Scorching Wave
 259665,Lava Geyser
@@ -149327,7 +149473,10 @@
 259700,Sticky Web
 259703,Sticky Web
 259704,Sticky Web
+259705,Summon Dire Wolves
 259706,FUNC Disable Add Spawn TEST
+259707,Summon
+259708,Summon
 259710,FUNC Disable Add Spawn TEST
 259711,FUNC Enable Add Spawn TEST
 259712,FUNC Enable Add Spawn TEST
@@ -149356,6 +149505,7 @@
 259755,Opulent Ordeal
 259756,Opulent Ordeal
 259757,Opulent Ordeal
+259758,Spotted
 259759,U49 Mythic Prototype 2
 259760,U49 Mythic Prototype 2
 259761,Minor Brutality
@@ -149385,6 +149535,7 @@
 259815,Final Deposit Timer Complete
 259816,Final Deposit Timer Early End Chk
 259817,Final Deposit Timer Early End AL
+259818,Clairvoyance Fx
 259819,Final Deposit Timer Early End Defer
 259820,Final Deposit Timer Early End REM
 259821,Stop
@@ -149438,6 +149589,13 @@
 259895,Opulent Ordeal
 259896,Traversal Sum Track
 259903,Traversal Sum Track
+259904,Barrel Burst
+259905,Barrel Burst
+259906,Barrel Burst
+259907,Storm Shield TEST
+259909,Damage Shield
+259910,Shock Wave
+259912,Shock Wave
 259913,Shalk/Nixad Final Interior
 259914,Nixad Clean
 259915,Summon Nixad
@@ -149476,15 +149634,47 @@
 259948,Final Interior Add Track
 259950,Summon Final Interior Adds Gate
 259951,RST or SAT Used 5s
+259953,Charge
+259954,Burst
+259955,Burst
+259956,Send Trigger to Vig
+259957,Charge
 259962,Affinity VO CD
+259963,Summon Cartel
+259964,Sheogorath Staff
+259965,Summon
+259966,Summon Faun
+259967,Summon Faun
+259968,Summon Faun
+259969,RNDM
+259970,Branch1
+259971,Branch2
+259972,Branch3
+259973,Branch4
+259974,Summon
+259975,Summon Werewolf
 259976,Bomb Soak VO Use Chk
+259977,Summon Werewolf
 259978,Bomb Soak VO Use Chk
 259979,Bomb Soak VO Use Chk
+259980,Summon Werewolf
 259981,Encounter Done
 259982,Encounter Done
 259984,Ritual of Defilement
 259985,Ritual of Defilement
+259986,Empower
+259989,Empower
+259990,Empower
+259991,Empower
+259997,Overcharged
+259998,Overcharged
+259999,Overcharged
+260001,Empower Audio
 260002,Visability
+260003,Empower
+260004,Empower
+260005,Empower
+260006,Empower
 260007,Modify Stomp
 260008,Modify Gore Rush
 260009,Modify Boulder Toss
@@ -149493,6 +149683,9 @@
 260012,Modify Stomp
 260014,Summon Final Interior Adds TRACK REM
 260015,Void Tear
+260016,Barrel Burst
+260017,Barrel Burst
+260018,Barrel Burst
 260019,Void Tear
 260020,Intro VO Chk
 260021,Web
@@ -149507,6 +149700,7 @@
 260030,Containment Identifier
 260031,Devastating Slam MT Gate
 260032,Devastating Slam MT Gate
+260033,Remove
 260034,Void Tear
 260035,Void Tear
 260036,Void Rift
@@ -149534,6 +149728,17 @@
 260070,Target
 260072,Oasis Revival
 260073,Wayshrine Revival
+260075,Spotted
+260079,CON_SmokeBurst
+260083,Quake
+260084,Quake
+260085,Blade
+260086,Dart
+260089,Prioritize Hit
+260090,Prioritize Hit
+260091,Prioritize Hit
+260092,Prioritize Hit
+260093,Prioritize Hit
 260094,Sandstorm
 260095,Sandstorm KB
 260096,Sandstorm
@@ -149556,6 +149761,12 @@
 260117,Meteorite
 260118,Meteorite
 260119,Paralyzing Fear
+260120,Quick Strike
+260121,Leap Strike
+260122,Leap Strike
+260123,Leap Strike
+260124,Leap Strike
+260125,Staggered
 260126,Wayshrine Revival
 260139,Summon Shalk
 260140,Summon Great Shalk
@@ -149653,8 +149864,10 @@
 260261,Bolt Discharge Val Stack
 260266,Radiant Lamplight
 260267,Radiant Lamplight
+260270,Splinters of Chaos
 260271,Ignorance
 260272,Obelisk Immune
+260273,Barrel
 260274,Negation
 260275,Torment
 260276,Negation
@@ -149663,6 +149876,7 @@
 260279,Mental Disturbance
 260280,Mental Disturbance
 260281,Skittering Bomb
+260282,fill me in
 260283,Lamenting Rend
 260284,Lamenting Rend
 260285,Unbidden Gloom
@@ -149672,6 +149886,7 @@
 260296,Caustic Grief
 260297,Caustic Grief
 260302,Hit Tracker No Damage without Nightmare
+260307,Poison Burst
 260311,Can Cast Wrack
 260312,Can Cast Wrack Eval
 260313,Remove Can Cast Wrack
@@ -149748,6 +149963,7 @@
 260400,Falling Debris
 260401,Falling Debris Projectile
 260402,Aim
+260403,Immobile
 260404,Change MAL
 260405,Creeping Contagion
 260406,Bile Sweep Snare
@@ -149784,12 +150000,15 @@
 260438,Creeping Contagion Val Stack
 260439,Charged Water Val Stack
 260440,Searing Beam
-260474,Mike's Debuff
-260475,Mike's Debuff
-260477,Mike's Debuff
-260478,Mike's Debuff
-260479,Mike's Debuff
-260480,Mike's Debuff
+260444,Summon Daedrats
+260445,RNDM
+260446,Send Trigger to arm Barrel
+260474,Seasoned
+260475,Seasoned
+260477,Vestige
+260478,Vestige
+260479,Master
+260480,Master
 260494,Shadow Flurry
 260495,Teleport Proj
 260499,Proj Delay
@@ -149822,6 +150041,7 @@
 260589,Punch
 260590,Kick
 260591,React
+260594,PROTO_Explosive_Barrel_VFX
 260601,Jagged Claw
 260602,Burning Jaws
 260603,Fiery Breath
@@ -149831,8 +150051,10 @@
 260619,Thrown Rock
 260635,Body Slam
 260636,Body Slam
+260647,PROTO_Explosive_Barrel_VFX
 260648,Dodge
 260649,Dodge
+260667,Rend
 260710,Fighting Pit Brawl DYN Post Chk
 260712,Fighting Pit Brawl DYN Post Chk Defer
 260713,Fighting Pit Brawl DYN Post Chk
@@ -149887,6 +150109,15 @@
 260838,Disguise Warning Area
 260849,Interrupt Immunity
 260857,Lightbeam
+260867,Summon the Dead
+260868,Summon the Dead
+260870,Summon the Dead
+260871,Summon the Dead
+260872,Summon the Dead
+260873,Summon the Dead
+260874,Summon the Dead
+260875,Summon the Dead
+260876,Summon the Dead
 260880,Stun
 260884,Lightbeam
 260885,Lightbeam
@@ -149894,10 +150125,12 @@
 260887,Obsidian
 260888,Obsidian
 260889,Obsidian
+260968,JUST Guard Awarness
 260971,Obsidian
 260972,Obsidian
 260973,Obsidian
 260974,Obsidian
+260977,Invulnerable
 260981,Ritual
 260990,Obsidian
 260991,Obsidian
@@ -149911,9 +150144,14 @@
 260999,Obsidian
 261000,Obsidian
 261001,Obsidian
+261002,Lightning Grasp
+261004,Tomeshell Explosion
 261006,Lightbeam
 261007,Lightbeam
 261008,Lightbeam
+261010,Arkay Ward
+261011,AL
+261017,AL
 261018,Burning
 261019,Queen's Poison
 261020,Queen's Poison
@@ -149921,19 +150159,46 @@
 261022,Queen's Poison
 261023,Storm Snare
 261024,Storm Snare
+261025,Empower Pack
+261026,Empower
+261027,Empower
+261028,Empower
 261029,Creeping Contagion
 261030,Queen's Poison
 261032,Queen's Poison
+261033,Arkay Ward
+261034,Arkay Ward
 261035,DYN Stop Moving REM
+261036,Summon
 261037,Hellfire
 261039,Static Stomp DAM Val Stack
+261040,Blessing of Arkay 1
+261041,Life Drain
+261042,Life Drain
 261043,Vengeance Petrify
+261044,Life Drain
+261045,Life Drain
+261046,Life Drain
+261048,Blessing of Arkay 2
+261049,Blessing of Arkay 3
+261050,Blessing of Arkay
+261051,Remove Arkay Blessing
+261057,Soul
+261058,Blessing of Arkay
+261063,Enforcer's Punishment
+261064,Bog Slam
 261068,Adds Summon
 261069,Banekin Add
 261070,Banekin Add
 261071,Banekin Add
 261072,Banekin Add
+261076,Bite
+261077,Bite
+261079,Bite
+261080,Infected
+261081,Infection
 261083,Obsidian
+261085,Heavy Strike Snare
 261086,Accelerating Charge
 261087,Chain Lightning
 261088,Chain Lightning
@@ -149947,6 +150212,7 @@
 261103,Obsidian
 261104,Obsidian
 261105,Obsidian
+261106,Soul
 261107,Take Flight
 261108,Containment
 261109,Containment
@@ -149963,9 +150229,13 @@
 261121,Obsidian
 261122,Obsidian
 261123,Obsidian
+261124,Empower Cartel
+261125,Empower Cartel
 261126,Searing Beam
 261127,Agonymium Stone
 261133,Full
+261134,Empower Cartel
+261135,Empower Cartel
 261136,Fiery Blockade
 261137,Fiery Blockade
 261138,Fiery Blockade
@@ -150008,6 +150278,10 @@
 261178,u49-AZ Sandstorm Object Faction Rep Gain Chk
 261179,Sandstorm Object Faction Rep Gain
 261180,Windswept REM
+261181,Kicked Out
+261182,Empower Cartel
+261183,Empower Cartel
+261184,Arkay Ritual
 261185,Antiweather Charge
 261186,Antiweather Charge
 261187,Activate Electric Fence
@@ -150051,19 +150325,27 @@
 261233,Storm Call
 261234,Thunderstorm
 261235,Keep Hate
+261243,Summon Tomeshell
+261244,Summon Tomeshell
 261245,Grapple Post
 261246,Golden Sleight
 261247,Tethered Prey
 261250,WoC No See While Outside
 261251,Flame Aura
 261252,Magical Multitudes
+261253,Potion Toss
 261254,Arac's Sacrifice
 261255,Swift Gale
+261256,Potion Toss
 261257,Transfusion
+261258,Potion Toss
+261259,Potion Toss
 261260,Exsanguinate
 261261,Frenzied Zeal
+261262,Summon
 261263,Rebirth
 261264,Agonizing Tether
+261266,Summon
 261267,Boulder Bash
 261268,Bountiful Resources
 261269,Sand Swipe
@@ -150071,16 +150353,24 @@
 261271,Golden Spurs
 261272,Healthy Bargain
 261273,Valued Mark
+261274,Summon
 261276,Meteorite
 261278,Remover
 261279,Remover
+261280,True-Sight
 261282,Night's Eye
 261283,Night's Eye
 261284,Night's Eye
 261285,Shattered Paths Signet
+261286,Spotlight
+261287,Face Target
+261288,Spotlight
 261289,Shattered Paths Signet
 261290,Shattered Paths Signet
 261291,Shattered Paths Signet
+261292,Ticking AOE
+261293,Relay Message
+261294,Ticking AOE
 261295,Greg Awareness
 261297,Impending Storm
 261298,Impending Storm
@@ -150090,12 +150380,17 @@
 261302,Impending Storm
 261303,Impending Storm
 261304,Impending Storm
+261305,Red Rook Volley
+261306,Volley
+261307,Cooldown
+261308,Volley
 261309,Light Attack
 261310,Heavy Attack
 261311,No See + Immune
 261312,Cooldown
 261313,Cooldown
 261314,Cooldown
+261315,Lightning Trap
 261316,Minus Damage Aspect Adds
 261319,Incinerate
 261321,Set Cooldown Disintegrate
@@ -150105,6 +150400,8 @@
 261325,Crushing Darkness
 261326,Crushing Darkness
 261327,Crushing Darkness
+261328,Summon
+261330,Summon
 261332,Lightning Smash Prox Trigger
 261333,Lightning Smash Prox Trigger
 261334,Lightning Smash Prox Trigger
@@ -150117,6 +150414,7 @@
 261341,Hunger Special INT Bomb Phase SUM
 261342,Executioner Special INT Bomb Phase SUM
 261343,Gloam Knight Special INT Bomb Phase SUM
+261344,Lightning Trap
 261345,Minor Timidity
 261346,Tail Spike
 261347,Tail Spike
@@ -150135,22 +150433,48 @@
 261361,Bloodletting
 261362,Remove Fulmination
 261363,Storm Shield
+261369,Relic Toss
 261370,Mod Cooldown Thunderbolt
+261371,Swamp
+261372,Edwane's Somnal Powder
+261373,Edwane Synergy
+261374,Edwane Synergy
+261375,Edwane Synergy
 261376,Bite
 261381,Shield Throw
 261388,Crushing Tendrils
 261391,Enrage
+261395,Awareness
+261396,Spotted
+261397,Clairvoyance
+261398,Clairvoyance
+261399,Clairvoyance
+261400,Clairvoyance
+261401,Clairvoyance
+261402,Clairvoyance
+261403,Clairvoyance
+261404,Revealed
+261405,Spotted
+261407,Spotted
+261408,Rampaging Bristleback Fx
+261409,Rampaging Bristleback Fx
+261410,Tend Mushrooms
 261411,Hollow
 261412,Immunity
+261413,Fetid Herb Spores
 261414,Corrosive Bite
 261415,Corrosive Bite
 261416,Rain of Fire
 261417,Removal
 261418,Curious Missive
 261419,Oasis Revival
+261420,Fertilize
+261424,Fertilize
 261429,Comrade's Vigor
 261430,Comrade's Vigor
 261431,Comrade's Vigor
+261432,Stun
+261433,Despawn
 261435,Creeping Pools
 261436,Chaurus Venom
 261437,Grasping Void
@@ -150160,11 +150484,42 @@
 261441,Creeping Pools
 261442,Creeping Pools
 261443,Creeping Pools
+261444,track
 261449,Gold
+261452,Warding Stone
+261453,Inactive
+261454,Hit at 1% Health
+261455,Set NoTarget
+261456,Retarget
+261457,Trigger 15
+261458,Heal Self
+261459,Warded
+261460,Remove Ward
+261461,Remove Inactive
+261462,Broken Apart
+261463,Remove Inactive
+261465,Fall Down Anims
+261466,Fall Down
+261467,Remove Inactive
+261468,Remove Ward
+261469,Send Trigger 91
+261470,Warding Stone
+261474,Kill Self
+261475,Death Delay
+261476,Ward Buff
+261477,Warded
+261478,Ward Trigger
+261479,Stunned
+261480,Remove Ward III
 261487,Leap Immune
+261488,Empower Cartel
 261489,Modify Self Teleport
 261490,Modify Self Teleport
 261491,Modify Self Teleport
+261492,Somnal Powder
+261493,Spear Shards
+261494,Somnal Powder
+261495,Somnal Powder
 261496,Remove Webs
 261497,Remove Webs PC REM
 261498,u49-AZ SF IB WoC Killed
@@ -150175,13 +150530,21 @@
 261503,Remove Webs Stop SVR
 261506,Spider Swarm Spawn CD
 261508,Mind Rend
+261509,Presence
 261510,Arac's Sacrifice
+261511,Carry Water
+261513,Drop Bucket
+261517,Splash
 261518,u49-AZ Sorrow DQ-1 CV Delay 3H
+261519,Blessing of Arkay
+261520,Grant Ability
 261521,Summon Webspinner
 261522,Summon Webspinner
 261523,Summon Webspinner
 261524,Summon Webspinner
 261525,Summon Webspinner
+261526,Remove Arkay Blessing Synergy
+261527,Remove Arkay Blessing Synergy
 261528,Remove Webs REM
 261529,Remove Webs REM
 261530,Remove Webs Stop SVR HIT
@@ -150189,18 +150552,49 @@
 261534,Remove Webs REM
 261535,Remove Webs REM
 261536,Remove Webs REM
+261537,Stun
+261538,Remove
+261539,Heal
+261542,AL
+261544,Spotted
+261545,Kicked Out
+261546,Gate
+261547,Soul Escape
+261556,Soul Escape
+261557,Soul Escape
+261560,Soul Escape
+261563,Summon
+261564,Summon
 261565,Soak Gate
 261566,Soak Gate REM
 261567,Soak Gate REM
 261568,Soak Gate
 261569,Soak Gate REM
 261570,Soak Gate
+261575,Hardened
 261576,Lightbeam
 261589,Kill Adds
 261590,The Ruckus
 261594,Bomb Unstable REM
 261595,Bomb Unstable REM
 261596,Bomb Unstable REM
+261597,Colony Collapse
+261598,Cleaving Eviction
+261599,Colonizing Quills
+261600,Remove
+261601,Colony Collapse
+261602,Stun
+261603,Colony Collapse
+261604,Colony Collapse
+261605,Cleaving Eviction
+261606,Colonizing Quills
+261607,Hidden
+261608,Hiding Spot
+261609,Hiding Spot
+261610,Hiding Spot
+261611,Hiding Spot
+261612,Hiding Spot
+261613,Hiding Spot
 261614,Heavy Strike
 261615,Quick Strike
 261616,Quick Strike
@@ -150211,19 +150605,38 @@
 261621,Heavy Strike Snare
 261622,Teleport Strike
 261623,Teleport Strike Snare
+261624,Hiding Spot
+261625,Hiding Spot
+261626,Hiding Spot
+261627,Hiding Spot
+261628,Hiding Spot
+261629,Hiding Spot
+261630,Block
 261631,Gathering Swarm
 261633,Baleful Darkness
 261635,Stunned
 261636,Basepop Faction Reward CD
 261637,Digestion
 261638,Firestorm
+261640,Courser
 261641,Return
 261642,Return
+261643,Storm Shield
+261644,Boss
+261645,Damage Shield
+261646,Shock Wave
+261647,Shock Wave
 261655,Short Term Buffs ModifyDur VALUE
 261665,Containment
+261668,Avoid Death
+261669,Necrotic Grasp
+261670,Necrotic Grasp
 261672,Containment
 261673,Remove No See
 261676,Air Atro Gate
+261678,Necrotic Grasp
+261683,Necrotic Grasp
+261684,Necrotic Grasp
 261685,Short Term Buffs ModifyDur REFRESH
 261686,Air Atro Gate
 261687,Void Escape
@@ -150231,6 +150644,31 @@
 261689,Void Escape
 261690,Void Escape
 261691,Void Escape
+261692,Arch
+261693,Arch
+261694,Summons
+261695,Daedric Synergy Anchor Minion
+261696,Summons
+261697,Summons
+261698,Remove Arkay Blessing
+261699,Explosive Charge
+261700,Explosive Charge
+261701,Explosive Charge
+261702,Explosive Charge
+261703,Lightning
+261704,DMG Bonus
+261705,Lightning Targeting
+261706,AoE Loc
+261707,Lightning Bolt
+261708,Lightning Bolt
+261709,Lightning Anchor
+261710,Lightning Pool
+261711,Lightning Storm
+261712,Lightning Storm
+261713,Lightning Storm
+261714,Lightning Storm
+261715,Lightning Storm
+261716,Lightning Storm
 261717,Void Escape
 261718,Void Escape
 261719,Tap
@@ -150241,19 +150679,24 @@
 261724,Diseased Spores
 261725,Diseased Spores
 261726,Summon Seeker Spores
-261727,u49-AZ SP MB A1 Spores (Melee)
 261728,u49-AZ SP MB A1 Spores (Melee)
 261729,u49-AZ SP MB A1 Spores (Melee)
-261730,u49-AZ SP MB A1 Spores (Melee)
 261731,u49-AZ SP MB A1 Spores (Melee)
 261732,u49-AZ SP MB A1 Spores (Melee)
 261733,u49-AZ SP MB A1 Spores (Melee)
 261735,Diseased Spores Gate
 261738,Diseased Spores
 261739,SC0 +1
+261740,Storm Atronach Summons
+261741,Storm Atronach Summons
+261742,Storm Atronach Summons
+261743,Storm Atronach Summons
+261744,Storm Atronach Summons
 261745,Glittering Goad
 261746,Magical Multitudes
 261747,Magical Multitudes
+261750,Aim
+261751,Aim
 261752,Burning Embers
 261753,Onslaught
 261754,Volcanic Ward
@@ -150272,8 +150715,19 @@
 261846,Jump Pad
 261848,Jump Pad
 261852,Blinders
+261859,Bryggid Tranform
+261860,Bryggid Regen
+261861,Bryggid Stun
+261862,Bryggid Evaded
+261863,Bryggid Delay
+261864,Bryggid Removal
 261865,Jump Pad
 261866,Jump Pad
+261867,Bryggid removal
+261868,Bryggid Removal
+261869,Bryggid Snare
+261870,Bryggid Removal
+261871,Bryggid Removal
 261872,Jump Pad
 261873,Jump Pad
 261874,Jump Pad
@@ -150289,15 +150743,48 @@
 261886,Death's Gaze
 261887,Death's Gaze
 261888,Death's Gaze
-261889,Death's Gaze
 261890,Death's Gaze
 261891,Death Gaze 2
 261892,Death's Gaze
 261893,Death's Gaze
 261894,Death's Gaze
+261895,Fissure Firestorm
+261896,Fissure
 261898,Jump Pad
+261901,Major Brutality
+261902,Major Sorcery
+261903,Major Vitality
+261904,Major Brutality
+261905,Major Sorcery
+261910,Restore Magicka
+261911,Major Intellect
+261912,Minor Heroism
+261913,Major Endurance
+261914,Restore Stamina
+261918,Observe
 261928,Disturbed Sands
+261935,AppTracking
+261936,Transformation
+261937,Transformation Waypoints
+261938,Transformation
+261939,Transformation
+261940,Transformation Waypoints
+261943,Throw Torch
+261944,Throw Torch
 261946,Skitter
+261947,AL
+261948,Awareness
+261949,Spotted
+261950,Clairvoyance
+261951,Clairvoyance
+261952,Clairvoyance
+261953,Clairvoyance
+261954,Clairvoyance
+261955,Clairvoyance
+261956,Clairvoyance
+261957,Revealed
+261958,Spotted
+261959,Spotted
 261960,Depart
 261961,Depart
 261962,Depart
@@ -150305,16 +150792,153 @@
 261964,Escape
 261965,Depart
 261966,Escape
+261967,Stendarr's Gift Projectile
+261968,Stendarr's Gift
+261973,Drop Stendarr's Gift
+261983,Awareness
+261984,Spotted
+261985,Clairvoyance
+261986,Clairvoyance
+261987,Clairvoyance
+261988,Clairvoyance
+261989,Clairvoyance
+261990,Clairvoyance
+261991,Clairvoyance
+261992,Revealed
+261993,Spotted
+261994,Spotted
+261995,Awareness
+261996,Spotted
+261997,Clairvoyance
+261998,Clairvoyance
+261999,Clairvoyance
+262000,Clairvoyance
+262001,Clairvoyance
+262002,Clairvoyance
+262003,Clairvoyance
+262004,Revealed
+262005,Spotted
+262006,Spotted
+262007,Awareness
+262008,Spotted
+262009,Clairvoyance
+262010,Clairvoyance
+262011,Clairvoyance
+262012,Clairvoyance
+262013,Clairvoyance
+262014,Clairvoyance
+262015,Clairvoyance
+262016,Revealed
+262017,Spotted
+262018,Spotted
+262019,Awareness
+262020,Spotted
+262021,Clairvoyance
+262022,Clairvoyance
+262023,Clairvoyance
+262024,Clairvoyance
+262025,Clairvoyance
+262026,Clairvoyance
+262027,Clairvoyance
+262028,Revealed
+262029,Spotted
+262030,Spotted
+262031,Awareness
+262032,Spotted
+262033,Clairvoyance
+262034,Clairvoyance
+262035,Clairvoyance
+262036,Clairvoyance
+262037,Clairvoyance
+262038,Clairvoyance
+262039,Clairvoyance
+262040,Revealed
+262041,Spotted
+262042,Spotted
+262043,Awareness
+262044,Spotted
+262045,Clairvoyance
+262046,Clairvoyance
+262047,Clairvoyance
+262048,Clairvoyance
+262049,Clairvoyance
+262050,Clairvoyance
+262051,Clairvoyance
+262052,Revealed
+262053,Spotted
+262054,Spotted
+262055,Awareness
+262056,Spotted
+262057,Clairvoyance
+262058,Clairvoyance
+262059,Clairvoyance
+262060,Clairvoyance
+262061,Clairvoyance
+262062,Clairvoyance
+262063,Clairvoyance
+262064,Revealed
+262065,Spotted
+262066,Spotted
+262067,Awareness
+262068,Spotted
+262069,Clairvoyance
+262070,Clairvoyance
+262071,Clairvoyance
+262072,Clairvoyance
+262073,Clairvoyance
+262074,Clairvoyance
+262075,Clairvoyance
+262076,Revealed
+262077,Spotted
+262078,Spotted
+262079,Awareness
+262080,Spotted
+262081,Clairvoyance
+262082,Clairvoyance
+262083,Clairvoyance
+262084,Clairvoyance
+262085,Clairvoyance
+262086,Clairvoyance
+262087,Clairvoyance
+262088,Revealed
+262089,Spotted
+262090,Spotted
+262091,Give Relic
+262095,Codename
+262096,Codename
+262097,CA Wayshrine Low (U36)
+262098,CA Wayshrine Low (U36)
 262104,Spider Swarm Spawn Track
 262106,Set Reposition CD Ally
+262107,Drop Stendarr's Gift
+262108,Heavy Attack (Stendarr's Gift)
+262109,Heavy Attack (Stendarr's Gift)
 262119,Daedric Burn
 262121,Combined Repair
-262122,Drop Dregs
+262123,DWE-LR Fetid Herb Spores
+262129,Fetid Herb
+262136,Heroic Resurrection
+262137,Major Heroism
+262138,Major Heroism
+262139,Soul Awakening
 262140,Encounter Done
 262141,Encounter Done
+262142,Cosmic Feedback
+262143,Cosmic Feedback
+262144,Lightning Strike
+262146,Fire
+262147,Fire
+262150,Stun
 262199,Despawn Extender
+262201,Codename
+262202,Codename
+262203,CA Wayshrine Low (U36)
+262204,CA Wayshrine Low (U36)
+262206,Stendarr's Gift
 262213,Containment
 262214,Containment
+262215,Transformation
+262216,Transformation
 262221,Increased Favor
 262223,Web
 262224,Containment
@@ -150324,57 +150948,928 @@
 262229,Entangling Web
 262230,Sticky Web
 262231,Create Tonic of Portent Favor
+262232,Prowler's Talisman
+262233,Prowler's Talisman
+262234,Prowler's Talisman
 262235,Stun
 262236,256164 Run Action List
 262237,224835 Create Item
 262251,Fouled Earth
+262254,Carry Water
 262255,Summon Stack
+262259,Observe the Cartel 15s
+262272,Refire Relic Spawner
+262286,Stendarr's Gift
 262289,Tap
 262290,Die
+262291,Stendarr's Gift
+262292,Remove Stendarr's Gift
+262294,Light Attack (Stendarr's Gift)
+262295,Light Attack (Stendarr's Gift)
+262296,Light Attack (Stendarr's Gift)
+262298,Stendarr's Gift
+262304,Died
 262312,Darklight Star
 262313,Darklight Star
 262314,Darklight Star
+262315,Prowler's Talisman
+262316,Prowler's Recovery
+262317,Prowler's Resources
+262318,Prowler's Talisman
+262319,Prowler's Talisman
 262324,Stop Movement
+262330,Refire Relic Spawner
+262334,Toxic Toadstool
+262335,Explode
+262336,Check for Explode
 262337,Health Sync
+262338,Died
 262339,Fire Swarm
 262340,Molten Rain
 262341,Strike
 262342,Engulfing Dragonfire
+262343,Great Dane Cower
+262344,Stun Remove Delay
+262345,Register Trigger
+262346,Stun Remove
+262347,Great Dane Set Posture
 262348,Darklight Star
 262350,Darklight Star
+262366,Q7507 - Arabelle Wave Event
+262367,Burrow Crawl
 262507,Volcanic Whip
+262646,Stendarr's Gift Projectile
+262651,Calm Down
+262652,Bestial Transformation
+262653,Bestial Transformation
+262654,Bestial Transformation
+262655,Potion Toss
+262656,Lost to the Depths
+262657,Lost to the Depths
 262658,Power Lash
+262659,Spawn In
+262661,Notice
+262662,Run AL
+262663,Check
+262666,Sanguine Prison
+262667,Sanguine Prison
+262668,Sanguine Prison
+262670,Shielded
+262671,Sanguine Prison
+262672,Exsanguination
+262673,Exsanguination
+262674,Targeter
 262677,Dragon Leap
 262678,Stun
 262680,Stun
 262681,Ferocious Leap
 262682,Stun
 262683,Take Flight
+262684,Blood Fountains
+262685,Summon fountain
+262686,Stun
+262688,Somnal Powder
+262689,Blood Pool
+262690,Blood Pool
+262691,Blood Pool
+262692,Blood Pool
+262693,Blood Pool
+262694,Blood Pool
+262708,Pylon Target Stack
+262717,Blazing Whirlwind
+262718,Blazing Whirlwind
+262719,Being Targeted - targ
+262720,Blazing Whirlwind
+262721,Blazing Whirlwind
+262722,Fiery Whirlwind
+262723,Fiery Whirlwind
+262725,Summon Adds
+262726,Blazing Whirlwind
+262727,Blazing Whirlwind
+262728,Smoldering Guard
+262747,NOT WORKING — Generic Stun 4s WeaponSheathe
 262752,CC Protection
+262753,Prowler's Talisman
+262754,Stun
+262760,Wrong Choice Teleport
+262764,Wrong Choice Teleport
+262775,Wrong Chest Choice
 262776,Attackable
 262782,Attackable
 262783,Attackable
 262784,Attackable
+262801,Spawn Stun 3s
+262802,Skeleton Fury
+262803,Mod Summoner
+262804,SkeletonFury
+262805,SkeletonFury
+262808,SkeletonFury
+262809,SkeletonFury
+262810,Nightmare
+262811,Golden Saint Summon
+262812,SkeletonFury
+262813,SkeletonFury
+262817,Stone Immunity
 262819,Adrenaline Rush
 262820,Attackable
 262841,Containment
 262842,Containment
 262843,Containment
 262844,No Drop Mote
+262845,TEST STUN
 262861,Lost to the Depths
 262862,Lost to the Depths
 262885,Webbed
+262886,Kicked Out
+262888,Kicked Out
+262889,Kicked Out
 262890,Incandescent Pod
 262891,Incandescent Pod
 262892,Incandescent Pod
+262893,Kicked Out
 262894,Incandescent Pod
 262895,Incandescent Pod
 262896,Incandescent Pod
+262916,Evasion
 262917,Opulent Ordeal
 262968,Sticky Web
 262969,Egg of Arac
 262972,Destined Death
 262974,Shadowbolt
+262977,Boulder Smash
+262978,Targeter
+262979,Targeter
+262980,Targeter
+262982,Blood Fountain
+262983,Cardinal Lines
+262984,Blood Fountain
+262985,Blood Fountains
+262986,Blood Fountains
+262987,Blood Fountains
+262988,Blood Fountains
+262993,Blink Strike
+262994,Blink Strike
+262995,Blink Strike
+262996,Blink Strike
 263007,Opulent Ordeal
 263008,Dark Shadow
+263011,Fleshiplasm
+263012,Form Flesh Colossus
+263013,Colony Collapse
+263014,Cleaving Eviction
+263015,Colonizing Quills
+263016,Fleshiplasm
+263017,Fleshiplasm
+263018,Fleshiplasm
+263019,Fleshiplasm
+263020,Fleshiplasm Yo
+263021,Fleshiplasm
+263022,Fleshiplasm
+263023,Fleshiplasm
+263024,Form Flesh Colossus
+263025,Form Flesh Colossus
+263026,Form Flesh Colossus
+263027,Remove
+263028,Colony Collapse
+263029,Stun
+263030,Colony Collapse
+263031,Colony Collapse
+263032,Cleaving Eviction
+263033,Colonizing Quills
 263034,Containment
+263040,Discharge
+263041,Parasitic Discharge
+263042,Discharge
+263043,Discharge
+263044,Discharge
+263045,Discharge
+263046,Discharge
+263047,Discharge
+263048,Parasitic Discharge
+263108,Refire Relic Spawner
+263111,Despawn Extender
+263112,Remove Mote Ticker
+263113,Huge Butterfly
+263126,Blur
+263127,Blur
+263128,Blur
+263129,Blur
+263130,Blur
+263131,Blur
+263141,Face Target
+263153,Face Target
+263179,Q7426 Teleport In
+263180,Relic Remove Telegraph
+263197,Inexorable Descent
+263198,Landslide
+263200,Booming Voice
+263207,Remove Mend Wounds
+263208,Wildfire Embers
+263210,Reduce Reduce Blood Fountain Damage Done
+263220,Resolute Defense
+263230,Resolute Defense
+263231,Resolute Defense
+263232,Resolute Defense
+263233,Resolute Defense
+263234,Resolute Defense
+263235,Health Regester Trigger
+263236,Health Low
+263237,Empty
+263239,Remove Disguise
+263240,Disguised
+263241,Register Discovered
+263242,Remove Disguise
+263243,Remove Disguise
+263244,Remove
+263245,Discovered
+263247,Lead from the Front
+263248,Major Berserk
+263249,Rousing Roar
+263250,Major Protection
+263306,Major Berserk
+263307,Major Protection
+263308,Lead from the Front
+263309,Wildfire Embers
+263316,Abyssal Emergence
+263324,Maddy_to_Ogrim_Transform
+263325,Bloodknight Transform
+263326,Damage Shield
+263327,ESD5 Avoid Death
+263328,Transformation
+263329,Transformation
+263330,Transformation
+263331,Transformation
+263332,Transformation
+263334,Abyssal Emergence
+263369,Abyssal Emergence
+263390,Aim
+263391,Aim
+263398,Fate Realigned
+263403,Minor Negative Mending
+263406,Major Negative Mending
+263407,Fate Realigned
+263409,Fate Realigned
+263410,Unbound Potential
+263411,Unbound Potential
+263412,Erudite's Rigor
+263413,Erudite's Rigor
+263414,Erudite's Rigor
+263415,Erudite's Rigor
+263416,Ink-Scribe's Verve
+263418,Ink-Scribe's Verve
+263419,Ink-Scribe's Verve
+263420,Ink-Scribe's Verve
+263421,Shadow Summoning
+263422,Shadow Summoning
+263423,CC-Seht Summon Shadows
+263424,Maddy VO
+263425,Umbral Aegis
+263426,Umbral Aegis
+263427,Shadowy Aegis
+263441,Maddy VO
+263448,Nothing Wasted
+263461,Nothing Wasted
+263462,Nothing Wasted
+263464,Pip
+263465,Malevolent Promise
+263468,Malevolent Promise
+263482,Remove Adds
+263508,Pip
+263509,Cycle Unending
+263511,Q7426 Player Ritual Fail TEST
+263512,Minion of Blood
+263519,Tundra's Maw
+263520,Wild Adaptation
+263521,Glacial Obstinance
+263522,Green-Keeper's Hide
+263523,Bountiful Harvest
+263527,Dwemer Sphere Self Destruct
+263528,Self Destruct
+263529,Self Destruct
+263532,Cycle Unending
+263539,Pip
+263549,Pound of Flesh
+263552,Pound of Flesh
+263553,Pound of Flesh
+263554,Veil's Forfeit
+263555,Veil's Forfeit
+263564,Unstable Shadows
+263565,Unstable Shadows
+263566,Unstable Shadows
+263567,Unstable Shadows
+263568,Unstable Shadows
+263569,Unstable Shadows
+263570,Remove Lightning
+263572,Remove Sword
+263578,Bludgeon
+263579,Chunder
+263580,Chunder
+263581,Bludgeon
+263583,Show Faction Tutorial
+263584,Show Faction Tutorial
+263585,Bastion of Light
+263586,Devout Guardian
+263587,Bright Harbinger
+263588,Judgment's Brand
+263589,Steadfast Candescence
+263590,Remove Cast Stack
+263591,Consecrated Ground
+263592,Remove Cast Stack
+263594,u49-AZ TP MB A2 Summon Adds
+263597,Fire Charged Water SC
+263598,Fire Charged Water SC
+263599,Spear Shards
+263601,Luminous Shards
+263603,Nocturnal Inspiration
+263604,An Eye for Exploitation
+263605,Above and Beyond
+263606,Cutthroat's Focus
+263607,Share the Spoils
+263613,Nocturnal Inspiration
+263618,Luminous Shards
+263619,Hold the Line
+263620,Hold the Line
+263621,Hold the Line
+263622,Nova
+263625,Solar Prison
+263627,Solar Disturbance
+263630,Radial Sweep
+263634,Everlasting Sweep
+263635,Crescent Sweep
+263636,Luminous Shards
+263640,An Eye for Exploitation
+263643,Steadfast Candescence
+263644,Steadfast Candescence
+263645,Steadfast Candescence
+263647,Consecrated Ground
+263660,Judgment's Brand
+263672,Bright Harbinger
+263685,Cutthroat's Focus
+263688,Share the Spoils
+263689,Share the Spoils
+263690,Share the Spoils
+263691,Gore Rush
+263692,Consume
+263693,Snare
+263694,No See Voriplasm
+263695,Taunt Immunity
+263696,Fake Boss Attack
+263697,Discharge
+263698,Snare
+263699,Consumed
+263700,Delicious Regurgitation
+263701,Noxious Release
+263702,Iron Maiden
+263703,Iron Maiden
+263704,Gore Rush
+263705,Gore Rush
+263706,Gore Rush
+263707,Deviant Rage
+263708,Deviant Consumption
+263709,Butcher
+263710,Gore Rush
+263711,Gore Rush
+263712,Gore Rush
+263713,Gore Rush
+263714,Snare
+263715,Delicious Regurgitation
+263716,Delicious Regurgitation
+263717,Delicious Regurgitation
+263719,Delicious Regurgitation
+263720,Delicious Regurgitation
+263721,Delicious Regurgitation
+263722,Delicious Regurgitation
+263723,Delicious Regurgitation
+263724,Delicious Regurgitation
+263725,Delicious Regurgitation
+263726,Noxious Release
+263727,Noxious Release
+263728,Noxious Release
+263729,Noxious Release
+263730,Noxious Release
+263731,Noxious Release
+263732,Noxious Release
+263733,Iron Maiden
+263734,Iron Maiden
+263735,Iron Maiden
+263736,Iron Maiden
+263737,Iron Maiden
+263739,Gore Rush
+263740,Iron Maiden
+263741,Gore Rush
+263742,Gore Rush
+263743,Gore Rush
+263744,Iron Maiden
+263745,Iron Maiden
+263746,Iron Maiden
+263747,Iron Maiden
+263748,Iron Maiden
+263749,Iron Maiden
+263750,Iron Maiden
+263751,Gore Rush
+263752,Gore Rush
+263753,Gore Rush
+263754,Gore Rush
+263755,Gore Rush
+263756,Gore Rush
+263757,Gore Rush
+263759,Gore Rush
+263760,Gore Rush
+263761,Gore Rush
+263762,Gore Rush
+263763,Gore Rush
+263764,Gore Rush
+263765,Gore Rush
+263766,Gore Rush
+263767,Gore Rush
+263768,Gore Rush
+263769,Gore Rush
+263770,Gore Rush
+263771,Gore Rush
+263772,Gore Rush
+263773,Gore Rush
+263774,Gore Rush
+263775,Gore Rush
+263776,Deviant Consumption
+263777,Deviant Rage
+263778,Deviant Rage
+263779,Deviant Consumption
+263780,Deviant Rage
+263781,Deviant Rage
+263782,Deviant Rage
+263783,Deviant Rage
+263784,Deviant Consumption
+263785,Gore Rush
+263786,Gore Rush
+263787,Gore Rush
+263788,Gore Rush
+263789,Gore Rush
+263790,Deviant Consumption
+263791,Deviant Consumption
+263792,Deviant Consumption
+263793,Deviant Consumption
+263794,Butcher
+263795,Butcher
+263796,Butcher
+263797,Butcher
+263798,Butcher
+263799,Butcher
+263800,Butcher
+263801,Butcher
+263802,Butcher
+263803,Butcher
+263804,Butcher
+263805,Butcher
+263806,Butcher
+263807,Butcher
+263808,Butcher
+263809,Butcher
+263810,Butcher
+263811,Butcher
+263812,Butcher
+263813,Butcher
+263814,Butcher
+263815,Butcher
+263816,Butcher
+263817,Butcher
+263818,Butcher
+263819,Butcher
+263820,Butcher
+263821,Butcher
+263823,Delicious Regurgitation
+263824,Slug
+263825,Major Brittle
+263826,Wild Adaptation
+263828,Green-Keeper's Hide
+263829,Bountiful Harvest
+263830,Bountiful Harvest
+263836,Fetid Herb
+263837,DWE-LR Fetid Herb Spores
+263838,Fetid Herb
+263839,DWE-LR Fetid Herb Spores
+263840,Fetid Herb
+263841,Fetid Herb
+263870,Conservation of Energy
+263871,Font of Power
+263872,Static Reverberation
+263873,Calculated Defense
+263874,Sphere of Influence
+263877,Conservation of Energy
+263878,Font of Power
+263901,Conservation of Energy
+263914,Q7426 Player Seline Fail
+263915,Sphere of Influence
+263928,Static Reverberation
+264991,Calculated Defense
+265765,Return to Me
+265766,Return to Me
+265767,Return to Me
+265768,Return to Me
+265769,Return to Me
+265770,Return to Me
+265771,Return to Me
+265772,Return to Me
+265773,Return to Me
+265774,Return to Me
+265775,Return to Me
+265776,Return to Me
+265777,Return to Me
+265778,Return to Me
+265779,Return to Me
+265780,Return to Me
+265781,Return to Me
+265782,Return to Me
+265783,Return to Me
+265784,Fire Soul
+265793,Fetid Herb
+265796,Fetid Herb
+265798,Fetid Herb
+265799,Fetid Herb
+265831,Voriplasm Shrink
+265838,Voriplasm Size Tracker
+265843,Shrink 2.3
+265844,Shrink 1.8
+265845,Shrink 1.3
+265850,Shrink .8
+265851,Shrink .5
+265870,Clear Appearances
+265899,Pre-Phase Buff
+265900,Remove Phase Buff
+265901,Spell Resist
+265902,Physical Resist
+265903,Damage Reduction
+265914,Golden Tracker
+265923,Pip
+265924,Change Ability List
+265932,Major Brutality
+265933,Major Sorcery
+265952,NOT IN USE REUSE
+265972,Major Heroism
+265984,Major Savagery
+265985,Major Prophecy
+265987,Drop Bucket
+265996,Remove Remove Bucket
+266023,Containment
+266024,Containment
+266068,Shoot Projectile Back
+266078,Warding Interception
+266081,Focus Fire
+266082,Focus Fire
+266085,Throw Torch
+266105,Prowler's Talisman
+266106,Prowler's Recovery
+266107,Prowler's Resources
+266108,Prowler's Talisman
+266109,Prowler's Talisman
+266110,Prowler's Talisman
+266111,Prowler's Talisman
+266116,Throw Torch
+266122,Calculated Caster
+266144,Remove Stendarr's Gift With Projectile
+266145,Projectile
+266147,Targeter
+266151,Somnal Powder
+266178,Missionary of Light
+266179,Bright Harbinger
+266180,Illuminate
+266234,Health Low
+266235,Health Low
+266236,Prowler's Talisman
+266265,Pained & Impaired
+266266,Pained & Impaired
+266268,Somnal Powder
+266269,Somnal Powder
+266270,Somnal Powder
+266271,Somnal Powder
+266273,Aim
+266274,Aim
+266275,Immune
+266293,Carry bucket
+266296,Carry bucket
+266304,Set Aim
+266307,Set Aim
+266375,Movement Buffer
+266377,Rampage
+266483,Remove Webs
+266484,Metal Trap
+266485,Metal Trap
+266486,Metal Trap
+266487,Oil Trap
+266488,OilTrap
+266489,Red Rook Trap
+266503,Somnal Powder
+266514,Stun Player
+266520,Insatiable Hunger
+266523,Rampage
+266524,Rampage
+266562,Somnal Powder
+266586,Remove Overload
+266587,Remove Overload Light
+266588,Remove Overload Heavy
+266596,Immune
+266727,Acid Pool
+266730,Acid Pool
+266731,Acid Pool
+266732,Acid Pool
+266733,Create Morphing Collectible
+266734,Mount Block
+266735,Mount Block
+266736,68235 Stun
+266737,68235 Stun
+266744,Fury
+266817,Enrage
+266819,Stun
+266820,Delay
+266821,Knockback
+266822,Knockback
+266823,Enrage
+266845,Call of the Pack
+266849,Feral Cruelty
+266850,Feral Cruelty
+266851,Feral Cruelty
+266852,Prowler's Recovery
+266853,Prowler's Talisman
+266854,Prowler's Talisman
+266855,Prowler's Resources
+266856,Prowler's Talisman
+266857,Prowler's Recovery
+266858,Prowler's Talisman
+266859,Prowler's Talisman
+266860,Prowler's Talisman
+266861,Prowler's Resources
+266866,Prowler's Talisman
+266873,Master of the Chase
+266874,Master of the Chase
+266875,Fury
+267069,Missionary of Light
+267082,Help me!
+267083,Health Low
+267101,Rooted
+267104,Rooted 60%
+267106,60% Root On Follower
+267175,Somnal Powder
+267176,Somnal Powder
+267239,Somnal Powder
+267240,Somnal Powder
+267248,Above and Beyond
+267269,Somnal Powder
+267270,Somnal Powder
+267292,Shrink VO
+267293,Cast Sheo Power
+267294,Fire Soul
+267305,Glacial Obstinance
+267310,Glacial Obstinance
+267383,Fire Soul
+267414,Werewolf Transformation
+267415,Werewolf Transformation
+267416,Rampage
+267417,Rampage
+267418,Rampage
+267419,Werewolf Berserker
+267420,Major Berserk
+267424,Pack Leader
+267425,Enduring Rampage
+267426,Enduring Rampage
+267427,Enduring Rampage
+267428,Enduring Rampage
+267465,Call of the Hunt
+267467,Granny's Eel Pie
+267468,Granny's Eel Pie
+267471,Poison Resist
+267472,Healing Taken
+267473,Heartland Armor
+267478,Target
+267479,Target
+267480,Target
+267481,Target
+267486,Horse follower
+267507,Horse FX
+267516,Leap
+267537,Bucket FX
+267538,Agonymium Stone
+267541,Leap
+267542,Constricting Strike
+267549,Strike
+267553,Hircine's Rage
+267554,Major Brutality
+267555,Major Sorcery
+267570,Minor Berserk
+267571,Strike
+267572,Strike
+267580,Strike
+267623,Empower Cartel
+267734,Catch Thieves Moon
+267735,Grant Synergy
+267737,Thieves' Moon
+267738,Blade of Woe
+267739,Blade of Woe Snare
+267740,Tracking Buff
+267741,Remove
+267742,Stop
+267744,Blood Hunger
+267745,Gnash Execute
+267746,Gnash
+267747,Bloody Gnash Execute
+267748,Bloody Gnash
+267753,DWE-LR Fetid Herb Spores
+267754,DWE-LR Fetid Herb Spores
+267755,DWE-LR Fetid Herb Spores
+267756,Run Faster
+267765,Donkey Rearup
+267767,Donkey Rearup
+267770,Run Faster
+267784,Rip and Tear
+267785,Rip and Tear
+267792,Can Catch Thieves Moon
+267807,Prowler's Talisman
+267808,Prowler's Recovery
+267809,Prowler's Resources
+267810,Prowler's Talisman
+267811,Prowler's Talisman
+267812,Empower Cartel
+267832,Gnash
+267854,Sigil of Imperial Retreat
+267944,StaggerImmune
+267946,Stagger
+267951,Generic Fragment Consume
+267956,Remove Empower
+267961,Bloodclaws
+267985,Corpse Consumption
+268098,Stop
+268101,GR7 Disable Mechanic
+268107,Stunned & Bound
+268111,Inject Larva
+268112,Larva Gestation
+268113,Larva Burst
+268114,Larva Burst
+268115,Larva Burst
+268123,Slaughter
+268128,Savage Werewolf
+268154,Soul Tether
+268155,Soul Tether
+268156,Soul Tether
+268157,Soul Tether
+268158,Soul Tether
+268159,Soul Tether
+268160,Soul Tether
+268161,Soul Tether
+268163,Flurry
+268164,Flurry
+268165,Flurry
+268166,Flurry
+268167,Flurry
+268169,Flurry
+268170,Flurry
+268171,Flurry
+268172,Flurry
+268173,Flurry
+268174,Clear
+268175,Clear
+268178,Sonic Scream
+268179,Piercing Shriek
+268180,Piercing Shriek
+268183,Rending Leap
+268184,Rending Leap
+268187,Rending Leap
+268219,Creeping Manifold
+268220,Creeping Manifold
+268221,Creeping Manifold
+268222,Creeping Manifold
+268223,Creeping Manifold
+268224,Creeping Manifold
+268225,Creeping Manifold
+268226,Creeping Manifold
+268227,Creeping Manifold
+268228,Creeping Manifold
+268229,Creeping Manifold
+268230,Hit by Powder
+268231,Remove Empower
+268256,Veil's Forfeit
+268257,Major Heroism
+268258,Bountiful Harvest
+268259,Cutthroat's Mockery
+268260,Cutthroat's Focus
+268261,Feeding
+268262,Devour
+268263,Devour
+268264,Clawed Swipe
+268268,Slaughter
+268274,Calculated Defense
+268275,Sphere of Influence
+268280,Queen's Poison
+268281,Queen's Poison
+268282,CON_AOE_Template1
+268283,CON_AOE_Template1
+268284,Queen's Poison
+268285,Queen's Poison
+268326,Storm Snare
+268327,Storm Snare
+268328,Storm Snare
+268329,Storm Snare
+268330,Queen's Poison
+268331,Storm Snare
+268332,Storm Snare
+268333,Serpentine Charge
+268334,Serpentine Charge
+268335,Summon Snakes
+268336,Summon
+268337,Summon
+268338,Summon
+268339,Summon
+268340,Summon
+268341,Summon
+268342,Summon
+268343,Summon
+268344,Summon
+268345,Summon
+268347,Siren Song
+268348,Siren Song
+268349,Siren Song
+268350,Target
+268351,Siren Song
+268352,Siren Song
+268353,Siren Song
+268354,Siren Song
+268372,Fate Realigned
+268373,Blastbones Model FX
+268374,Sacrificial Bones
+268375,Sacrificial Bones Leap
+268376,Sacrificial Bones
+268377,Sacrificial Bones
+268380,Storm Atronach Summons
+268381,Storm Atronach Summons
+268413,Aim
+268414,Aim
+268567,Slaughter
+268571,Insatiable Hunger
+268573,Shockwave
+268574,Resonate
+268575,Resonate
+268576,Creeping Manifold
+268577,Creeping Manifold
+268578,Charge
+268579,Charge
+268580,Charge
+268581,Retreat
+268582,Retreat
+268583,Retreat
+268587,Portal Ground Pound
+268588,Portal Ground Pound
+268590,Prowl
+268591,Prowl
+268596,Charge
+268597,Create Morphing Collectible
+268598,Mount Block
+268599,Mount Block
+268600,68235 Stun
+268601,68235 Stun
+268700,Claw Fury
+268706,You Guessed Wrong
+268756,Immune
+268757,Stun
+268796,Avoid Death
+268800,Die Action List
+268801,Avoid Death
+268802,Invis
+268803,Death Throws
+268805,Kill Siblings
+268810,Claw Fury
+268816,GRZS - Grant Prowler
+269004,Charge
+269005,Charge
+269006,Burst
+269007,Send Trigger to Vig
+269008,Burst
+269009,Remove
+269010,Charge
+269011,Barrel Burst
+269012,Poison Burst
+269013,Barrel Burst
+269014,fill me in
+269015,Barrel Burst
+269016,fill me in
+269018,Charge
+269020,Prowl
+269021,Prowl
+269022,Branch4
+269023,Branch4
+269024,Branch4
+269025,Branch4
+269113,Spattering Disjunction
+269114,Crux
+269348,Leash
+269349,Containment
+269664,Heartbeat
+269813,Prowler's Talisman
+269817,Ensnaring Chains
+269944,Battle Trauma
+270002,Werewolf Transformation
+270006,Ice Avatar
+270020,Booming Voice
+270310,Bloodclaws
+270311,Rending Claws
+270412,STUN
+270475,Trolling Protection
+270517,Engulfing Dragonfire
+270615,Distance Immunity
+270752,"Remove Hunt Target"
