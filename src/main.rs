@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::sync::OnceLock;
 
 use chrono::Datelike;
+use eso_skill_data::enums::skill_line::SkillLine;
 use web_sys::HtmlInputElement;
 use yew_router::prelude::*;
 use yew::prelude::*;
@@ -9,7 +10,6 @@ use crate::id::{IdData, get_abilities};
 use crate::index_state::IndexState;
 use crate::fetch::fetch_bytes;
 use crate::index_state::parse_index;
-use eso_skill_data::data_enum::*;
 
 mod id;
 mod fetch;

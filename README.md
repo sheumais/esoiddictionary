@@ -41,11 +41,11 @@ This file contains all the data, and is copied directly into the /static/data.bi
 
 Due to the nature of the file (a database dump from ZOS) the format can and will change between patches slightly.
 
-An implementation of a parser is updated by Dave from UESP when necessary and can be found on GitHub [here](https://en.uesp.net/wiki/ESO_Mod:Skill_Data_Format).
+An implementation of a parser is updated by Dave from UESP when necessary and can be found on [GitHub](https://github.com/uesp/uesp-esoapps/blob/master/TestSkillFormat/TestSkillFormat/TestSkillFormat.cpp).
 
 I got Claude to port the file format definition to a Rust struct which is available as an (unstable) [crate](https://github.com/sheumais/esoskilldataformat).
 
-The format of the file is also documented [here](https://en.uesp.net/wiki/ESO_Mod:Skill_Data_Format).
+The format of the file is also documented on [UESP.net](https://en.uesp.net/wiki/ESO_Mod:Skill_Data_Format).
 
 ## How does this website work?
 

@@ -1,6 +1,14 @@
 use std::{collections::HashMap, sync::OnceLock};
 use chrono::DateTime;
-use eso_skill_data::{SkillData34, data_enum::*};
+use eso_skill_data::enums::ability_tag::AbilityTag;
+use eso_skill_data::enums::ability_type::AbilityType;
+use eso_skill_data::enums::coefficient_type::CoefficientType;
+use eso_skill_data::enums::damage_type::DamageType;
+use eso_skill_data::enums::major_minor::MajorMinorBuff;
+use eso_skill_data::enums::mechanic::Mechanic;
+use eso_skill_data::enums::skill_line::SkillLine;
+use eso_skill_data::enums::tooltip_type::TooltipType;
+use eso_skill_data::SkillData34;
 use yew::prelude::*;
 use crate::fetch::fetch_bytes;
 use crate::index_state::{IndexState, find_entry};
@@ -145,6 +153,7 @@ pub fn id_data(props: &IdProps) -> Html {
         FetchState::Loading => html! {
             <div>
                 <span>{ "Fetching record…" }</span>
+                <span>{ "If this takes a very long time (5+ seconds), please try refreshing the page." }</span>
             </div>
         },
         FetchState::Failed(e) => html! {
@@ -160,8 +169,8 @@ pub fn id_data(props: &IdProps) -> Html {
 
                 let paired_term = |t1: u8, t2: u8, coef: f32| -> String {
                     match (t1, t2) {
-                        // (25, 35) | (35, 25) => format!("{coef}×MaxPower"),
-                        // (4, 29)  | (29, 4)  => format!("{coef}×MaxResource"),
+                        (25, 35) | (35, 25) => format!("{coef}×MaxPower"),
+                        (4, 29)  | (29, 4)  => format!("{coef}×MaxResource"),
                         _ => format!(
                             "{coef}×max({}, {})",
                             CoefficientType::from_id(&t1).unwrap().as_str(),
@@ -218,7 +227,7 @@ pub fn id_data(props: &IdProps) -> Html {
                     Some(terms.join(" + "))
                 };
 
-                let mut parts: Vec<String> = skill
+                let parts: Vec<String> = skill
                     .coef
                     .iter()
                     .filter_map(render_coef)
@@ -227,7 +236,7 @@ pub fn id_data(props: &IdProps) -> Html {
                 if parts.is_empty() {
                     None
                 } else {
-                    Some(parts.join(" + "))
+                    Some(parts.join(" AND "))
                 }
             };
 
@@ -252,6 +261,20 @@ pub fn id_data(props: &IdProps) -> Html {
                     <Field label="Skill Line: " value={format!("{} ({})", skill_line, skill.base_data.skill_line_id)} />
                 } else if skill.base_data.skill_line_id != 0 {
                     <Field label="Skill Line: " value={format!("? ({})", skill.base_data.skill_line_id)} />
+                } else if let Some(weapon_skill_line) = match &skill.u15[0] {
+                    1 => Some("One Hand and Shield"),
+                    2 => Some("Dual Wield"),
+                    3 => Some("Two Handed"),
+                    4 => Some("Bow"),
+                    5 => Some("Destruction Staff (General)"),
+                    6 => Some("Restoration Staff"),
+                    7 => Some("Destruction Staff (Fire)"),
+                    8 => Some("Destruction Staff (Frost)"),
+                    9 => Some("Destruction Staff (Lightning)"),
+                    12 => Some("Werewolf"),
+                    _ => None,
+                } {
+                    <Field label="Skill Line [2]: " value={format!("{}", weapon_skill_line)} />
                 }
                 if skill.base_data.caused_by != 0 {
                     <div> 
@@ -259,6 +282,16 @@ pub fn id_data(props: &IdProps) -> Html {
                         <span>
                             <a href={format!("/esoiddictionary/{}", skill.base_data.caused_by)}>
                                 {format!("{} ({})", skill.base_data.caused_by.to_string(), abilities.get(&skill.base_data.caused_by).unwrap_or(&"Unknown name".to_string()))}
+                            </a>
+                        </span>
+                    </div>
+                }
+                if skill.u8[2] != 0 && skill.u8[2] != skill.ability_id1 {
+                    <div> 
+                        <span>{"Related to: "}</span>
+                        <span>
+                            <a href={format!("/esoiddictionary/{}", skill.u8[2])}>
+                                {format!("{} ({})", skill.u8[2].to_string(), abilities.get(&skill.u8[2]).unwrap_or(&"Unknown name".to_string()))}
                             </a>
                         </span>
                     </div>
