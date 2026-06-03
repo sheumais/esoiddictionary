@@ -210,6 +210,10 @@ pub fn id_data(props: &IdProps) -> Html {
                         return Some(paired_term(c.type1, c.type3, c.coef1));
                     }
 
+                    if h1 && !h2 && !h3 && !h4 {
+                        return Some(format!("{}×{}", c.coef1, CoefficientType::from_id(&c.type1).unwrap().as_str()));
+                    }
+
                     let mut terms = vec![];
                     if h1 {
                         terms.push(CoefficientType::from_id(&c.type1).unwrap().as_str());
@@ -251,6 +255,19 @@ pub fn id_data(props: &IdProps) -> Html {
 
             let tags = html! { <Field label={"Ability Tags: "} value={ tags.join(", ") } /> };
 
+            fn render_value_field(label: &'static str, value: u32, prev: u32) -> Html {
+                if value != 0 && value != prev {
+                    if value > 2_147_483_647u32 {
+                        let v = u32::MAX - value + 1;
+                        html! { <Field label={label} value={format!("{} (adjusted)", v)} /> }
+                    } else {
+                        html! { <Field label={label} value={value.to_string()} /> }
+                    }
+                } else {
+                    html! {}
+                }
+            }
+
             html! {
             <div>
                 <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.base_data.date_time.into(), 0).unwrap())} />
@@ -275,6 +292,24 @@ pub fn id_data(props: &IdProps) -> Html {
                     _ => None,
                 } {
                     <Field label="Skill Line [2]: " value={format!("{}", weapon_skill_line)} />
+                }
+                if let Some(scribing_ability) = match skill.base_data.scribing_index {
+                    0 => None,
+                    1 => Some("Vault"),
+                    2 => Some("Wield Soul"),
+                    3 => Some("Shield Throw"),
+                    4 => Some("Smash"),
+                    5 => Some("Elemental Explosion"),
+                    6 => Some("Mender's Bond"),
+                    7 => Some("Travelling Knife"),
+                    8 => Some("Soul Burst"),
+                    9 => Some("Ulfsild's Contingency"),
+                    10 => Some("Torchbearer"),
+                    11 => Some("Trample"),
+                    12 => Some("Banner Bearer"),
+                    _ => Some("Unknown Scribing Ability")
+                } {
+                    <Field label="Scribing: " value={format!("{} ({})", scribing_ability, skill.base_data.scribing_index)} />
                 }
                 if skill.base_data.caused_by != 0 {
                     <div> 
@@ -301,18 +336,14 @@ pub fn id_data(props: &IdProps) -> Html {
                 } else if skill.base_data.ability_type != 0 {
                     <Field label="Ability Type: " value={format!("? ({})", skill.base_data.ability_type)} />
                 }
-                if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) && skill.u4[3] != 1 {
+                if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) {
                     <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
                 }
-                if skill.base_data.value0 != 0 {
-                    <Field label="Value 0: " value={format!("{}", skill.base_data.value1.to_string())} />
-                }
-                if skill.base_data.value1 != 0 {
-                    <Field label="Value 1: " value={format!("{}", skill.base_data.value1.to_string())} />
-                }
-                if skill.base_data.value2 != 0 && skill.base_data.value2 != skill.base_data.value1 {
-                    <Field label="Value 2: " value={format!("{}", skill.base_data.value2.to_string())} />
-                }
+                <>
+                    {render_value_field("Value 0: ", skill.base_data.value0, 0)}
+                    {render_value_field("Value 1: ", skill.base_data.value1, skill.base_data.value0)}
+                    {render_value_field("Value 2: ", skill.base_data.value2, skill.base_data.value1)}
+                </>
                 if skill.base_data.cast_time != 0 {
                     <Field label="Cast Time: " value={format!("{}", format_duration(&skill.base_data.cast_time) )} />
                 }
