@@ -1,49 +1,13 @@
 use std::{io::{Cursor, Read}, sync::OnceLock};
+use eso_skill_data::SkillData34;
 use ruzstd::decoding::StreamingDecoder;
 
-const COMPRESSED: &[u8; 7376427] = include_bytes!("../static/data.bin.zst");
+const COMPRESSED: &[u8] = include_bytes!("../static/data.bin.zst");
 static DATA: OnceLock<Vec<u8>> = OnceLock::new();
 
+use crate::index_state::find_entry;
 
-use wasm_bindgen_futures::JsFuture;
-use web_sys::{Headers, Request, RequestInit, Response, wasm_bindgen::JsCast};
-
-pub async fn fetch_bytes(url: &str, range: Option<(u64, u64)>) -> Result<Vec<u8>, String> {
-    let opts = RequestInit::new();
-    opts.set_method("GET");
-
-    if let Some((start, end)) = range {
-        let headers = Headers::new().map_err(|e| format!("{e:?}"))?;
-        headers
-            .set("Range", &format!("bytes={}-{}", start, end - 1))
-            .map_err(|e| format!("{e:?}"))?;
-        opts.set_headers(&headers);
-    }
-
-    let request = Request::new_with_str_and_init(url, &opts)
-        .map_err(|e| format!("{e:?}"))?;
-
-    let window = web_sys::window().ok_or("no window")?;
-    let resp_val = JsFuture::from(window.fetch_with_request(&request))
-        .await
-        .map_err(|e| format!("{e:?}"))?;
-
-    let response: Response = resp_val.dyn_into().map_err(|e| format!("{e:?}"))?;
-
-    if !response.ok() {
-        return Err(format!("HTTP {}", response.status()));
-    }
-
-    let buf = JsFuture::from(
-        response.array_buffer().map_err(|e| format!("{e:?}"))?
-    )
-    .await
-    .map_err(|e| format!("{e:?}"))?;
-
-    Ok(js_sys::Uint8Array::new(&buf).to_vec())
-}
-
-pub async fn init_data() -> Result<(), String> {
+pub fn init_data() -> Result<(), String> {
     if DATA.get().is_some() {
         return Ok(());
     }
@@ -78,5 +42,24 @@ pub fn read_bytes(range: Option<(u64, u64)>) -> Result<&'static [u8], String> {
 
             Ok(&data[s..e])
         }
+    }
+}
+
+pub fn get_skill(id: &u32) -> Option<SkillData34> {
+    let index = find_entry(*id);
+    match index {
+        Some(i) => {
+            let data = read_bytes(Some((i.start_offset, i.end_offset)));
+            match data {
+                Ok(a) => {
+                    match SkillData34::from_bytes(a) {
+                        Ok(record) => {return Some(record)}
+                        Err(_) => return None,
+                    }
+                },
+                Err(_) => return None,
+            }
+        },
+        None => return None,
     }
 }

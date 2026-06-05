@@ -6,17 +6,17 @@ use eso_skill_data::enums::skill_line::SkillLine;
 use web_sys::HtmlInputElement;
 use yew_router::prelude::*;
 use yew::prelude::*;
+use crate::format::render_ability_link;
 use crate::id::{IdData, get_abilities};
-use crate::index_state::IndexState;
-use crate::fetch::{fetch_bytes, init_data};
-use crate::index_state::parse_index;
+use crate::index_state::{IndexState, init_index_cache};
+use crate::fetch::init_data;
 
 mod id;
 mod fetch;
 mod index_state;
+mod format;
 
-const SKILL_CSV:   &str = include_str!("../static/player_abilities.csv");
-const INDEX_URL:   &str = "static/index.bin";
+const SKILL_CSV: &str = include_str!("../static/player_abilities.csv");
 
 static SKILL_GROUPS: OnceLock<Vec<(u32, Vec<u32>)>> = OnceLock::new();
 static TIMESTAMPS: OnceLock<Vec<(u32, Vec<u32>)>> = OnceLock::new();
@@ -82,8 +82,16 @@ struct SwitchProps {
 #[function_component(SwitchWithIndex)]
 fn switch_with_index(props: &SwitchProps) -> Html {
     let index = props.index.clone();
-    html! {
-        <Switch<Route> render={move |route| switch(route, index.clone())} />
+    if index == IndexState::Loading {
+        html! {
+            <div style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+                <span class="loader"></span>
+            </div>
+        }
+    } else {
+        html! {
+            <Switch<Route> render={move |route| switch(route, index.clone())} />
+        }
     }
 }
 
@@ -97,9 +105,7 @@ fn switch(route: Route, index: IndexState) -> Html {
                 <h1>{ "404" }</h1>
                 <p>{ "No ability with that ID exists." }</p>
                 <p>
-                    <Link<Route>
-                        to={Route::Search}
-                    >
+                    <Link<Route> to={Route::Search}>
                         {"Search by name"}
                     </Link<Route>>
                 </p>
@@ -165,11 +171,9 @@ pub fn skill_line_index() -> Html {
                                 .map(|id| html! {
                                     <div>
                                         <div style="font-size: 0.9em; margin: 1px;">
-                                            <Link<Route>
-                                                to={Route::Ability { id: *id }}
-                                            >
-                                                {format!("{}", ability_names.get(id).unwrap_or(&"???".to_string()))}
-                                            </Link<Route>>
+                                        {
+                                            render_ability_link(id, format!("{}", ability_names.get(id).unwrap_or(&"???".to_string())))
+                                        }
                                         </div>
                                     </div>
                                 })
@@ -188,12 +192,10 @@ pub fn skill_line_index() -> Html {
                         { for ids.iter()
                             .filter(|i| !ability_names.get(i).map_or("?", |f| f.as_str()).contains("Vengeance"))
                             .map(|id| html! {
-                                <div>
-                                    <Link<Route>
-                                        to={Route::Ability { id: *id }}
-                                    >
-                                        {format!("{}", ability_names.get(id).unwrap_or(&"Unknown ability".to_string()))}
-                                    </Link<Route>>
+                                <div style="font-size: 0.9em; margin: 1px;">
+                                    {
+                                        render_ability_link(id, format!("{}", ability_names.get(id).unwrap_or(&"???".to_string())))
+                                    }
                                     <br />
                                 </div>
                             })
@@ -224,6 +226,13 @@ fn home() -> Html {
         })
     };
 
+    use_effect(|| {
+        if let Some(document) = web_sys::window().and_then(|w| w.document()) {
+            document.set_title("ESO ID Dictionary");
+        }
+        || ()
+    });
+
     html! {
         <div style="max-width: 66%; margin: 0 auto;">
             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10em; min-width: 275px;">
@@ -241,10 +250,8 @@ fn home() -> Html {
                     <button type="submit">{ "Go" }</button>
                 </form>
                 <span style="margin: 1em;"> 
-                {"or "}
-                <Link<Route>
-                        to={Route::Search}
-                    >
+                    {"or "}
+                    <Link<Route> to={Route::Search}>
                         {"Search by name"}
                     </Link<Route>>
                 </span>
@@ -295,9 +302,7 @@ pub fn list_component() -> Html {
     html! {
         <div>
             <nav style="margin-bottom: 1em;">
-                <Link<Route>
-                    to={Route::Home}
-                >
+                <Link<Route> to={Route::Home}>
                     {"ESO ID Dictionary"}
                 </Link<Route>>
                 <span>{ " / " }</span>
@@ -312,9 +317,9 @@ pub fn list_component() -> Html {
             <p>{ format!("Showing {} results", filtered.len()) }</p>
             { filtered.iter().map(|(id, name)| html! {
                 <>
-                    <Link<Route> to={Route::Ability { id: **id }}>
-                        { format!("{} ({})", name, id) }
-                    </Link<Route>>
+                    {
+                        render_ability_link(*id, format!("{} ({})", name, id))
+                    }
                     <br />
                 </>
             }).collect::<Html>() }
@@ -326,31 +331,23 @@ pub fn list_component() -> Html {
 fn app() -> Html {
     let index = use_state(|| IndexState::Loading);
 
-    use_effect_with((), {
-        let index = index.clone();
-        move |_| {
-            wasm_bindgen_futures::spawn_local(async move {
-                let result = async {
-                    let bytes = fetch_bytes(INDEX_URL, None).await?;
-                    parse_index(&bytes)
-                }
-                .await;
+    let idx_clone = index.clone();
+    use_effect(move || {
+        let index = idx_clone.clone();
+        let result = init_index_cache();
 
-                index.set(match result {
-                    Ok(entries) => IndexState::Ready(entries),
-                    Err(e) => IndexState::Failed(e),
-                });
-            });
-
-            wasm_bindgen_futures::spawn_local(async move {
-                if let Err(e) = init_data().await {
-                    web_sys::console::error_1(
-                        &format!("Failed to initialize data: {e}").into()
-                    );
+        match result {
+            Ok(()) => {
+                if let Err(e) = init_data() {
+                    index.set(IndexState::Failed(e));
                 }
-            });
-            || ()
+            }
+            Err(e) => {
+                index.set(IndexState::Failed(e));
+            }
         }
+
+        index.set(IndexState::Ready);
     });
 
     html! {

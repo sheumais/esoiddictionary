@@ -49,12 +49,17 @@ The format of the file is also documented on [UESP.net](https://en.uesp.net/wiki
 
 ## How does this website work?
 
-The data is copied directly from the game into [/static/data.bin](static/data.bin). I do not touch this file in any way.
+The game ability data, despite being ~100mb on disk, can be compressed down to <8mb.
+
+This compressed form of the data is bundled with the web assembly file, allowing extremely quick navigation of the data.
 
 I run a short [script](https://gist.github.com/sheumais/5281defb65a5ba8dc938ed84b160959a) to generate the byte indexes of each skill and put that into [/static/index.bin](static/index.bin).
 
-These indexes are used to request specific abilities via a byte range header in the [http request](src/fetch.rs). (This is necessary to avoid having every visitor download a 100mb file of ability data)
+These indexes are used to get the data from the decompressed file quickly. The indexes map into the original 100mb data, which exists in the browser's memory after being downloaded (hence the short load before the website opens despite the data being cached).
 
-Once the client receives the data, it parses it into the format specified by the external [crate](https://github.com/sheumais/esoskilldataformat), and [displays](src/id.rs) the data.
+> [!NOTE]
+> This website downloads around 20mb of data. It should be cached by your browser, but please be careful on mobile data plans.
 
 The website is written in Rust using the [Yew framework](https://yew.rs/).
+
+All ability data remains the copyrighted intellectual propery of Zenimax Online Studios.

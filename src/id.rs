@@ -2,7 +2,6 @@ use std::{collections::HashMap, sync::OnceLock};
 use chrono::DateTime;
 use eso_skill_data::enums::ability_tag::AbilityTag;
 use eso_skill_data::enums::ability_type::AbilityType;
-use eso_skill_data::enums::coefficient_type::CoefficientType;
 use eso_skill_data::enums::damage_type::DamageType;
 use eso_skill_data::enums::major_minor::MajorMinorBuff;
 use eso_skill_data::enums::mechanic::Mechanic;
@@ -11,8 +10,9 @@ use eso_skill_data::enums::tooltip_type::TooltipType;
 use eso_skill_data::SkillData34;
 use yew::prelude::*;
 use yew_router::components::Link;
-use crate::Route::{self, Ability};
+use crate::Route::{self};
 use crate::fetch::read_bytes;
+use crate::format::{SkillEquationFormatter, format_duration, get_value_adjusted, render_ability_link, render_ability_link_current, with_skill};
 use crate::index_state::{IndexState, find_entry};
 
 
@@ -82,23 +82,6 @@ pub struct IdProps {
     pub index: IndexState,
 }
 
-fn format_duration(ms: &u32) -> String { 
-    let hours = ms / 3_600_000;
-    let mins  = (ms % 3_600_000) / 60_000;
-    let secs  = (ms % 60_000) / 1_000;
-    let millis = ms % 1_000;
-
-    match (hours, mins, secs, millis) {
-        (h, 0, 0, 0) if h > 0 => format!("{}h", h),
-        (0, m, 0, 0) if m > 1 => format!("{}mins", m),
-        (0, m, 0, 0) if m > 0 => format!("{}min", m),
-        (0, 0, s, 0) if s > 0 => format!("{}s", s),
-        (h, m, 0, 0) if h > 0 => format!("{}h {}m", h, m),
-        (0, m, s, 0) if m > 0 => format!("{}m {}s", m, s),
-        _ => format!("{}ms", ms),
-    }
-}
-
 #[function_component(IdData)]
 pub fn id_data(props: &IdProps) -> Html {
     let abilities = get_abilities();
@@ -106,7 +89,7 @@ pub fn id_data(props: &IdProps) -> Html {
     let skill_state = use_state(|| FetchState::<SkillData34>::Idle);
     let id = props.id;
 
-use_effect_with((id, props.index.clone()), {
+    use_effect_with((id, props.index.clone()), {
         let skill_state = skill_state.clone();
         move |(id, index)| {
             let id = *id;
@@ -121,12 +104,11 @@ use_effect_with((id, props.index.clone()), {
                         )
                     );
                 }
-                IndexState::Ready(entries) => {
+                IndexState::Ready => {
                     skill_state.set(FetchState::Loading);
-                    let entries = entries.clone();
                     wasm_bindgen_futures::spawn_local(async move {
                         let result = async {
-                            let entry = find_entry(&entries, id)
+                            let entry = find_entry(id)
                                 .ok_or_else(|| {
                                     format!("No record found for ID {id}")
                                 })?;
@@ -152,7 +134,12 @@ use_effect_with((id, props.index.clone()), {
     });
 
     let name_line = match abilities.get(&id) {
-        Some(name) => html! { <h1>{ format!("{} ({})", name, id) }</h1> },
+        Some(name) => {
+            if let Some(document) = web_sys::window().and_then(|w| w.document()) {
+                document.set_title(format!("{} ({}) - ESO ID Dictionary", name, id).as_str());
+            }
+            html! { <h1>{ format!("{} ({})", name, id) }</h1> }
+        },
         None => html! { <p>{ "ID has no recorded name" }</p> },
     };
 
@@ -171,86 +158,7 @@ use_effect_with((id, props.index.clone()), {
             </div>
         },
         FetchState::Done(skill) => {
-            let equation = {
-                let is_weapon_spell = |t: u8| matches!(t, 25 | 35);
-                let is_resource = |t: u8| matches!(t, 4 | 29);
-
-                let paired_term = |t1: u8, t2: u8, coef: f32| -> String {
-                    match (t1, t2) {
-                        (25, 35) | (35, 25) => format!("{coef}×MaxPower"),
-                        (4, 29)  | (29, 4)  => format!("{coef}×MaxResource"),
-                        _ => format!(
-                            "{coef}×max({}, {})",
-                            CoefficientType::from_id(&t1).unwrap().as_str(),
-                            CoefficientType::from_id(&t2).unwrap().as_str(),
-                        ),
-                    }
-                };
-
-                let render_coef = |c: &eso_skill_data::SkillCoef| -> Option<String> {
-                    let h1 = c.type1 != 0 || c.coef1 != 0.0;
-                    let h2 = c.type2 != 0 || c.coef2 != 0.0;
-                    let h3 = c.type3 != 0 || c.coef3 != 0.0;
-                    let h4 = c.type4 != 0 || c.coef4 != 0.0;
-
-                    let is_mirror =
-                        h1 && h2 && h3 && h4
-                            && c.coef1 == c.coef3
-                            && c.coef2 == c.coef4
-                            && is_weapon_spell(c.type1)
-                            && is_weapon_spell(c.type3)
-                            && is_resource(c.type2)
-                            && is_resource(c.type4);
-
-                    if !h1 && !h2 && !h3 && !h4 {
-                        return None;
-                    }
-
-                    if is_mirror {
-                        return Some(format!(
-                            "{} + {}",
-                            paired_term(c.type1, c.type3, c.coef1),
-                            paired_term(c.type2, c.type4, c.coef2),
-                        ));
-                    }
-
-                    if h1 && !h2 && h3 && !h4 {
-                        return Some(paired_term(c.type1, c.type3, c.coef1));
-                    }
-
-                    if h1 && !h2 && !h3 && !h4 {
-                        return Some(format!("{}×{}", c.coef1, CoefficientType::from_id(&c.type1).unwrap().as_str()));
-                    }
-
-                    let mut terms = vec![];
-                    if h1 {
-                        terms.push(CoefficientType::from_id(&c.type1).unwrap().as_str());
-                    }
-                    if h2 {
-                        terms.push(CoefficientType::from_id(&c.type2).unwrap().as_str());
-                    }
-                    if h3 {
-                        terms.push(CoefficientType::from_id(&c.type3).unwrap().as_str());
-                    }
-                    if h4 {
-                        terms.push(CoefficientType::from_id(&c.type4).unwrap().as_str());
-                    }
-
-                    Some(terms.join(" + "))
-                };
-
-                let parts: Vec<String> = skill
-                    .coef
-                    .iter()
-                    .filter_map(render_coef)
-                    .collect();
-
-                if parts.is_empty() {
-                    None
-                } else {
-                    Some(parts.join(" AND "))
-                }
-            };
+            let equation = SkillEquationFormatter::format(skill);
 
             let mut tags: Vec<String> = Vec::new();
             for id in &skill.ability_tags {
@@ -263,242 +171,292 @@ use_effect_with((id, props.index.clone()), {
 
             let tags = html! { <Field label={"Ability Tags: "} value={ tags.join(", ") } /> };
 
-            fn render_value_field(label: &'static str, value: u32, prev: u32) -> Html {
-                if value != 0 && value != prev {
-                    if value > 2_147_483_647u32 {
-                        let v = u32::MAX - value + 1;
-                        html! { <Field label={label} value={format!("{} (adjusted)", v)} /> }
-                    } else {
-                        html! { <Field label={label} value={value.to_string()} /> }
-                    }
+            fn render_value_field(label: &'static str, val: u32, prev: u32) -> Html {
+                if val != 0 && val != prev {
+                    let v = get_value_adjusted(&val);
+                    html! { <Field label={label} value={v.to_string()} /> }
                 } else {
                     html! {}
                 }
             }
 
             html! {
-            <div>
-                <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.base_data.date_time.into(), 0).unwrap())} />
-                if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
-                    <Field label="Mechanic: " value={format!("{} ({})", mech, skill.mechanic.to_string())} />
-                }
-                if let Some(skill_line) = SkillLine::from_id(&skill.base_data.skill_line_id) {
-                    <Field label="Skill Line: " value={format!("{} ({})", skill_line, skill.base_data.skill_line_id)} />
-                } else if skill.base_data.skill_line_id != 0 {
-                    <Field label="Skill Line: " value={format!("? ({})", skill.base_data.skill_line_id)} />
-                } else if let Some(weapon_skill_line) = match &skill.u15[0] {
-                    1 => Some("One Hand and Shield"),
-                    2 => Some("Dual Wield"),
-                    3 => Some("Two Handed"),
-                    4 => Some("Bow"),
-                    5 => Some("Destruction Staff (General)"),
-                    6 => Some("Restoration Staff"),
-                    7 => Some("Destruction Staff (Fire)"),
-                    8 => Some("Destruction Staff (Frost)"),
-                    9 => Some("Destruction Staff (Lightning)"),
-                    12 => Some("Werewolf"),
-                    _ => None,
-                } {
-                    <Field label="Skill Line [2]: " value={format!("{}", weapon_skill_line)} />
-                }
-                if let Some(scribing_ability) = match skill.base_data.scribing_index {
-                    0 => None,
-                    1 => Some("Vault"),
-                    2 => Some("Wield Soul"),
-                    3 => Some("Shield Throw"),
-                    4 => Some("Smash"),
-                    5 => Some("Elemental Explosion"),
-                    6 => Some("Mender's Bond"),
-                    7 => Some("Travelling Knife"),
-                    8 => Some("Soul Burst"),
-                    9 => Some("Ulfsild's Contingency"),
-                    10 => Some("Torchbearer"),
-                    11 => Some("Trample"),
-                    12 => Some("Banner Bearer"),
-                    _ => Some("Unknown Scribing Ability")
-                } {
-                    <Field label="Scribing: " value={format!("{} ({})", scribing_ability, skill.base_data.scribing_index)} />
-                }
-                if skill.base_data.caused_by != 0 {
-                    <div> 
-                        <span>{"Caused By: "}</span>
-                        <span>
-                            <Link<Route> to={Route::Ability { id: skill.base_data.caused_by }}>
+                <div>
+                    <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.base_data.date_time.into(), 0).unwrap())} />
+                    if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
+                        <Field label="Mechanic: " value={format!("{} ({})", mech, skill.mechanic.to_string())} />
+                    }
+                    if let Some(skill_line) = SkillLine::from_id(&skill.base_data.skill_line_id) {
+                        <Field label="Skill Line: " value={format!("{} ({})", skill_line, skill.base_data.skill_line_id)} />
+                    } else if skill.base_data.skill_line_id != 0 {
+                        <Field label="Skill Line: " value={format!("? ({})", skill.base_data.skill_line_id)} />
+                    } else if let Some(weapon_skill_line) = match &skill.u15[0] {
+                        1 => Some("One Hand and Shield"),
+                        2 => Some("Dual Wield"),
+                        3 => Some("Two Handed"),
+                        4 => Some("Bow"),
+                        5 => Some("Destruction Staff (General)"),
+                        6 => Some("Restoration Staff"),
+                        7 => Some("Destruction Staff (Fire)"),
+                        8 => Some("Destruction Staff (Frost)"),
+                        9 => Some("Destruction Staff (Lightning)"),
+                        12 => Some("Werewolf"),
+                        _ => None,
+                    } {
+                        <Field label="Skill Line [2]: " value={format!("{}", weapon_skill_line)} />
+                    }
+                    if let Some(scribing_ability) = match skill.base_data.scribing_index {
+                        0 => None,
+                        1 => Some("Vault"),
+                        2 => Some("Wield Soul"),
+                        3 => Some("Shield Throw"),
+                        4 => Some("Smash"),
+                        5 => Some("Elemental Explosion"),
+                        6 => Some("Mender's Bond"),
+                        7 => Some("Travelling Knife"),
+                        8 => Some("Soul Burst"),
+                        9 => Some("Ulfsild's Contingency"),
+                        10 => Some("Torchbearer"),
+                        11 => Some("Trample"),
+                        12 => Some("Banner Bearer"),
+                        _ => Some("Unknown Scribing Ability")
+                    } {
+                        <Field label="Scribing: " value={format!("{} ({})", scribing_ability, skill.base_data.scribing_index)} />
+                    }
+                    if skill.base_data.caused_by != 0 && skill.base_data.caused_by != skill.ability_id1 {
+                        <div> 
+                            <span>{"Caused By: "}</span>
+                            <span>
                                 {
-                                    format!(
-                                        "{} ({})",
+                                    render_ability_link(&skill.base_data.caused_by, format!(
+                                        "{} ({})", 
                                         skill.base_data.caused_by,
                                         abilities
                                             .get(&skill.base_data.caused_by)
-                                            .unwrap_or(&"Unknown name".to_string())
-                                    )
+                                            .unwrap_or(&"Unknown Ability".to_string())))
                                 }
-                            </Link<Route>>
-                        </span>
-                    </div>
-                }
-                if skill.u8[2] != 0 && skill.u8[2] != skill.ability_id1 {
-                    <div> 
-                        <span>{"Related to: "}</span>
-                        <span>
-                            <Link<Route> to={Route::Ability { id: skill.u8[2] }}>
-                                {
-                                    format!(
-                                        "{} ({})",
-                                        skill.u8[2],
-                                        abilities
-                                            .get(&skill.u8[2])
-                                            .unwrap_or(&"Unknown name".to_string())
-                                    )
-                                }
-                            </Link<Route>>
-                        </span>
-                    </div>
-                }
-                if let Some(ability_type) = AbilityType::from_id(&skill.base_data.ability_type) && skill.base_data.ability_type != 0 {
-                    <Field label="Ability Type: " value={format!("{} ({})", ability_type, skill.base_data.ability_type)} />
-                } else if skill.base_data.ability_type != 0 {
-                    <Field label="Ability Type: " value={format!("? ({})", skill.base_data.ability_type)} />
-                }
-                if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) {
-                    <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
-                }
-                <>
-                    {render_value_field("Value 0: ", skill.base_data.value0, 0)}
-                    {render_value_field("Value 1: ", skill.base_data.value1, skill.base_data.value0)}
-                    {render_value_field("Value 2: ", skill.base_data.value2, skill.base_data.value1)}
-                </>
-                if skill.base_data.cast_time != 0 {
-                    <Field label="Cast Time: " value={format!("{}", format_duration(&skill.base_data.cast_time) )} />
-                }
-                if skill.base_data.duration != 0 {
-                    <Field label="Duration: " value={format!("{}", format_duration(&skill.base_data.duration) )} />
-                }
-                if skill.base_data.tick != 0 {
-                    <Field label="Tick: " value={format!("{}", format_duration(&skill.base_data.tick) )} />
-                }
-                if skill.base_data.start_tick != 0 {
-                    <Field label="Start Tick: " value={format!("{}", format_duration(&skill.base_data.start_tick.into()) )} />
-                }
-                if skill.base_data.range != 0 {
-                    <Field label="Range: " value={format!("{}m", (skill.base_data.range / 100).to_string())} />
-                }
-                if skill.base_data.radius != 0 {
-                    <Field label="Radius: " value={format!("{}m", (skill.base_data.radius / 100).to_string())} />
-                }
-                if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
-                    if skill.base_data.cost != 0 {
-                        <Field label="Resource Cost: " value={format!("{} ({})", skill.base_data.cost.to_string(), mech)} />
+                            </span>
+                        </div>
                     }
-                }
-                if !skill.ability_tags.is_empty() {
-                    { tags }
-                }
-                // if skill.coef.coef1 != 0f32 {
-                //     <Field label="Coef 1: " value={format!("{} ({})", skill.coef.coef1, match_coefficient_type(&skill.coef.type1).unwrap_or("Unknown".to_string()))} />
-                // }
-                // if skill.coef.coef2 != 0f32 {
-                //     <Field label="Coef 2: " value={format!("{} ({})", skill.coef.coef2, match_coefficient_type(&skill.coef.type2).unwrap_or("Unknown".to_string()))} />
-                // }
-                // if skill.coef.coef3 != 0f32 {
-                //     <Field label="Coef 3: " value={format!("{} ({})", skill.coef.coef3, match_coefficient_type(&skill.coef.type3).unwrap_or("Unknown".to_string()))} />
-                // }
-                // if skill.coef.coef4 != 0f32 {
-                //     <Field label="Coef 4: " value={format!("{} ({})", skill.coef.coef4, match_coefficient_type(&skill.coef.type4).unwrap_or("Unknown".to_string()))} />
-                // }
-                if let Some(eq) = equation {
-                    <Field label="Equation: " value={eq} />
-                }
-                if let Some(tooltip) = tooltips.get(&skill.ability_id1) {
-                    <h4>{"Tooltip"}</h4>
-                    for t in tooltip {
-                        <div>{t.to_owned()}</div>
-                    }
-                    { for skill.tooltip_data.iter().flat_map(|td| {
-                        td.tooltip_ids.iter().zip(td.tooltip_types.iter()).enumerate().map(|(i, (id, ty))| {
-                            let tooltip_type = TooltipType::from_id(ty).unwrap();
-                            let label: String = format!("{} ({}): ", i + 1, tooltip_type).into();
-
-                            let is_ability = *id >= u8::MAX as u32;
-
-                            html! {
-                                <div>
-                                    <span>{ label }</span>
-
+                    if skill.u8[2] != 0 && skill.u8[2] != skill.ability_id1 {
+                        <div> 
+                            <span>{"Related to: "}</span>
+                            <span>
                                     {
-                                        if tooltip_type == TooltipType::FlatConstant {
-                                            html! {
-                                                <span>{ id }</span>
-                                            }
-                                        }  else if tooltip_type == TooltipType::PercentageConstant {
-                                            html! {
-                                                <span>{ format!("{}%", id) }</span>
-                                            }
-                                        } else if is_ability {
-                                            let ability_name = abilities
-                                                .get(id)
-                                                .unwrap_or(&"???".to_string())
-                                                .clone();
+                                        render_ability_link(&skill.u8[2], format!(
+                                            "{} ({})",
+                                            skill.u8[2],
+                                            abilities
+                                                .get(&skill.u8[2])
+                                                .unwrap_or(&"Unknown Ability".to_string())
+                                        ))
+                                    }
+                            </span>
+                        </div>
+                    }
+                    if let Some(ability_type) = AbilityType::from_id(&skill.base_data.ability_type) && skill.base_data.ability_type != 0 {
+                        <Field label="Ability Type: " value={format!("{} ({})", ability_type, skill.base_data.ability_type)} />
+                    } else if skill.base_data.ability_type != 0 {
+                        <Field label="Ability Type: " value={format!("? ({})", skill.base_data.ability_type)} />
+                    }
+                    if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) {
+                        <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
+                    }
+                    <>
+                        {render_value_field("Value 0: ", skill.base_data.value0, 0)}
+                        {render_value_field("Value 1: ", skill.base_data.value1, skill.base_data.value0)}
+                        {render_value_field("Value 2: ", skill.base_data.value2, skill.base_data.value1)}
+                    </>
+                    if skill.base_data.cast_time != 0 {
+                        <Field label="Cast Time: " value={format!("{}", format_duration(&skill.base_data.cast_time) )} />
+                    }
+                    if skill.base_data.duration != 0 {
+                        <Field label="Duration: " value={format!("{}", format_duration(&skill.base_data.duration) )} />
+                    }
+                    if skill.base_data.tick != 0 {
+                        <Field label="Tick: " value={format!("{}", format_duration(&skill.base_data.tick) )} />
+                    }
+                    if skill.base_data.start_tick != 0 {
+                        <Field label="Start Tick: " value={format!("{}", format_duration(&skill.base_data.start_tick.into()) )} />
+                    }
+                    if skill.base_data.range != 0 {
+                        <Field label="Range: " value={format!("{}m", (skill.base_data.range / 100).to_string())} />
+                    }
+                    if skill.base_data.radius != 0 {
+                        <Field label="Radius: " value={format!("{}m", (skill.base_data.radius / 100).to_string())} />
+                    }
+                    if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
+                        if skill.base_data.cost != 0 {
+                            <Field label="Resource Cost: " value={format!("{} ({})", skill.base_data.cost.to_string(), mech)} />
+                        }
+                    }
+                    if !skill.ability_tags.is_empty() {
+                        { tags }
+                    }
+                    // if skill.coef.coef1 != 0f32 {
+                    //     <Field label="Coef 1: " value={format!("{} ({})", skill.coef.coef1, match_coefficient_type(&skill.coef.type1).unwrap_or("Unknown".to_string()))} />
+                    // }
+                    // if skill.coef.coef2 != 0f32 {
+                    //     <Field label="Coef 2: " value={format!("{} ({})", skill.coef.coef2, match_coefficient_type(&skill.coef.type2).unwrap_or("Unknown".to_string()))} />
+                    // }
+                    // if skill.coef.coef3 != 0f32 {
+                    //     <Field label="Coef 3: " value={format!("{} ({})", skill.coef.coef3, match_coefficient_type(&skill.coef.type3).unwrap_or("Unknown".to_string()))} />
+                    // }
+                    // if skill.coef.coef4 != 0f32 {
+                    //     <Field label="Coef 4: " value={format!("{} ({})", skill.coef.coef4, match_coefficient_type(&skill.coef.type4).unwrap_or("Unknown".to_string()))} />
+                    // }
+                    if let Some(eq) = equation {
+                        <Field label="Equation: " value={eq} />
+                    }
+                    if let Some(tooltip) = tooltips.get(&skill.ability_id1) {
+                        <h4>{"Tooltip"}</h4>
+                        for t in tooltip {
+                            <div>{t.to_owned()}</div>
+                        }
+                        { for skill.tooltip_data.iter().flat_map(|td| {
+                            td.tooltip_ids.iter().zip(td.tooltip_types.iter()).enumerate().map(|(i, (id, ty))| {
+                                let tooltip_type = TooltipType::from_id(ty).unwrap();
+                                let label: String = format!("{} ({}): ", i + 1, tooltip_type).into();
 
-                                            html! {
-                                                <Link<Route>
-                                                    to={Ability { id: *id }}
-                                                >
-                                                    {ability_name}
-                                                </Link<Route>>
-                                            }
-                                        } else {
-                                            let value = match tooltip_type {
-                                                TooltipType::BuffExplanationText => {
-                                                    MajorMinorBuff::from_id(id)
-                                                        .map(|buff| buff.tooltip_value().to_string())
-                                                        .unwrap_or_else(|| {
-                                                            format!("Missing Tooltip Major/Minor Buff ({})", id)
-                                                        })
-                                                },
+                                let is_ability = *id >= u8::MAX as u32;
+                                let is_current = *id == skill.ability_id1;
+                                let ability_name = abilities
+                                    .get(id)
+                                    .unwrap_or(&"???".to_string())
+                                    .clone();
+
+                                html! {
+                                    <div>
+                                        <span>{ label }</span>
+
+                                        {
+                                            match tooltip_type {
+                                                TooltipType::FlatConstant => {
+                                                    html! { <span>{ id }</span> }
+                                                }
+
+                                                TooltipType::PercentageConstant => {
+                                                    html! { <span>{ format!("{}%", id) }</span> }
+                                                }
+
+                                                TooltipType::Percentage => {
+                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                        let value = get_value_adjusted(&skill.base_data.value1);
+                                                        (value != 0).then(|| format!("{}%", value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::Duration => {
+                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                        let value = skill.base_data.duration;
+                                                        (value != 0).then(|| format_duration(&value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::DelayedStrike => {
+                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                        let value = skill.base_data.duration;
+                                                        (value != 0).then(|| format_duration(&value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::TickRate => {
+                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                        let value = skill.base_data.tick;
+                                                        (value != 0).then(|| format_duration(&value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::MagicalDamage
+                                                | TooltipType::MartialDamage
+                                                | TooltipType::SingleTargetDoT => {
+                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                        SkillEquationFormatter::format(skill)
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::ResourceGain => {
+                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                        if get_value_adjusted(&skill.base_data.value1) != 0 {
+                                                            Some(get_value_adjusted(&skill.base_data.value1).to_string())
+                                                        } else if let Some(eq) = SkillEquationFormatter::format(skill) {
+                                                            Some(eq)
+                                                        } else {
+                                                            None
+                                                        }
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
                                                 _ => {
-                                                    MajorMinorBuff::from_id(id)
-                                                        .map(|buff| buff.to_string())
-                                                        .unwrap_or_else(|| {
-                                                            format!("Missing Tooltip Major/Minor Buff ({})", id)
-                                                        })
-                                                },
-                                            };
+                                                    if is_ability {
+                                                        let ability_name = abilities
+                                                            .get(&id)
+                                                            .unwrap_or(&"???".to_string())
+                                                            .clone();
 
-                                            html! {
-                                                <span>{ value }</span>
+                                                            render_ability_link_current(id, format!("{} ({})", ability_name, id), is_current)
+                                                    } else {
+                                                        let value = match tooltip_type {
+                                                            TooltipType::BuffExplanationText => {
+                                                                MajorMinorBuff::from_id(id)
+                                                                    .map(|b| b.tooltip_value().to_string())
+                                                                    .unwrap_or_else(|| {
+                                                                        format!("Missing Tooltip Major/Minor Buff ({})", id)
+                                                                    })
+                                                            }
+                                                            _ => {
+                                                                MajorMinorBuff::from_id(id)
+                                                                    .map(|b| b.to_string())
+                                                                    .unwrap_or_else(|| {
+                                                                        format!("Missing Tooltip Major/Minor Buff ({})", id)
+                                                                    })
+                                                            }
+                                                        };
+
+                                                        html! { 
+                                                            <span>{ value }</span> 
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
+                                    </div>
+                                }
+                            })
+                        }) }
+                    }
+                    if !skill.causes_ids.is_empty() {
+                        <h4>{ "Causes IDs" }</h4>
+                        <div>
+                            { for skill.causes_ids.iter().map(|cid: &u32| html! {
+                                <>
+                                    { 
+                                        render_ability_link(cid, format!("{} ({})", cid, abilities.get(cid).unwrap_or(&"?".to_string())))
                                     }
-                                </div>
-                            }
-                        })
-                    }) }
-                }
-                if !skill.causes_ids.is_empty() {
-                    <h4>{ "Causes IDs" }</h4>
-                    <div>
-                        { for skill.causes_ids.iter().map(|cid: &u32| html! {
-                            <>
-                                <Link<Route> to={Ability { id: *cid }}>
-                                    { format!(
-                                        "{} ({})",
-                                        cid,
-                                        abilities.get(cid).unwrap_or(&"?".to_string())
-                                    ) }
-                                </Link<Route>>
-                            <br />
-                            </>
-                        })}
-                    </div>
-                }
-                <div style="overflow: wrap;">
-                    <h4>{"Raw JSON Data"}</h4>
-                    <div>
-                        {serde_json::to_string_pretty(skill).unwrap_or_default()}
+                                <br />
+                                </>
+                            })}
+                        </div>
+                    }
+                    <div style="overflow: wrap;">
+                        <h4>{"Raw JSON Data"}</h4>
+                        <div>
+                            {serde_json::to_string_pretty(skill).unwrap_or_default()}
+                        </div>
                     </div>
                 </div>
-            </div>
             }
         },
     };
@@ -506,9 +464,7 @@ use_effect_with((id, props.index.clone()), {
     html! {
         <div>
             <nav>
-                <Link<Route>
-                    to={Route::Home}
-                >
+                <Link<Route> to={Route::Home}>
                     {"ESO ID Dictionary"}
                 </Link<Route>>
                 <span>{ " / " }</span>
