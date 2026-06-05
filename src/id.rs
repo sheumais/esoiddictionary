@@ -10,13 +10,14 @@ use eso_skill_data::enums::skill_line::SkillLine;
 use eso_skill_data::enums::tooltip_type::TooltipType;
 use eso_skill_data::SkillData34;
 use yew::prelude::*;
-use crate::fetch::fetch_bytes;
+use yew_router::components::Link;
+use crate::Route::{self, Ability};
+use crate::fetch::read_bytes;
 use crate::index_state::{IndexState, find_entry};
 
 
 const ABILITY_CSV: &str = include_str!("../static/ability_names.csv");
 const TOOLTIP_CSV: &str = include_str!("../static/ability_tooltips.csv");
-const DATA_URL:    &str = "static/data.bin";
 
 static ABILITIES: OnceLock<HashMap<u32, String>> = OnceLock::new();
 static TOOLTIPS:  OnceLock<HashMap<u32, Vec<String>>> = OnceLock::new();
@@ -105,7 +106,7 @@ pub fn id_data(props: &IdProps) -> Html {
     let skill_state = use_state(|| FetchState::<SkillData34>::Idle);
     let id = props.id;
 
-    use_effect_with((id, props.index.clone()), {
+use_effect_with((id, props.index.clone()), {
         let skill_state = skill_state.clone();
         move |(id, index)| {
             let id = *id;
@@ -114,7 +115,11 @@ pub fn id_data(props: &IdProps) -> Html {
                     skill_state.set(FetchState::Loading);
                 }
                 IndexState::Failed(e) => {
-                    skill_state.set(FetchState::Failed(format!("Index failed to load: {e}")));
+                    skill_state.set(
+                        FetchState::Failed(
+                            format!("Index failed to load: {e}")
+                        )
+                    );
                 }
                 IndexState::Ready(entries) => {
                     skill_state.set(FetchState::Loading);
@@ -122,13 +127,16 @@ pub fn id_data(props: &IdProps) -> Html {
                     wasm_bindgen_futures::spawn_local(async move {
                         let result = async {
                             let entry = find_entry(&entries, id)
-                                .ok_or_else(|| format!("No record found for ID {id}"))?;
-                            let bytes = fetch_bytes(
-                                DATA_URL,
-                                Some((entry.start_offset, entry.end_offset)),
-                            )
-                            .await?;
-                            SkillData34::from_bytes(&bytes).map_err(|e| e.to_string())
+                                .ok_or_else(|| {
+                                    format!("No record found for ID {id}")
+                                })?;
+
+                            let bytes = read_bytes(
+                                Some((entry.start_offset, entry.end_offset))
+                            )?;
+
+                            SkillData34::from_bytes(&bytes)
+                                .map_err(|e| e.to_string())
                         }
                         .await;
 
@@ -315,9 +323,17 @@ pub fn id_data(props: &IdProps) -> Html {
                     <div> 
                         <span>{"Caused By: "}</span>
                         <span>
-                            <a href={format!("/esoiddictionary/{}", skill.base_data.caused_by)}>
-                                {format!("{} ({})", skill.base_data.caused_by.to_string(), abilities.get(&skill.base_data.caused_by).unwrap_or(&"Unknown name".to_string()))}
-                            </a>
+                            <Link<Route> to={Route::Ability { id: skill.base_data.caused_by }}>
+                                {
+                                    format!(
+                                        "{} ({})",
+                                        skill.base_data.caused_by,
+                                        abilities
+                                            .get(&skill.base_data.caused_by)
+                                            .unwrap_or(&"Unknown name".to_string())
+                                    )
+                                }
+                            </Link<Route>>
                         </span>
                     </div>
                 }
@@ -325,9 +341,17 @@ pub fn id_data(props: &IdProps) -> Html {
                     <div> 
                         <span>{"Related to: "}</span>
                         <span>
-                            <a href={format!("/esoiddictionary/{}", skill.u8[2])}>
-                                {format!("{} ({})", skill.u8[2].to_string(), abilities.get(&skill.u8[2]).unwrap_or(&"Unknown name".to_string()))}
-                            </a>
+                            <Link<Route> to={Route::Ability { id: skill.u8[2] }}>
+                                {
+                                    format!(
+                                        "{} ({})",
+                                        skill.u8[2],
+                                        abilities
+                                            .get(&skill.u8[2])
+                                            .unwrap_or(&"Unknown name".to_string())
+                                    )
+                                }
+                            </Link<Route>>
                         </span>
                     </div>
                 }
@@ -417,9 +441,11 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 .clone();
 
                                             html! {
-                                                <a href={format!("/esoiddictionary/{}", id)}>
-                                                    { format!("{} ({})", ability_name, id) }
-                                                </a>
+                                                <Link<Route>
+                                                    to={Ability { id: *id }}
+                                                >
+                                                    {ability_name}
+                                                </Link<Route>>
                                             }
                                         } else {
                                             let value = match tooltip_type {
@@ -453,10 +479,16 @@ pub fn id_data(props: &IdProps) -> Html {
                     <h4>{ "Causes IDs" }</h4>
                     <div>
                         { for skill.causes_ids.iter().map(|cid: &u32| html! {
-                            <a href={format!("/esoiddictionary/{cid}")}>
-                                { format!("{} ({})", cid.to_string(), abilities.get(cid).unwrap_or(&"?".to_string())) }
+                            <>
+                                <Link<Route> to={Ability { id: *cid }}>
+                                    { format!(
+                                        "{} ({})",
+                                        cid,
+                                        abilities.get(cid).unwrap_or(&"?".to_string())
+                                    ) }
+                                </Link<Route>>
                             <br />
-                            </a>
+                            </>
                         })}
                     </div>
                 }
@@ -474,7 +506,11 @@ pub fn id_data(props: &IdProps) -> Html {
     html! {
         <div>
             <nav>
-                <a href="/esoiddictionary/">{ "ESO ID Dictionary" }</a>
+                <Link<Route>
+                    to={Route::Home}
+                >
+                    {"ESO ID Dictionary"}
+                </Link<Route>>
                 <span>{ " / " }</span>
                 <span>{ id.to_string() }</span>
             </nav>

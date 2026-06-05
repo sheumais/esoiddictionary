@@ -1,3 +1,10 @@
+use std::{io::{Cursor, Read}, sync::OnceLock};
+use ruzstd::decoding::StreamingDecoder;
+
+const COMPRESSED: &[u8; 7376427] = include_bytes!("../static/data.bin.zst");
+static DATA: OnceLock<Vec<u8>> = OnceLock::new();
+
+
 use wasm_bindgen_futures::JsFuture;
 use web_sys::{Headers, Request, RequestInit, Response, wasm_bindgen::JsCast};
 
@@ -34,4 +41,42 @@ pub async fn fetch_bytes(url: &str, range: Option<(u64, u64)>) -> Result<Vec<u8>
     .map_err(|e| format!("{e:?}"))?;
 
     Ok(js_sys::Uint8Array::new(&buf).to_vec())
+}
+
+pub async fn init_data() -> Result<(), String> {
+    if DATA.get().is_some() {
+        return Ok(());
+    }
+
+    let raw = Cursor::new(COMPRESSED);
+
+    let mut decoder = StreamingDecoder::new(raw).map_err(|e| e.to_string())?;
+
+    let mut decompressed = Vec::new();
+
+    decoder
+        .read_to_end(&mut decompressed)
+        .map_err(|e| e.to_string())?;
+
+    let _ = DATA.set(decompressed);
+
+    Ok(())
+}
+
+pub fn read_bytes(range: Option<(u64, u64)>) -> Result<&'static [u8], String> {
+    let data = DATA.get().ok_or("not initialized")?;
+
+    match range {
+        None => Ok(data.as_slice()),
+        Some((start,end)) => {
+            let s = start as usize;
+            let e = end as usize;
+
+            if e > data.len() {
+                return Err("out of bounds".into());
+            }
+
+            Ok(&data[s..e])
+        }
+    }
 }

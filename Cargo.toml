@@ -12,6 +12,7 @@ wasm-bindgen-futures = "0.4.71"
 js-sys = "0.3.98"
 serde_json = "1"
 chrono = "0.4.44"
+ruzstd = "0.8.3"
 
 #[patch."https://github.com/sheumais/esoskilldataformat"]
 #eso-skill-data = { path = "../eso_data_workspace/eso_skill_data" }

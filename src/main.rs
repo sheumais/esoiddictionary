@@ -8,7 +8,7 @@ use yew_router::prelude::*;
 use yew::prelude::*;
 use crate::id::{IdData, get_abilities};
 use crate::index_state::IndexState;
-use crate::fetch::fetch_bytes;
+use crate::fetch::{fetch_bytes, init_data};
 use crate::index_state::parse_index;
 
 mod id;
@@ -96,8 +96,13 @@ fn switch(route: Route, index: IndexState) -> Html {
             <div>
                 <h1>{ "404" }</h1>
                 <p>{ "No ability with that ID exists." }</p>
-                <a href="/esoiddictionary/search/">{ "Search by name" }</a>
-                <a href="/esoiddictionary/">{ "Home" }</a>
+                <p>
+                    <Link<Route>
+                        to={Route::Search}
+                    >
+                        {"Search by name"}
+                    </Link<Route>>
+                </p>
             </div>
         },
     };
@@ -107,7 +112,7 @@ fn switch(route: Route, index: IndexState) -> Html {
             { content }
             </div>
             <footer>
-                {"Made by "}<a href="https://github.com/sheumais">{"sheumais"}</a>{", with huge thanks to Dave from UESP. "}<a href="https://github.com/sheumais/esoiddictionary/">{"Source code"}</a>{" licensed under GPLv2"}
+                {"Made by "}<a target="_blank" href="https://github.com/sheumais">{"sheumais"}</a>{", with huge thanks to Dave from UESP. "}<a target="_blank" href="https://github.com/sheumais/esoiddictionary/">{"Source code"}</a>{" licensed under GPLv2"}
             </footer>
         </>
     }
@@ -159,10 +164,13 @@ pub fn skill_line_index() -> Html {
                             { for ids.iter()
                                 .map(|id| html! {
                                     <div>
-                                        <a style="font-size: 0.9em;" href={format!("{}", id)} key={*id}>
-                                            { format!("{}", ability_names.get(id).unwrap_or(&"?".to_string())) }
-                                        </a>
-                                        <br />
+                                        <div style="font-size: 0.9em; margin: 1px;">
+                                            <Link<Route>
+                                                to={Route::Ability { id: *id }}
+                                            >
+                                                {format!("{}", ability_names.get(id).unwrap_or(&"???".to_string()))}
+                                            </Link<Route>>
+                                        </div>
                                     </div>
                                 })
                             }
@@ -181,9 +189,11 @@ pub fn skill_line_index() -> Html {
                             .filter(|i| !ability_names.get(i).map_or("?", |f| f.as_str()).contains("Vengeance"))
                             .map(|id| html! {
                                 <div>
-                                    <a style="font-size: 0.9em;" href={format!("{}", id)} key={*id}>
-                                        { format!("{}", ability_names.get(id).unwrap_or(&"?".to_string())) }
-                                    </a>
+                                    <Link<Route>
+                                        to={Route::Ability { id: *id }}
+                                    >
+                                        {format!("{}", ability_names.get(id).unwrap_or(&"Unknown ability".to_string()))}
+                                    </Link<Route>>
                                     <br />
                                 </div>
                             })
@@ -232,7 +242,11 @@ fn home() -> Html {
                 </form>
                 <span style="margin: 1em;"> 
                 {"or "}
-                <a href="/esoiddictionary/search">{"search by name"}</a>
+                <Link<Route>
+                        to={Route::Search}
+                    >
+                        {"Search by name"}
+                    </Link<Route>>
                 </span>
             </div>
             <SkillLineComponent />
@@ -281,7 +295,11 @@ pub fn list_component() -> Html {
     html! {
         <div>
             <nav style="margin-bottom: 1em;">
-                <a href="/esoiddictionary/">{ "ESO ID Dictionary" }</a>
+                <Link<Route>
+                    to={Route::Home}
+                >
+                    {"ESO ID Dictionary"}
+                </Link<Route>>
                 <span>{ " / " }</span>
                 <span>{ "Search" }</span>
             </nav>
@@ -293,7 +311,12 @@ pub fn list_component() -> Html {
             />
             <p>{ format!("Showing {} results", filtered.len()) }</p>
             { filtered.iter().map(|(id, name)| html! {
-                <><a href={format!("/esoiddictionary/{}", id)}>{ format!("{} ({})", name, id) }</a><br/></>
+                <>
+                    <Link<Route> to={Route::Ability { id: **id }}>
+                        { format!("{} ({})", name, id) }
+                    </Link<Route>>
+                    <br />
+                </>
             }).collect::<Html>() }
         </div>
     }
@@ -315,8 +338,16 @@ fn app() -> Html {
 
                 index.set(match result {
                     Ok(entries) => IndexState::Ready(entries),
-                    Err(e)                    => IndexState::Failed(e),
+                    Err(e) => IndexState::Failed(e),
                 });
+            });
+
+            wasm_bindgen_futures::spawn_local(async move {
+                if let Err(e) = init_data().await {
+                    web_sys::console::error_1(
+                        &format!("Failed to initialize data: {e}").into()
+                    );
+                }
             });
             || ()
         }

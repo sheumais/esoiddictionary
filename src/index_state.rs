@@ -11,6 +11,11 @@ pub fn parse_index(bytes: &[u8]) -> Result<Vec<SkillIndexEntry>, String> {
     if bytes.len() < 4 {
         return Err("index.bin too short".into());
     }
+    let preview: Vec<String> = bytes[..16.min(bytes.len())]
+    .iter()
+    .map(|b| format!("{b:02X}"))
+    .collect();
+web_sys::console::log_1(&format!("First 16 bytes: {}", preview.join(" ")).into());
     let count = u32::from_be_bytes(bytes[0..4].try_into().unwrap()) as usize;
     let expected = 4 + count * 20;
     if bytes.len() < expected {
