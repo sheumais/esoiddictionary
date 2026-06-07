@@ -29,7 +29,7 @@ pub fn get_abilities() -> &'static HashMap<u32, String> {
             .filter_map(|line| {
                 let parts = csv_split(line);
                 let id: u32 = parts.first()?.trim().parse().ok()?;
-                let name    = parts.last()?.trim().to_string();
+                let name = parts.last()?.trim().to_string();
                 Some((id, name))
             })
             .collect()
@@ -319,7 +319,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                 let label: String = format!("{} ({}): ", i + 1, tooltip_type).into();
 
                                 let is_ability = *id >= u8::MAX as u32;
-                                let is_current = *id == skill.ability_id1;
+                                let mut is_current = *id == skill.ability_id1;
                                 let ability_name = abilities
                                     .get(id)
                                     .unwrap_or(&"???".to_string())
@@ -357,6 +357,15 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
+                                                TooltipType::MinimumCooldown => {
+                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                        let value = skill.base_data.value0;
+                                                        (value != 0).then(|| format_duration(&value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
                                                 TooltipType::DelayedStrike => {
                                                     let display = with_skill(&id, &ability_name, |skill| {
                                                         let value = skill.base_data.duration;
@@ -387,7 +396,10 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                 TooltipType::ResourceGain => {
                                                     let display = with_skill(&id, &ability_name, |skill| {
-                                                        if get_value_adjusted(&skill.base_data.value1) != 0 {
+                                                        if let Some(b) = MajorMinorBuff::from_str(&ability_name) {
+                                                            is_current = true;
+                                                            Some(format!("{}", b.tooltip_value().to_string()))
+                                                        } else if get_value_adjusted(&skill.base_data.value1) != 0 {
                                                             Some(get_value_adjusted(&skill.base_data.value1).to_string())
                                                         } else if let Some(eq) = SkillEquationFormatter::format(skill) {
                                                             Some(eq)

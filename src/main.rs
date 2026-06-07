@@ -67,6 +67,8 @@ enum Route {
     Home,
     #[at("/search")]
     Search,
+    #[at("/search/:query")]
+    SearchQuery { query: String },
     #[at("/:id")]
     Ability { id: u32 },
     #[not_found]
@@ -98,14 +100,15 @@ fn switch_with_index(props: &SwitchProps) -> Html {
 fn switch(route: Route, index: IndexState) -> Html {
     let content = match route {
         Route::Home => html! { <Home /> },
-        Route::Search => html! { <Search /> },
+        Route::SearchQuery {query } => html! { <Search {query} /> },
+        Route::Search => html! {<Search query={String::new()} />},
         Route::Ability { id } => html! { <IdData {id} {index} /> },
         Route::NotFound => html! {
             <div>
                 <h1>{ "404" }</h1>
                 <p>{ "No ability with that ID exists." }</p>
                 <p>
-                    <Link<Route> to={Route::Search}>
+                    <Link<Route> to={Route::SearchQuery {query: String::new()}}>
                         {"Search by name"}
                     </Link<Route>>
                 </p>
@@ -251,7 +254,7 @@ fn home() -> Html {
                 </form>
                 <span style="margin: 1em;"> 
                     {"or "}
-                    <Link<Route> to={Route::Search}>
+                    <Link<Route> to={Route::SearchQuery {query: String::new()}}>
                         {"Search by name"}
                     </Link<Route>>
                 </span>
@@ -261,16 +264,52 @@ fn home() -> Html {
     }
 }
 
+#[derive(Properties, PartialEq)]
+pub struct SearchProps {
+    pub query: String,
+}
+
 #[function_component(Search)]
-pub fn list_component() -> Html {
+pub fn search(props: &SearchProps) -> Html {
     let ability_names = get_abilities();
-    let query = use_state(|| String::new());
+
+    let query = use_state(|| props.query.clone());
+
+    {
+        let query = query.clone();
+        let route_query = props.query.clone();
+
+        use_effect_with(route_query, move |q| {
+            query.set(q.clone());
+            if let Some(document) = web_sys::window().and_then(|w| w.document()) {
+                if q.is_empty() {
+                    document.set_title("Search - ESO ID Dictionary");
+                } else {
+                    document.set_title(format!("'{}' Search - ESO ID Dictionary", q.clone()).as_str());
+                }
+            }
+            || ()
+        });
+    }
+
+    let navigator = use_navigator().unwrap();
 
     let on_input = {
         let query = query.clone();
+        let navigator = navigator.clone();
         Callback::from(move |e: InputEvent| {
             let input = e.target_unchecked_into::<HtmlInputElement>();
-            query.set(input.value());
+            let value = input.value();
+
+            query.set(value.clone());
+
+            if value.trim().is_empty() {
+                navigator.replace(&Route::Search);
+            } else {
+                navigator.replace(&Route::SearchQuery {
+                    query: value,
+                });
+            }
         })
     };
 
@@ -295,7 +334,7 @@ pub fn list_component() -> Html {
                 })
                 .collect();
             v.sort_by_key(|(id, _)| *id);
-            v.into_iter().collect()
+            v
         }
     };
 
@@ -305,8 +344,7 @@ pub fn list_component() -> Html {
                 <Link<Route> to={Route::Home}>
                     {"ESO ID Dictionary"}
                 </Link<Route>>
-                <span>{ " / " }</span>
-                <span>{ "Search" }</span>
+                <span>{ " / Search" }</span>
             </nav>
             <input
                 type="text"
@@ -315,14 +353,15 @@ pub fn list_component() -> Html {
                 value={(*query).clone()}
             />
             <p>{ format!("Showing {} results", filtered.len()) }</p>
-            { filtered.iter().map(|(id, name)| html! {
-                <>
-                    {
-                        render_ability_link(*id, format!("{} ({})", name, id))
-                    }
-                    <br />
-                </>
-            }).collect::<Html>() }
+
+            {
+                filtered.iter().map(|(id, name)| html! {
+                    <>
+                        { render_ability_link(*id, format!("{} ({})", name, id)) }
+                        <br />
+                    </>
+                }).collect::<Html>()
+            }
         </div>
     }
 }
