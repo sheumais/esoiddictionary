@@ -115,6 +115,10 @@ pub fn get_value_adjusted(value: &u32) -> u32 {
     }
 }
 
+pub fn format_distance(cm: &u32) -> String {
+    format!("{}m", (cm / 100))
+}
+
 pub fn with_skill<F>(id: &u32, ability_name: &str, f: F) -> String
 where
     F: FnOnce(&SkillData34) -> Option<String>,

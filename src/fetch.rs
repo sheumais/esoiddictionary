@@ -52,14 +52,11 @@ pub fn get_skill(id: &u32) -> Option<SkillData34> {
             let data = read_bytes(Some((i.start_offset, i.end_offset)));
             match data {
                 Ok(a) => {
-                    match SkillData34::from_bytes(a) {
-                        Ok(record) => {return Some(record)}
-                        Err(_) => return None,
-                    }
+                    SkillData34::from_bytes(a).ok()
                 },
-                Err(_) => return None,
+                Err(_) => None,
             }
         },
-        None => return None,
+        None => None,
     }
 }

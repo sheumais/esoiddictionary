@@ -26,11 +26,10 @@ fn get_groups() -> &'static Vec<(u32, Vec<u32>)> {
         let mut map: HashMap<u32, Vec<u32>> = HashMap::new();
         for line in SKILL_CSV.lines() {
             let mut parts = line.splitn(3, ',');
-            if let (Some(id), Some(sl), Some(_ts)) = (parts.next(), parts.next(), parts.next()) {
-                if let (Ok(id), Ok(sl)) = (id.trim().parse::<u32>(), sl.trim().parse::<u32>()) {
+            if let (Some(id), Some(sl), Some(_ts)) = (parts.next(), parts.next(), parts.next())
+                && let (Ok(id), Ok(sl)) = (id.trim().parse::<u32>(), sl.trim().parse::<u32>()) {
                     map.entry(sl).or_default().push(id);
                 }
-            }
         }
         let mut groups: Vec<(u32, Vec<u32>)> = map.into_iter().collect();
         groups.sort_by_key(|(sl, _)| *sl);
@@ -46,11 +45,10 @@ fn get_timestamps() -> &'static Vec<(u32, Vec<u32>)> {
         let mut ts_map: HashMap<u32, Vec<u32>> = HashMap::new();
         for line in SKILL_CSV.lines() {
             let mut parts = line.splitn(3, ',');
-            if let (Some(id), Some(_sl), Some(ts)) = (parts.next(), parts.next(), parts.next()) {
-                if let (Ok(id), Ok(ts)) = (id.trim().parse::<u32>(), ts.trim().parse::<u32>()) {
+            if let (Some(id), Some(_sl), Some(ts)) = (parts.next(), parts.next(), parts.next())
+                && let (Ok(id), Ok(ts)) = (id.trim().parse::<u32>(), ts.trim().parse::<u32>()) {
                     ts_map.entry(ts).or_default().push(id);
                 }
-            }
         }
         let mut timestamps: Vec<(u32, Vec<u32>)> = ts_map.into_iter().collect();
         timestamps.sort_by_key(|(ts, _)| *ts);
@@ -175,7 +173,7 @@ pub fn skill_line_index() -> Html {
                                     <div>
                                         <div style="font-size: 0.9em; margin: 1px;">
                                         {
-                                            render_ability_link(id, format!("{}", ability_names.get(id).unwrap_or(&"???".to_string())))
+                                            render_ability_link(id, ability_names.get(id).unwrap_or(&"???".to_string()).to_string())
                                         }
                                         </div>
                                     </div>
@@ -197,7 +195,7 @@ pub fn skill_line_index() -> Html {
                             .map(|id| html! {
                                 <div style="font-size: 0.9em; margin: 1px;">
                                     {
-                                        render_ability_link(id, format!("{}", ability_names.get(id).unwrap_or(&"???".to_string())))
+                                        render_ability_link(id, ability_names.get(id).unwrap_or(&"???".to_string()).to_string())
                                     }
                                     <br />
                                 </div>
@@ -357,7 +355,7 @@ pub fn search(props: &SearchProps) -> Html {
             {
                 filtered.iter().map(|(id, name)| html! {
                     <>
-                        { render_ability_link(*id, format!("{} ({})", name, id)) }
+                        { render_ability_link(id, format!("{} ({})", name, id)) }
                         <br />
                     </>
                 }).collect::<Html>()

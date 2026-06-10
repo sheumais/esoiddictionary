@@ -3,6 +3,7 @@ use chrono::DateTime;
 use eso_skill_data::enums::ability_tag::AbilityTag;
 use eso_skill_data::enums::ability_type::AbilityType;
 use eso_skill_data::enums::damage_type::DamageType;
+use eso_skill_data::enums::flags::*;
 use eso_skill_data::enums::major_minor::MajorMinorBuff;
 use eso_skill_data::enums::mechanic::Mechanic;
 use eso_skill_data::enums::skill_line::SkillLine;
@@ -12,7 +13,7 @@ use yew::prelude::*;
 use yew_router::components::Link;
 use crate::Route::{self};
 use crate::fetch::read_bytes;
-use crate::format::{SkillEquationFormatter, format_duration, get_value_adjusted, render_ability_link, render_ability_link_current, with_skill};
+use crate::format::{SkillEquationFormatter, format_distance, format_duration, get_value_adjusted, render_ability_link, render_ability_link_current, with_skill};
 use crate::index_state::{IndexState, find_entry};
 
 
@@ -117,7 +118,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                 Some((entry.start_offset, entry.end_offset))
                             )?;
 
-                            SkillData34::from_bytes(&bytes)
+                            SkillData34::from_bytes(bytes)
                                 .map_err(|e| e.to_string())
                         }
                         .await;
@@ -163,7 +164,7 @@ pub fn id_data(props: &IdProps) -> Html {
             let mut tags: Vec<String> = Vec::new();
             for id in &skill.ability_tags {
                 let s = match AbilityTag::from_id(id) {
-                    Some(i) => {format!("{} ({})", i.as_str().to_string(), id)},
+                    Some(i) => {format!("{} ({})", i.as_str(), id)},
                     None => {format!("{}", id)},
                 };
                 tags.push(s);
@@ -268,27 +269,36 @@ pub fn id_data(props: &IdProps) -> Html {
                         {render_value_field("Value 2: ", skill.base_data.value2, skill.base_data.value1)}
                     </>
                     if skill.base_data.cast_time != 0 {
-                        <Field label="Cast Time: " value={format!("{}", format_duration(&skill.base_data.cast_time) )} />
+                        <Field label="Cast Time: " value={format_duration(&skill.base_data.cast_time) } />
                     }
                     if skill.base_data.duration != 0 {
-                        <Field label="Duration: " value={format!("{}", format_duration(&skill.base_data.duration) )} />
+                        <Field label="Duration: " value={format_duration(&skill.base_data.duration) } />
                     }
                     if skill.base_data.tick != 0 {
-                        <Field label="Tick: " value={format!("{}", format_duration(&skill.base_data.tick) )} />
+                        <Field label="Tick: " value={format_duration(&skill.base_data.tick) } />
                     }
                     if skill.base_data.start_tick != 0 {
-                        <Field label="Start Tick: " value={format!("{}", format_duration(&skill.base_data.start_tick.into()) )} />
+                        <Field label="Start Tick: " value={format_duration(&skill.base_data.start_tick.into())} />
                     }
                     if skill.base_data.range != 0 {
-                        <Field label="Range: " value={format!("{}m", (skill.base_data.range / 100).to_string())} />
+                        <Field label="Range: " value={format_distance(&skill.base_data.range) } />
                     }
                     if skill.base_data.radius != 0 {
-                        <Field label="Radius: " value={format!("{}m", (skill.base_data.radius / 100).to_string())} />
+                        <Field label="Radius: " value={format_distance(&skill.base_data.radius)} />
+                    }
+                    if skill.base_data.angle != 0.0 {
+                        <Field label="Angle: " value={format!("{}°", skill.base_data.angle.to_string())} />
                     }
                     if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
                         if skill.base_data.cost != 0 {
                             <Field label="Resource Cost: " value={format!("{} ({})", skill.base_data.cost.to_string(), mech)} />
                         }
+                    }
+                    if skill.flags[FLAG_TOGGLED] == 1 {
+                        <Field label="Toggled: " value={"True"} />
+                    }
+                    if skill.flags[FLAG_COST_PER_TICK] == 1 {
+                        <Field label="Cost drained per second: " value={"True"} />
                     }
                     if !skill.ability_tags.is_empty() {
                         { tags }
@@ -339,8 +349,8 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     html! { <span>{ format!("{}%", id) }</span> }
                                                 }
 
-                                                TooltipType::Percentage => {
-                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                TooltipType::Percentage | TooltipType::StatPercentage => {
+                                                    let display = with_skill(id, &ability_name, |skill| {
                                                         let value = get_value_adjusted(&skill.base_data.value1);
                                                         (value != 0).then(|| format!("{}%", value))
                                                     });
@@ -348,8 +358,8 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
-                                                TooltipType::Duration => {
-                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                TooltipType::Duration | TooltipType::DelayedStrike => {
+                                                    let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.duration;
                                                         (value != 0).then(|| format_duration(&value))
                                                     });
@@ -358,7 +368,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 }
 
                                                 TooltipType::MinimumCooldown => {
-                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                    let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.value0;
                                                         (value != 0).then(|| format_duration(&value))
                                                     });
@@ -366,17 +376,17 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
-                                                TooltipType::DelayedStrike => {
-                                                    let display = with_skill(&id, &ability_name, |skill| {
-                                                        let value = skill.base_data.duration;
-                                                        (value != 0).then(|| format_duration(&value))
+                                                TooltipType::Knockback => {
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        let value = skill.base_data.value1;
+                                                        (value != 0).then(|| format_distance(&value))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
                                                 TooltipType::TickRate => {
-                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                    let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.tick;
                                                         (value != 0).then(|| format_duration(&value))
                                                     });
@@ -387,7 +397,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 TooltipType::MagicalDamage
                                                 | TooltipType::MartialDamage
                                                 | TooltipType::SingleTargetDoT => {
-                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                    let display = with_skill(id, &ability_name, |skill| {
                                                         SkillEquationFormatter::format(skill)
                                                     });
 
@@ -395,17 +405,13 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 }
 
                                                 TooltipType::ResourceGain => {
-                                                    let display = with_skill(&id, &ability_name, |skill| {
+                                                    let display = with_skill(id, &ability_name, |skill| {
                                                         if let Some(b) = MajorMinorBuff::from_str(&ability_name) {
                                                             is_current = true;
-                                                            Some(format!("{}", b.tooltip_value().to_string()))
+                                                            Some(format!("{}", b.tooltip_value()))
                                                         } else if get_value_adjusted(&skill.base_data.value1) != 0 {
                                                             Some(get_value_adjusted(&skill.base_data.value1).to_string())
-                                                        } else if let Some(eq) = SkillEquationFormatter::format(skill) {
-                                                            Some(eq)
-                                                        } else {
-                                                            None
-                                                        }
+                                                        } else { SkillEquationFormatter::format(skill) }
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
@@ -414,7 +420,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 _ => {
                                                     if is_ability {
                                                         let ability_name = abilities
-                                                            .get(&id)
+                                                            .get(id)
                                                             .unwrap_or(&"???".to_string())
                                                             .clone();
 
