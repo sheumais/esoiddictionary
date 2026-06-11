@@ -66,11 +66,16 @@ impl SkillEquationFormatter {
             ));
         }
 
+        let coef_str = |id: &_| {
+            CoefficientType::from_id(id)
+            .map(|t| t.as_str().to_string())
+            .unwrap_or_else(|| format!("unknown({})", id))
+        };
         let mut terms = Vec::new();
-        if h1 { terms.push(CoefficientType::from_id(&c.type1).unwrap().as_str().to_string()); }
-        if h2 { terms.push(CoefficientType::from_id(&c.type2).unwrap().as_str().to_string()); }
-        if h3 { terms.push(CoefficientType::from_id(&c.type3).unwrap().as_str().to_string()); }
-        if h4 { terms.push(CoefficientType::from_id(&c.type4).unwrap().as_str().to_string()); }
+        if h1 { terms.push(coef_str(&c.type1)); }
+        if h2 { terms.push(coef_str(&c.type2)); }
+        if h3 { terms.push(coef_str(&c.type3)); }
+        if h4 { terms.push(coef_str(&c.type4)); }
 
         Some(terms.join(" + "))
     }
