@@ -1,4 +1,4 @@
-use eso_skill_data::{SkillData34, enums::coefficient_type::CoefficientType};
+use eso_skill_data::{SkillCoef, SkillData34, enums::coefficient_type::CoefficientType};
 use yew::{Html, html};
 use yew_router::components::Link;
 
@@ -27,57 +27,59 @@ impl SkillEquationFormatter {
         }
     }
 
-    fn render_coef(c: &eso_skill_data::SkillCoef) -> Option<String> {
-        let h1 = c.type1 != 0 || c.coef1 != 0.0;
-        let h2 = c.type2 != 0 || c.coef2 != 0.0;
-        let h3 = c.type3 != 0 || c.coef3 != 0.0;
-        let h4 = c.type4 != 0 || c.coef4 != 0.0;
+    fn render_coef(c: &SkillCoef) -> Option<String> {
+        let terms: Vec<(u8, f32)> = [
+            (c.type1, c.coef1),
+            (c.type2, c.coef2),
+            (c.type3, c.coef3),
+            (c.type4, c.coef4),
+        ]
+        .into_iter()
+        .filter(|(ty, coef)| *ty > 0 && *coef > 0.0)
+        .collect();
 
-        let is_mirror =
-            h1 && h2 && h3 && h4
-                && c.coef1 == c.coef3
-                && c.coef2 == c.coef4
-                && Self::is_weapon_spell(c.type1)
-                && Self::is_weapon_spell(c.type3)
-                && Self::is_resource(c.type2)
-                && Self::is_resource(c.type4);
-
-        if !h1 && !h2 && !h3 && !h4 {
+        if terms.is_empty() {
             return None;
         }
 
-        if is_mirror {
-            return Some(format!(
-                "{} + {}",
-                Self::paired_term(c.type1, c.type3, c.coef1),
-                Self::paired_term(c.type2, c.type4, c.coef2),
-            ));
-        }
-
-        if h1 && !h2 && h3 && !h4 {
-            return Some(Self::paired_term(c.type1, c.type3, c.coef1));
-        }
-
-        if h1 && !h2 && !h3 && !h4 {
-            return Some(format!(
-                "{}×{}",
-                c.coef1,
-                CoefficientType::from_id(&c.type1).unwrap().as_str()
-            ));
-        }
-
-        let coef_str = |id: &_| {
-            CoefficientType::from_id(id)
-            .map(|t| t.as_str().to_string())
-            .unwrap_or_else(|| format!("unknown({})", id))
+        let coef_str = |id, coef| {
+            CoefficientType::from_id(&id)
+                .map(|t| format!("{coef}×{}", t.as_str()))
+                .unwrap_or_else(|| format!("{coef}×unknown({id})"))
         };
-        let mut terms = Vec::new();
-        if h1 { terms.push(coef_str(&c.type1)); }
-        if h2 { terms.push(coef_str(&c.type2)); }
-        if h3 { terms.push(coef_str(&c.type3)); }
-        if h4 { terms.push(coef_str(&c.type4)); }
 
-        Some(terms.join(" + "))
+        if let [(t1, c1), (t2, c2), (t3, c3), (t4, c4)] = terms.as_slice() {
+            if c1 == c3
+                && c2 == c4
+                && Self::is_weapon_spell(*t1)
+                && Self::is_resource(*t2)
+                && Self::is_weapon_spell(*t3)
+                && Self::is_resource(*t4)
+            {
+                return Some(format!(
+                    "{} + {}",
+                    Self::paired_term(*t1, *t3, *c1),
+                    Self::paired_term(*t2, *t4, *c2),
+                ));
+            }
+        }
+
+        if let [(t1, c1), (t3, c3)] = terms.as_slice() {
+            if c1 == c3
+                && Self::is_weapon_spell(*t1)
+                && Self::is_weapon_spell(*t3)
+            {
+                return Some(Self::paired_term(*t1, *t3, *c1));
+            }
+        }
+
+        Some(
+            terms
+                .into_iter()
+                .map(|(id, coef)| coef_str(id, coef))
+                .collect::<Vec<_>>()
+                .join(" + "),
+        )
     }
 
     pub fn format(skill: &SkillData34) -> Option<String> {

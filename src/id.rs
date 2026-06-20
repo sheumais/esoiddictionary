@@ -149,7 +149,9 @@ pub fn id_data(props: &IdProps) -> Html {
         FetchState::Loading => html! {
             <div>
                 <span>{ "Fetching record…" }</span>
-                <span>{ "If this takes a very long time (5+ seconds), please try refreshing the page." }</span>
+                <span>{ "If this takes a very long time (5+ seconds), please try refreshing the page."}</span>
+                <p>{ "If it never loads, please check the browser console (usually F12) and report the error to me (@themrpancake at discord.gg/FjJjXHjUQ4)."}</p>
+                <p>{ "I will need the link to the page you are currently on so please pre-emptively send that. Thank you." }</p>
             </div>
         },
         FetchState::Failed(e) => html! {
@@ -241,7 +243,7 @@ pub fn id_data(props: &IdProps) -> Html {
                     }
                     if skill.u8[2] != 0 && skill.u8[2] != skill.ability_id1 {
                         <div> 
-                            <span>{"Related to: "}</span>
+                            <span>{"Replaces: "}</span>
                             <span>
                                     {
                                         render_ability_link(&skill.u8[2], format!(
@@ -298,7 +300,7 @@ pub fn id_data(props: &IdProps) -> Html {
                         <Field label="Toggled: " value={"True"} />
                     }
                     if skill.flags[FLAG_COST_PER_TICK] == 1 {
-                        <Field label="Cost drained per second: " value={"True"} />
+                        <Field label="Cost drained multiple times over activation: " value={"True"} />
                     }
                     if !skill.ability_tags.is_empty() {
                         { tags }
@@ -376,7 +378,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
-                                                TooltipType::Knockback => {
+                                                TooltipType::Knockback | TooltipType::SelfHeal => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.value1;
                                                         (value != 0).then(|| format_distance(&value))
