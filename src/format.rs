@@ -126,9 +126,9 @@ pub fn format_distance(cm: &u32) -> String {
     format!("{}m", (cm / 100))
 }
 
-pub fn with_skill<F>(id: &u32, ability_name: &str, f: F) -> String
+pub fn with_skill<F>(id: &u32, ability_name: &str, mut f: F) -> String
 where
-    F: FnOnce(&SkillData34) -> Option<String>,
+    F: FnMut(&SkillData34) -> Option<String>,
 {
     match get_skill(id) {
         Some(skill) => f(&skill).unwrap_or_else(|| fallback(ability_name, id)),

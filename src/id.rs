@@ -305,20 +305,18 @@ pub fn id_data(props: &IdProps) -> Html {
                     if !skill.ability_tags.is_empty() {
                         { tags }
                     }
-                    // if skill.coef.coef1 != 0f32 {
-                    //     <Field label="Coef 1: " value={format!("{} ({})", skill.coef.coef1, match_coefficient_type(&skill.coef.type1).unwrap_or("Unknown".to_string()))} />
-                    // }
-                    // if skill.coef.coef2 != 0f32 {
-                    //     <Field label="Coef 2: " value={format!("{} ({})", skill.coef.coef2, match_coefficient_type(&skill.coef.type2).unwrap_or("Unknown".to_string()))} />
-                    // }
-                    // if skill.coef.coef3 != 0f32 {
-                    //     <Field label="Coef 3: " value={format!("{} ({})", skill.coef.coef3, match_coefficient_type(&skill.coef.type3).unwrap_or("Unknown".to_string()))} />
-                    // }
-                    // if skill.coef.coef4 != 0f32 {
-                    //     <Field label="Coef 4: " value={format!("{} ({})", skill.coef.coef4, match_coefficient_type(&skill.coef.type4).unwrap_or("Unknown".to_string()))} />
-                    // }
                     if let Some(eq) = equation {
                         <Field label="Equation: " value={eq} />
+                    }
+                    if skill.size13a == 1 { // always 1 or 0, guaranteed by debug_assert in SkillData34 struct
+                        if let Some(entry) = skill.list13a.first() {
+                            if entry.threshold_below_health_pct > 0 {
+                                <Field label="Increase equation below health: " value={format!("{}%", entry.threshold_below_health_pct.to_string())} />
+                            }
+                            if entry.bonus_up_to_pct > 0 {
+                                <Field label="Increase equation by up to: " value={format!("{}%", entry.bonus_up_to_pct.to_string())} />
+                            }
+                        }
                     }
                     if let Some(tooltip) = tooltips.get(&skill.ability_id1) {
                         <h4>{"Tooltip"}</h4>
@@ -414,6 +412,24 @@ pub fn id_data(props: &IdProps) -> Html {
                                                         } else if get_value_adjusted(&skill.base_data.value1) != 0 {
                                                             Some(get_value_adjusted(&skill.base_data.value1).to_string())
                                                         } else { SkillEquationFormatter::format(skill) }
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::BonusUpToPercent => {
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        let value = if let Some(i) = skill.list13a.first(){i.bonus_up_to_pct} else {0};
+                                                        (value != 0).then(|| format!("{}%", &value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::ThresholdBelowHealthPercent => {
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        let value = if let Some(i) = skill.list13a.first(){i.threshold_below_health_pct} else {0};
+                                                        (value != 0).then(|| format!("{}%", &value))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)

@@ -3,7 +3,7 @@ use std::sync::OnceLock;
 
 use yew_router::prelude::*;
 use yew::prelude::*;
-use crate::id::IdData;
+use crate::id::{IdData, get_abilities};
 use crate::index_state::{IndexState, init_index_cache};
 use crate::fetch::init_data;
 use crate::search::{Search, SkillLineComponent, SkillLineSummary};
@@ -127,6 +127,16 @@ fn home() -> Html {
         })
     };
 
+    let on_random = {
+        let navigator = navigator.clone();
+        Callback::from(move |_: MouseEvent| {
+            let abilities = get_abilities();
+            let ids: Vec<u32> = abilities.keys().copied().collect();
+            let index = (js_sys::Math::random() * ids.len() as f64) as usize;
+            navigator.push(&Route::Ability { id: ids[index] });
+        })
+    };
+
     use_effect(|| {
         if let Some(document) = web_sys::window().and_then(|w| w.document()) {
             document.set_title("ESO ID Dictionary");
@@ -150,6 +160,12 @@ fn home() -> Html {
                     />
                     <button type="submit">{ "Go" }</button>
                 </form>
+                <p>
+                    <span>{ "or take me somewhere " }</span>
+                    <span>
+                        <a onclick={on_random} style="cursor: pointer; color: LinkText">{"random"}</a>
+                    </span>
+                </p>
             </div>
             <SkillLineComponent />
         </div>
