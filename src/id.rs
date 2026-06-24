@@ -12,8 +12,8 @@ use eso_skill_data::SkillData34;
 use yew::prelude::*;
 use yew_router::components::Link;
 use crate::Route::{self};
-use crate::fetch::read_bytes;
-use crate::format::{SkillEquationFormatter, format_distance, format_duration, get_value_adjusted, render_ability_link, render_ability_link_current, with_skill};
+use crate::fetch::{get_skill, read_bytes};
+use crate::format::{SkillEquationFormatter, fallback, format_distance, format_duration, get_value_adjusted, render_ability_link, render_ability_link_current, with_skill};
 use crate::index_state::{IndexState, find_entry};
 
 
@@ -193,7 +193,7 @@ pub fn id_data(props: &IdProps) -> Html {
                         <Field label="Skill Line: " value={format!("{} ({})", skill_line, skill.base_data.skill_line_id)} />
                     } else if skill.base_data.skill_line_id != 0 {
                         <Field label="Skill Line: " value={format!("? ({})", skill.base_data.skill_line_id)} />
-                    } else if let Some(weapon_skill_line) = match &skill.u15[0] {
+                    } else if let Some(weapon_skill_line) = match &skill.u18[8] { // 267785
                         1 => Some("One Hand and Shield"),
                         2 => Some("Dual Wield"),
                         3 => Some("Two Handed"),
@@ -269,6 +269,9 @@ pub fn id_data(props: &IdProps) -> Html {
                         {render_value_field("Value 0: ", skill.base_data.value0, 0)}
                         {render_value_field("Value 1: ", skill.base_data.value1, skill.base_data.value0)}
                         {render_value_field("Value 2: ", skill.base_data.value2, skill.base_data.value1)}
+                        if let Some(major_minor_buff) = MajorMinorBuff::from_id(&(skill.major_minor_id as u32)) { // 103564
+                            <Field label="Major/Minor buff: " value={format!("{} ({})", major_minor_buff.as_str(), major_minor_buff.to_id())} />
+                        }
                     </>
                     if skill.base_data.cast_time != 0 {
                         <Field label="Cast Time: " value={format_duration(&skill.base_data.cast_time) } />
@@ -308,8 +311,8 @@ pub fn id_data(props: &IdProps) -> Html {
                     if let Some(eq) = equation {
                         <Field label="Equation: " value={eq} />
                     }
-                    if skill.size13a == 1 { // always 1 or 0, guaranteed by debug_assert in SkillData34 struct
-                        if let Some(entry) = skill.list13a.first() {
+                    if skill.size19 == 1 { // always 1 or 0, guaranteed by debug_assert in SkillData34 struct
+                        if let Some(entry) = skill.list19.first() {
                             if entry.threshold_below_health_pct > 0 {
                                 <Field label="Increase equation below health: " value={format!("{}%", entry.threshold_below_health_pct.to_string())} />
                             }
@@ -329,7 +332,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                 let label: String = format!("{} ({}): ", i + 1, tooltip_type).into();
 
                                 let is_ability = *id >= u8::MAX as u32;
-                                let mut is_current = *id == skill.ability_id1;
+                                let is_current = *id == skill.ability_id1; // should remain immutable. if it needs to be mut, then struct understanding needs evolution
                                 let ability_name = abilities
                                     .get(id)
                                     .unwrap_or(&"???".to_string())
@@ -349,7 +352,35 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     html! { <span>{ format!("{}%", id) }</span> }
                                                 }
 
-                                                TooltipType::Percentage | TooltipType::StatPercentage => {
+                                                TooltipType::Percentage => {
+                                                    let display = {
+                                                        let mut result = None;
+                                                        let mut current = *id;
+                                                        for _ in 0..=3 {
+                                                            if let Some(s) = get_skill(&current) {
+                                                                let value = get_value_adjusted(&s.base_data.value1);
+                                                                if value != 0 {
+                                                                    result = Some(format!("{}%", value));
+                                                                    break;
+                                                                }
+                                                                if let Some(major_minor_buff) = MajorMinorBuff::from_id(&(s.major_minor_id as u32)) {
+                                                                    result = Some(format!("{}%", major_minor_buff.tooltip_value()));
+                                                                }
+                                                                if s.causes_ids.len() == 1 {
+                                                                    current = s.causes_ids[0];
+                                                                } else {
+                                                                    break;
+                                                                }
+                                                            } else {
+                                                                break;
+                                                            }
+                                                        }
+                                                        result.unwrap_or_else(|| fallback(&ability_name, id))
+                                                    };
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::StatPercentage => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = get_value_adjusted(&skill.base_data.value1);
                                                         (value != 0).then(|| format!("{}%", value))
@@ -396,7 +427,8 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                 TooltipType::MagicalDamage
                                                 | TooltipType::MartialDamage
-                                                | TooltipType::SingleTargetDoT => {
+                                                | TooltipType::SingleTargetDoT
+                                                | TooltipType::AreaHoT => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         SkillEquationFormatter::format(skill)
                                                     });
@@ -406,9 +438,8 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                 TooltipType::ResourceGain => {
                                                     let display = with_skill(id, &ability_name, |skill| {
-                                                        if let Some(b) = MajorMinorBuff::from_str(&ability_name) {
-                                                            is_current = true;
-                                                            Some(format!("{}", b.tooltip_value()))
+                                                        if let Some(major_minor_buff) = MajorMinorBuff::from_id(&(skill.major_minor_id as u32)) {
+                                                            Some(format!("{}", major_minor_buff.tooltip_value()))
                                                         } else if get_value_adjusted(&skill.base_data.value1) != 0 {
                                                             Some(get_value_adjusted(&skill.base_data.value1).to_string())
                                                         } else { SkillEquationFormatter::format(skill) }
@@ -419,7 +450,7 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                 TooltipType::BonusUpToPercent => {
                                                     let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = if let Some(i) = skill.list13a.first(){i.bonus_up_to_pct} else {0};
+                                                        let value = if let Some(i) = skill.list19.first(){i.bonus_up_to_pct} else {0};
                                                         (value != 0).then(|| format!("{}%", &value))
                                                     });
 
@@ -428,11 +459,15 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                 TooltipType::ThresholdBelowHealthPercent => {
                                                     let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = if let Some(i) = skill.list13a.first(){i.threshold_below_health_pct} else {0};
+                                                        let value = if let Some(i) = skill.list19.first(){i.threshold_below_health_pct} else {0};
                                                         (value != 0).then(|| format!("{}%", &value))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::BuffGain => {
+                                                    render_ability_link_current(id, ability_name, is_current)
                                                 }
 
                                                 _ => {

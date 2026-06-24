@@ -123,7 +123,7 @@ pub fn get_value_adjusted(value: &u32) -> u32 {
 }
 
 pub fn format_distance(cm: &u32) -> String {
-    format!("{}m", (cm / 100))
+    format!("{}m", (*cm as f32 / 100.0))
 }
 
 pub fn with_skill<F>(id: &u32, ability_name: &str, mut f: F) -> String
