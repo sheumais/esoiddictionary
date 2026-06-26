@@ -13,7 +13,7 @@ use yew::prelude::*;
 use yew_router::components::Link;
 use crate::Route::{self};
 use crate::fetch::{get_skill, read_bytes};
-use crate::format::{SkillEquationFormatter, fallback, format_distance, format_duration, get_value_adjusted, render_ability_link, render_ability_link_current, with_skill};
+use crate::format::{SkillEquationFormatter, format_angle, format_distance, format_duration, get_value_adjusted, render_ability_link, render_ability_link_current, resolve_id, with_skill};
 use crate::index_state::{IndexState, find_entry};
 
 
@@ -150,8 +150,7 @@ pub fn id_data(props: &IdProps) -> Html {
             <div>
                 <span>{ "Fetching record…" }</span>
                 <span>{ "If this takes a very long time (5+ seconds), please try refreshing the page."}</span>
-                <p>{ "If it never loads, please check the browser console (usually F12) and report the error to me (@themrpancake at discord.gg/FjJjXHjUQ4)."}</p>
-                <p>{ "I will need the link to the page you are currently on so please pre-emptively send that. Thank you." }</p>
+                <p>{ "If it never loads, please send the link to the page you are currently on to me (@themrpancake at discord.gg/FjJjXHjUQ4)."}</p>
             </div>
         },
         FetchState::Failed(e) => html! {
@@ -292,7 +291,7 @@ pub fn id_data(props: &IdProps) -> Html {
                         <Field label="Radius: " value={format_distance(&skill.base_data.radius)} />
                     }
                     if skill.base_data.angle != 0.0 {
-                        <Field label="Angle: " value={format!("{}°", skill.base_data.angle.to_string())} />
+                        <Field label="Angle: " value={format_angle(&skill.base_data.angle)} />
                     }
                     if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
                         if skill.base_data.cost != 0 {
@@ -328,6 +327,7 @@ pub fn id_data(props: &IdProps) -> Html {
                         }
                         { for skill.tooltip_data.iter().flat_map(|td| {
                             td.tooltip_ids.iter().zip(td.tooltip_types.iter()).enumerate().map(|(i, (id, ty))| {
+                                let id = &resolve_id(*id, &get_skill);
                                 let tooltip_type = TooltipType::from_id(ty).unwrap();
                                 let label: String = format!("{} ({}): ", i + 1, tooltip_type).into();
 
@@ -353,30 +353,15 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 }
 
                                                 TooltipType::Percentage => {
-                                                    let display = {
-                                                        let mut result = None;
-                                                        let mut current = *id;
-                                                        for _ in 0..=3 {
-                                                            if let Some(s) = get_skill(&current) {
-                                                                let value = get_value_adjusted(&s.base_data.value1);
-                                                                if value != 0 {
-                                                                    result = Some(format!("{}%", value));
-                                                                    break;
-                                                                }
-                                                                if let Some(major_minor_buff) = MajorMinorBuff::from_id(&(s.major_minor_id as u32)) {
-                                                                    result = Some(format!("{}%", major_minor_buff.tooltip_value()));
-                                                                }
-                                                                if s.causes_ids.len() == 1 {
-                                                                    current = s.causes_ids[0];
-                                                                } else {
-                                                                    break;
-                                                                }
-                                                            } else {
-                                                                break;
-                                                            }
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        let value = get_value_adjusted(&skill.base_data.value1);
+                                                        if value != 0 {
+                                                            return Some(format!("{}%", value));
                                                         }
-                                                        result.unwrap_or_else(|| fallback(&ability_name, id))
-                                                    };
+                                                        MajorMinorBuff::from_id(&(skill.major_minor_id as u32))
+                                                            .map(|b| format!("{}%", b.tooltip_value()))
+                                                    });
+
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
@@ -389,7 +374,17 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
-                                                TooltipType::Duration | TooltipType::DelayedStrike => {
+                                                TooltipType::ReduceHeatPercent => { // 79865
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        let value = get_value_adjusted(&skill.base_data.value1);
+                                                        (value != 0).then(|| format!("{}%", value / 10))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                                                                     // 47374
+                                                TooltipType::Duration | TooltipType::DelayedStrike | TooltipType::DeprecatedZeroDuration => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.duration;
                                                         (value != 0).then(|| format_duration(&value))
@@ -407,10 +402,32 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
+                                                TooltipType::IncreaseDurationOf => { // 45214
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        let value = skill.base_data.value1;
+                                                        (value != 0).then(|| format_duration(&value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                //TooltipType:: IncreasedDurationVsMonsters => { // 107202, 39076
+                                                //
+                                                //}
+
                                                 TooltipType::Knockback | TooltipType::SelfHeal => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.value1;
                                                         (value != 0).then(|| format_distance(&value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
+                                                TooltipType::ReduceCostIncreaseRecovery => { // 132401
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        let value = skill.base_data.value1;
+                                                        (value != 0).then(|| format!("{}", value))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
@@ -428,7 +445,10 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 TooltipType::MagicalDamage
                                                 | TooltipType::MartialDamage
                                                 | TooltipType::SingleTargetDoT
-                                                | TooltipType::AreaHoT => {
+                                                | TooltipType::AreaHoT
+                                                | TooltipType::SingleTargetHeal
+                                                | TooltipType::NoblesConquest
+                                                | TooltipType::DeprecatedMultiHit => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         SkillEquationFormatter::format(skill)
                                                     });

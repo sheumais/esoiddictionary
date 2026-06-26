@@ -126,6 +126,10 @@ pub fn format_distance(cm: &u32) -> String {
     format!("{}m", (*cm as f32 / 100.0))
 }
 
+pub fn format_angle(angle: &f32) -> String {
+    format!("{}°", angle)
+}
+
 pub fn with_skill<F>(id: &u32, ability_name: &str, mut f: F) -> String
 where
     F: FnMut(&SkillData34) -> Option<String>,
@@ -160,4 +164,22 @@ pub fn render_ability_link_current(id: &u32, display: String, is_current: bool) 
             </Link<Route>>
         }
     }
+}
+
+pub fn resolve_id(initial_id: u32, get_skill: &impl Fn(&u32) -> Option<SkillData34>) -> u32 {
+    let mut current = initial_id;
+    for _ in 0..=3 {
+        if let Some(s) = get_skill(&current) {
+            if s.causes_ids.len() == 1 {
+                current = s.causes_ids[0];
+            } else if let Some(t) = s.tooltip_data.first() {
+                if t.num_tooltip_ids == 1 {current = t.tooltip_ids.first().unwrap_or(&initial_id).clone()}
+            } else {
+                break;
+            }
+        } else {
+            break;
+        }
+    }
+    current
 }
