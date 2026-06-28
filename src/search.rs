@@ -2,7 +2,6 @@ use std::collections::BTreeMap;
 use std::{collections::HashMap, sync::OnceLock};
 
 use chrono::Datelike;
-use eso_skill_data::SkillData34;
 use eso_skill_data::enums::ability_type::AbilityType;
 use eso_skill_data::enums::damage_type::DamageType;
 use eso_skill_data::enums::skill_line::SkillLine;
@@ -13,9 +12,8 @@ use yew_router::components::Link;
 use yew_router::hooks::use_navigator;
 
 use crate::Route;
-use crate::fetch::{get_skill, read_bytes};
+use crate::fetch::get_skill;
 use crate::format::{format_angle, format_distance, format_duration, get_value_adjusted, render_ability_link};
-use crate::index_state::find_entry;
 use crate::{SKILL_CSV, get_timestamps, id::get_abilities};
 
 static SKILL_GROUPS: OnceLock<BTreeMap<u32, Vec<u32>>> = OnceLock::new();

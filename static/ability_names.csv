@@ -4049,9 +4049,9 @@
 22185,Blazing Shield
 22187,Throwing Spore Potion
 22188,Spore Potion Thrown
-22191,CTY-Beam,Buff
-22202,CTY-Beam,Electric
-22207,CTY-Beam,Capture
+22191,"CTY-Beam,Buff"
+22202,"CTY-Beam,Electric"
+22207,"CTY-Beam,Capture"
 22223,Rite of Passage
 22225,Rite of Passage
 22226,Practiced Incantation
@@ -8277,8 +8277,8 @@
 34417,Q2364 Harpy Traveling
 34418,Q2364 Harpy Traveling
 34419,Q2364 Harpy Traveling
-34420,MQ Knockback and Knockdown, Sh
-34421,MQ Knockback and Knockdown, Sh
+34420,"MQ Knockback and Knockdown, Sh"
+34421,"MQ Knockback and Knockdown, Sh"
 34422,Impeding Webs
 34430,Invisibility Potion
 34431,Despawn Self
@@ -10538,7 +10538,7 @@
 39668,no regen
 39669,no regen
 39671,Emperorship Alliance Bonus I
-39673,Q4969 Anexiel ""Teleport""
+39673,"Q4969 Anexiel ""Teleport"
 39674,Generic Spawn Apply Portal
 39675,Generic Spawn Apply Portal
 39676,Generic Spawn Apply Portal
@@ -13113,7 +13113,7 @@
 47350,Bastion of the Heartland
 47351,Buffer of the Swift
 47353,Shield of the Valiant
-47354,Relics of the Physician, Ansur
+47354,"Relics of the Physician, Ansur"
 47355,Grace of the Ancients
 47356,Blessing of the Potentates
 47357,Vengeance Leech
@@ -13732,7 +13732,7 @@
 48483,W20-CMP-PutOutFire
 48484,City - Putting out Fire 1
 48486,Q4960 Inda Revived
-48489,Q4409-Timer,Short(15s)
+48489,"Q4409-Timer,Short(15s)"
 48490,Q4960 Boss Shade World
 48491,Q4960 Naemon Shield Shade
 48495,Minions
@@ -19715,7 +19715,7 @@
 61218,Increase All Primary Stats
 61219,Magicka Consumable
 61220,Magicka Consumable
-61221,Food: HSM, Meal
+61221,"Food: HSM, Meal"
 61224,Regeneration
 61225,Regeneration
 61228,Pinion Charge
@@ -19726,13 +19726,13 @@
 61243,Vile Bite
 61244,Fevered Retch
 61245,Fevered Retch
-61246,Food: HSM, Soup
+61246,"Food: HSM, Soup"
 61248,Necrotic Explosion
 61249,Necrotic Explosion
 61250,Death
 61251,Coldharbour Justice
-61252,Food: HSM, Small Bread
-61253,Food: HSM, Meat
+61252,"Food: HSM, Small Bread"
+61253,"Food: HSM, Meat"
 61255,Increase Max Health & Stamina
 61256,Magicka Consumable
 61257,Increase Max Health & Magicka
@@ -19740,8 +19740,8 @@
 61259,Increase Max Health
 61260,Increase Max Magicka
 61261,Increase Max Stamina
-61264,Food: HS, Meal
-61265,Food: HS, Soup
+61264,"Food: HS, Meal"
+61265,"Food: HS, Soup"
 61266,Lightning Surge Block
 61267,Pinion Charge
 61268,Emerge Loader
@@ -19749,34 +19749,34 @@
 61273,Valkyn Skoria
 61274,Bloodspawn
 61275,Major Vitality
-61276,Food: HS, Bread
-61277,Food: HS, SmBread
-61278,Food: HS, Meat
+61276,"Food: HS, Bread"
+61277,"Food: HS, SmBread"
+61278,"Food: HS, Meat"
 61280,Q4487 Event Telenger Cast
 61281,Q4487 Event Telenger Cast
-61287,Food: HM, Meal
-61288,Food: HM, Soup
-61290,Food: HM, SmBread
-61291,Food: HM, Meat
-61293,Food: MS, Meal
+61287,"Food: HM, Meal"
+61288,"Food: HM, Soup"
+61290,"Food: HM, SmBread"
+61291,"Food: HM, Meat"
+61293,"Food: MS, Meal"
 61294,Increase Max Magicka & Stamina
 61295,Magicka Consumable
-61296,Food: MS, Soup
-61297,Food: MS, Bread
-61298,Food: MS, SmBread
-61301,Food: H, Meal
-61302,Food: H, Soup
-61303,Food: H, Bread
-61304,Food: H, SmBread
-61305,Food: H, Meat
-61307,Food: M, Meal
-61308,Food: M, Soup
-61309,Food: M, Bread
-61310,Food: M, SmBread
-61313,Food: S, Meal
-61314,Food: S, Soup
-61315,Food: S, Bread
-61316,Food: S, SmBread
+61296,"Food: MS, Soup"
+61297,"Food: MS, Bread"
+61298,"Food: MS, SmBread"
+61301,"Food: H, Meal"
+61302,"Food: H, Soup"
+61303,"Food: H, Bread"
+61304,"Food: H, SmBread"
+61305,"Food: H, Meat"
+61307,"Food: M, Meal"
+61308,"Food: M, Soup"
+61309,"Food: M, Bread"
+61310,"Food: M, SmBread"
+61313,"Food: S, Meal"
+61314,"Food: S, Soup"
+61315,"Food: S, Bread"
+61316,"Food: S, SmBread"
 61322,Health Recovery
 61323,Well Fed
 61325,Magicka Recovery
@@ -19797,17 +19797,17 @@
 61351,Well Fed: Health Regen
 61354,Well Fed: Magicka Regen
 61355,Well Fed: Stamina Regen
-61357,Drink: HSM, Flagon
-61358,Drink: HS, Flagon
-61359,Drink: HM, Flagon
+61357,"Drink: HSM, Flagon"
+61358,"Drink: HS, Flagon"
+61359,"Drink: HM, Flagon"
 61360,Infectious Swarm
-61361,Drink: MS, Flagon
+61361,"Drink: MS, Flagon"
 61362,Bolt Strike
 61363,Shock Strike
 61364,Shock Strike
-61365,Drink: H, Flagon
-61367,Drink: M, Flagon
-61368,Drink: S, Flagon
+61365,"Drink: H, Flagon"
+61367,"Drink: M, Flagon"
+61368,"Drink: S, Flagon"
 61372,Infectious Swarm
 61374,Infectious Swarm
 61375,Infectious Swarm Snare
@@ -20316,7 +20316,7 @@
 63614,Swipe
 63615,Insight
 63616,Skyshard CV
-63623,Other ESO Bonuses (Subscriber Research, Archival Fortunes)
+63623,"Other ESO Bonuses (Subscriber Research, Archival Fortunes)"
 63624,Global Guard Damage
 63625,Arrest Stun
 63631,Potion Timer
@@ -20964,11 +20964,11 @@
 65516,Molten Breath
 65517,Molten Breath
 65519,Wildfire
-65523,Food: M, Pie
-65528,Food: H, Pie
-65534,Food: HM, Pie
-65535,Food: HS, Pie
-65536,Food: HSM, Pie
+65523,"Food: M, Pie"
+65528,"Food: H, Pie"
+65534,"Food: HM, Pie"
+65535,"Food: HS, Pie"
+65536,"Food: HSM, Pie"
 65541,Empower
 65542,Can Phase B
 65543,Remove
@@ -21332,21 +21332,21 @@
 66106,Wildfire
 66122,Strike Buff Damage
 66123,Pinion ACT Text
-66124,_CRWN Food: H, Meal
+66124,"_CRWN Food: H, Meal"
 66125,Increase Max Health
 66126,Vile Concoction
-66127,_CRWN Food: M, Meal
+66127,"_CRWN Food: M, Meal"
 66128,Increase Max Magicka
-66129,_CRWN Food: S, Meal
+66129,"_CRWN Food: S, Meal"
 66130,Increase Max Stamina
-66131,_CRWN Drink: H, Flagon
+66131,"_CRWN Drink: H, Flagon"
 66132,Health Recovery
 66133,Vile Concoction
 66135,Well Fed
-66136,_CRWN Drink: M, Flagon
+66136,"_CRWN Drink: M, Flagon"
 66137,Magicka Recovery
 66139,Well Fed
-66140,_CRWN Drink: S, Flagon
+66140,"_CRWN Drink: S, Flagon"
 66141,Stamina Recovery
 66143,Well Fed
 66144,Vampiric Exhaustion
@@ -21569,30 +21569,30 @@
 66546,Aftershock
 66547,Aftershock
 66548,Siege Shield
-66550,Food: H, Meal
+66550,"Food: H, Meal"
 66551,Increase Max Health
-66565,Food: H, SmBread
-66566,Food: H, Meat
+66565,"Food: H, SmBread"
+66566,"Food: H, Meat"
 66568,Increase Max Magicka
-66569,Food: M, Meal
-66570,Food: M, Soup
-66572,Food: M, SmBread
+66569,"Food: M, Meal"
+66570,"Food: M, Soup"
+66572,"Food: M, SmBread"
 66573,Q5319 Feathers
 66576,Increase Max Stamina
-66577,Food: S, Meal
-66578,Food: S, Soup
-66580,Food: S, SmBread
-66584,Food: M, Pie
-66585,Food: H, Pie
+66577,"Food: S, Meal"
+66578,"Food: S, Soup"
+66580,"Food: S, SmBread"
+66584,"Food: M, Pie"
+66585,"Food: H, Pie"
 66586,Health Recovery
 66588,Well Fed
-66589,Drink: H, Flagon
+66589,"Drink: H, Flagon"
 66590,Magicka Recovery
 66592,Well Fed
-66593,Drink: M, Flagon
+66593,"Drink: M, Flagon"
 66594,Stamina Recovery
 66596,Well Fed
-66597,Drink: S, Flagon
+66597,"Drink: S, Flagon"
 66607,Shocking Gaze
 66608,Shocking Gaze
 66609,Shocking Gaze
@@ -22521,7 +22521,7 @@
 68411,Increase All Primary Stats
 68412,Increase Max Stamina
 68413,Increase Max Magicka
-68414,_CRWN Food: HSM, Meal
+68414,"_CRWN Food: HSM, Meal"
 68415,Barrier of Protection
 68416,All Primary Stat Recovery
 68418,Well Fed
@@ -25097,19 +25097,19 @@
 72949,Meat Throw
 72950,Start casting
 72951,Default posture
-72952,Alli-Food: H, S, SmBread
+72952,"Alli-Food: H, S, SmBread"
 72953,Boss
 72954,Boss
-72955,_CRWN Pet Goat, Black
+72955,"_CRWN Pet Goat, Black"
 72956,Max Health and Stamina
 72957,Increase Max Health
-72958,Alli-Food: H, M, SmBread
+72958,"Alli-Food: H, M, SmBread"
 72959,Max Health and Magicka
 72960,Increase Max Health
 72961,Max Stamina and Magicka
 72962,Increase Max Health
-72963,Alli-Food: S, M, SmBread
-72964,Alli-Drink: H S, Flagon
+72963,"Alli-Food: S, M, SmBread"
+72964,"Alli-Drink: H S, Flagon"
 72965,Health and Stamina Recovery
 72966,Well Fed
 72967,Well Fed
@@ -25119,8 +25119,8 @@
 72971,Magicka and Stamina Recovery
 72972,Well Fed
 72973,Well Fed
-72974,Alli-Drink: H M, Flagon
-72975,Alli-Drink: M S, Flagon
+72974,"Alli-Drink: H M, Flagon"
+72975,"Alli-Drink: M S, Flagon"
 72976,Inmate Immunities
 72977,Stun
 72979,Dissonant Blow
@@ -25363,8 +25363,8 @@
 73533,Soulwell Die Trigger
 73537,Soul Discharge
 73538,Volcanic Rune
-73539,Unique Drink: Max H, M, Flagon
-73540,Unique Food: H, S Reg, Small B
+73539,"Unique Drink: Max H, M, Flagon"
+73540,"Unique Food: H, S Reg, Small B"
 73541,Hot Shot Splash
 73542,Hot Shot Splash
 73543,Hot Shot
@@ -25373,8 +25373,8 @@
 73546,Lightning Storm
 73547,Lightning Storm
 73549,Staggered
-73551,Unique Food: H, H Reg Pie
-73553,Unique Food: H, All Reg, Meal
+73551,"Unique Food: H, H Reg Pie"
+73553,"Unique Food: H, All Reg, Meal"
 73620,Boss Enrage Normal
 73621,Boss Enrage
 73622,Empowered Remove Previous
@@ -27546,8 +27546,8 @@
 77616,Mike's Buff Damage
 77620,Wrath Buff Proj
 77621,Wrath Buff Proj
-77629,Stun For Costumes, 2s
-77630,Stun For Costumes, 4s
+77629,"Stun For Costumes, 2s"
+77630,"Stun For Costumes, 4s"
 77633,Void Sphere
 77634,Void Sphere
 77635,Void Sphere
@@ -31639,40 +31639,40 @@
 84676,Atronach's Light
 84677,Atronach's Light NEW REFRESH
 84678,Increase Max Magicka
-84679,Witchfest Food: M, Meal
+84679,"Witchfest Food: M, Meal"
 84680,Wayfarer
 84681,Pumpkin Snack Skewer
 84682,Increase Stamina
-84683,Witchfest Food: M, S, Meal
+84683,"Witchfest Food: M, S, Meal"
 84695,Barrage of Stone
 84697,Nightmare
-84700,""Eyeballs""
+84700,Eyeballs
 84701,Increase Health Regen
-84702,Witchfest Drink: M, H, Flagon
+84702,"Witchfest Drink: M, H, Flagon"
 84704,Witchmother's Party Punch
 84705,Increase Health Regen
 84706,Increase Health Regen
-84707,Witchfest Drink: HMS, Flagon
+84707,"Witchfest Drink: HMS, Flagon"
 84709,Crunchy Spider Skewer
 84710,Increase Stamina Regen
-84711,Witchfest Food: Max M, Reg S,
+84711,"Witchfest Food: Max M, Reg S,"
 84713,Cleanse Fail Achieve
 84714,PC Hit Spice Achiev
 84715,PC Hit Spice Achiev
 84720,Eye Scream
 84722,Increase Magicka Regen
-84723,Witchfest Food: Max M, Reg M,
+84723,"Witchfest Food: Max M, Reg M,"
 84725,The Brains!
 84728,Increase Health Regen
-84729,Witchfest Food: M, H Reg Meal
+84729,"Witchfest Food: M, H Reg Meal"
 84730,Furious Roar
 84731,Witchmother's Potent Brew
 84732,Increase Health Regen
 84733,Increase Health Regen
-84734,Witchfest Food: Max HM, Reg M,
+84734,"Witchfest Food: Max HM, Reg M,"
 84735,Purifying Bloody Mara
 84736,Increase Health
-84737,Witchfest Drink: Max MH, Flago
+84737,"Witchfest Drink: Max MH, Flago"
 84738,Indominable
 84739,Indominable
 84740,Indominable
@@ -32562,7 +32562,7 @@
 86427,Panacea Dummy
 86487,Elemental Storm Dummy
 86555,Major Evasion
-86558,Newlife Drink: Reg MS, Flagon
+86558,"Newlife Drink: Reg MS, Flagon"
 86559,Fish Eye Rye
 86560,Increase Stamina Recovery
 86561,Snare
@@ -32600,11 +32600,11 @@
 86649,Accelerated Transposition
 86659,Auditory Signal
 86667,Accelerated Transposition
-86669,Newlife Food: Reg S, Max S, So
+86669,"Newlife Food: Reg S, Max S, So"
 86671,Event Tracker - New Life
 86673,Lava Foot Soup & Saltrice
 86674,Increase Stamina Recovery
-86676,Newlife Drink: Reg H, Max S, F
+86676,"Newlife Drink: Reg H, Max S, F"
 86677,Warning Fire
 86678,Increase Health Recovery
 86680,Auditory Signal
@@ -32642,10 +32642,10 @@
 86740,Very Drunk
 86741,Drunk
 86743,Accelerated Transposition
-86745,Newlife Drink: Reg H, M, Belch
+86745,"Newlife Drink: Reg H, M, Belch"
 86746,Betnikh Spiked Ale
 86747,Increase Health Recovery
-86748,New Life Food: Max M, S
+86748,"New Life Food: Max M, S"
 86749,Mud Ball
 86750,Increase Stamina
 86751,Reflective Ward
@@ -32662,12 +32662,12 @@
 86779,Covered in Mud
 86780,Invisibility
 86782,Clairvoyance Fx
-86785,New Life Food: M, Soup
-86786,New Life Food: S, Sm Bread
+86785,"New Life Food: M, Soup"
+86786,"New Life Food: S, Sm Bread"
 86787,Rajhin's Sugar Claws
-86788,New Life Food: H, Pie
+86788,"New Life Food: H, Pie"
 86789,Alcaire Festival Sword-Pie
-86790,New Life Drink: S, Flagon
+86790,"New Life Drink: S, Flagon"
 86791,Ice Bear Glow-Wine
 86792,Eating
 86793,Chilled
@@ -34309,7 +34309,7 @@
 89936,Dazzler Fire
 89937,Dazzler Fired
 89938,Dazzler Fired
-89939,Jesters Food: Max HS, Reg S
+89939,"Jesters Food: Max HS, Reg S"
 89940,Turret
 89942,Dazzler Fired
 89943,Dazzler Fired
@@ -34319,8 +34319,8 @@
 89947,Groundshaker
 89951,Test Stomp
 89952,Test Stomp
-89953,Jesters Food: Max H, Reg MS
-89954,Jesters Food: Max S, Reg M
+89953,"Jesters Food: Max H, Reg MS"
+89954,"Jesters Food: Max S, Reg M"
 89955,Candied Jester's Coins
 89956,Increase Max Magicka
 89957,Dubious Camoran Throne
@@ -35372,7 +35372,7 @@
 91613,MStrike Edge Knock
 91614,MStrike Edge Knock
 91615,Proximity Static
-91619,Event Tracker - Midyear, Wk 1
+91619,"Event Tracker - Midyear, Wk 1"
 91621,Tempest
 91622,Whirlwind
 91623,Torrent
@@ -35796,7 +35796,7 @@
 92427,Siphoner
 92428,Siphoner
 92431,Warlord
-92432,Crown Drink: M, H, Flagon
+92432,"Crown Drink: M, H, Flagon"
 92433,Health & Magicka Recovery
 92434,Increase Maximum Health and Ma
 92435,Increase Health & Magicka
@@ -35814,7 +35814,7 @@
 92472,Bonus Damage Gore
 92473,Increase Maximum Health and St
 92474,Increase Health & Stamina
-92475,Crown Drink: M, H, Flagon
+92475,"Crown Drink: M, H, Flagon"
 92476,Health & Stamina Recovery
 92477,Increase Health
 92478,Increase Health Regen
@@ -36332,7 +36332,7 @@
 93280,Storm Lord Relic
 93281,Enrage
 93282,Pit Daemons Relic
-93283,Event Tracker - Midyear, Wk 2
+93283,"Event Tracker - Midyear, Wk 2"
 93285,Q5863 - Farwen Stuck Backup
 93286,Q5863 - Farwen Stuck Backup
 93287,Nordic Ward
@@ -39993,8 +39993,8 @@
 100474,Chaotic Whirlwind
 100480,Spawn
 100483,Unique Drink: All Max & Detect
-100485,Unique Food: Reg H/S, Stew
-100487,Unique Food: Reg H/M, Max H/M,
+100485,"Unique Food: Reg H/S, Stew"
+100487,"Unique Food: Reg H/M, Max H/M,"
 100488,Spring-Loaded Infusion
 100489,Stamina Consumable
 100490,Magicka Consumable
@@ -41301,8 +41301,8 @@
 102661,Rending Leap
 102662,Set cooldown
 102663,Peck
-102664,Ice ""Door"" Teleport
-102665,Ice ""Door"" Teleport
+102664,"Ice ""Door"" Teleport"
+102665,"Ice ""Door"" Teleport"
 102666,Immunity to HM Stuns
 102667,Ice clone target
 102669,Plague Water
@@ -44485,8 +44485,8 @@
 107790,Magicka Consumable
 107791,Magicka Consumable
 107792,Magicka Consumable
-107793,Unique Food: Reg H/M, Max H/M,
-107794,Unique Food: Max H/M, Fish Lur
+107793,"Unique Food: Reg H/M, Max H/M,"
+107794,"Unique Food: Max H/M, Fish Lur"
 107797,Entropic Bolt
 107798,Fly Land
 107799,Necrotic Spear
@@ -47849,7 +47849,6 @@
 113142,Phalanx Spawn
 113143,Spawn Arms Intro
 113144,NO combat REGEN
-113145,No IDLE regen
 113146,Taking Aim
 113147,Scatter Shot
 113148,Arrow Spray
@@ -49955,8 +49954,6 @@
 116422,Pound
 116423,Pound
 116424,Pound
-116428,No IDLE regen
-116429,No IDLE regen
 116430,Base Skeeverton Speed
 116431,Base Skeeverton Speed
 116433,Exhume
@@ -50056,7 +50053,6 @@
 116655,Teleport
 116656,Teleport
 116664,Crowd Control Immunity
-116665,No IDLE regen
 116668,Icestalker Targ Remove
 116669,Ruinous Cyclone
 116677,EQ7 Blow Horn Outside
@@ -50658,7 +50654,6 @@
 117675,Firestrike
 117676,Firestrike
 117684,Toxic Cloud
-117685,No IDLE regen
 117687,Toxic Cloud
 117688,Toxic Cloud
 117689,Toxic Cloud
@@ -51819,7 +51814,7 @@
 119519,Location Checker
 119521,Delay
 119522,Monster to Move
-119523,Hit Front, Move Back
+119523,"Hit Front, Move Back"
 119526,Shatter Soul
 119527,CadwellPortal
 119549,Emberstorm
@@ -51875,7 +51870,7 @@
 119663,Racketeering
 119664,Fire Storm Prot FX delay
 119665,Delay
-119666,Hit Front, Move Back
+119666,"Hit Front, Move Back"
 119667,Delay
 119668,Fire Storm Prot FX ticker
 119669,Prot FX
@@ -51888,7 +51883,7 @@
 119677,Weght of the Void
 119678,Kickbacks
 119679,Location Checker
-119680,Hit Front, Move Back
+119680,"Hit Front, Move Back"
 119681,Delay
 119682,Kickbacks
 119684,Location Checker
@@ -51896,7 +51891,7 @@
 119686,Delay
 119687,Delay
 119688,Move 10m
-119689,Hit Front, Move Back
+119689,"Hit Front, Move Back"
 119690,Delay
 119692,Kickbacks
 119696,Monster to Move
@@ -51981,20 +51976,20 @@
 119822,Location Checker
 119823,Delay
 119824,Monster to Move
-119825,Hit Front, Move Back
+119825,"Hit Front, Move Back"
 119826,Delay
 119827,Delay
-119828,Hit Front, Move Back
+119828,"Hit Front, Move Back"
 119829,Delay
 119830,Location Checker
-119831,Hit Front, Move Back
+119831,"Hit Front, Move Back"
 119832,Delay
 119833,Location Checker
 119834,Move 7.5m
 119835,Delay
 119836,Delay
 119837,Move 10m
-119838,Hit Front, Move Back
+119838,"Hit Front, Move Back"
 119839,Delay
 119840,Monster to Move
 119841,Monster to Move
@@ -52012,19 +52007,19 @@
 119862,Location Checker
 119863,Delay
 119864,Monster to Move
-119865,Hit Front, Move Back
+119865,"Hit Front, Move Back"
 119866,Delay
 119867,Delay
-119868,Hit Front, Move Back
+119868,"Hit Front, Move Back"
 119869,Delay
 119870,Location Checker
-119871,Hit Front, Move Back
+119871,"Hit Front, Move Back"
 119872,Delay
 119873,Location Checker
 119874,Move 7.5m
 119875,Delay
 119876,Delay
-119878,Hit Front, Move Back
+119878,"Hit Front, Move Back"
 119879,Delay
 119880,Monster to Move
 119881,Monster to Move
@@ -52041,20 +52036,20 @@
 119892,Location Checker
 119893,Delay
 119894,Monster to Move
-119895,Hit Front, Move Back
+119895,"Hit Front, Move Back"
 119896,Delay
 119897,Delay
-119898,Hit Front, Move Back
+119898,"Hit Front, Move Back"
 119899,Delay
 119900,Location Checker
-119901,Hit Front, Move Back
+119901,"Hit Front, Move Back"
 119902,Delay
 119903,Location Checker
 119904,Move 7.5m
 119905,Delay
 119906,Delay
 119907,Move 10m
-119908,Hit Front, Move Back
+119908,"Hit Front, Move Back"
 119909,Delay
 119910,Monster to Move
 119911,Monster to Move
@@ -52092,20 +52087,20 @@
 119961,Location Checker
 119962,Delay
 119963,Monster to Move
-119964,Hit Front, Move Back
+119964,"Hit Front, Move Back"
 119965,Delay
 119966,Delay
-119967,Hit Front, Move Back
+119967,"Hit Front, Move Back"
 119968,Delay
 119969,Location Checker
-119970,Hit Front, Move Back
+119970,"Hit Front, Move Back"
 119971,Delay
 119972,Location Checker
 119973,Move 7.5m
 119974,Delay
 119975,Delay
 119976,Move 10m
-119977,Hit Front, Move Back
+119977,"Hit Front, Move Back"
 119978,Delay
 119979,Monster to Move
 119980,Monster to Move
@@ -52188,20 +52183,20 @@
 120089,Location Checker
 120090,Delay
 120091,Monster to Move
-120092,Hit Front, Move Back
+120092,"Hit Front, Move Back"
 120093,Delay
 120094,Delay
-120095,Hit Front, Move Back
+120095,"Hit Front, Move Back"
 120096,Delay
 120097,Location Checker
-120098,Hit Front, Move Back
+120098,"Hit Front, Move Back"
 120099,Delay
 120100,Location Checker
 120101,Move 7.5m
 120102,Delay
 120103,Delay
 120104,Move 10m
-120105,Hit Front, Move Back
+120105,"Hit Front, Move Back"
 120106,Delay
 120107,Monster to Move
 120108,Monster to Move
@@ -52218,20 +52213,20 @@
 120119,Location Checker
 120120,Delay
 120121,Monster to Move
-120122,Hit Front, Move Back
+120122,"Hit Front, Move Back"
 120123,Delay
 120124,Delay
-120125,Hit Front, Move Back
+120125,"Hit Front, Move Back"
 120126,Delay
 120127,Location Checker
-120128,Hit Front, Move Back
+120128,"Hit Front, Move Back"
 120129,Delay
 120130,Location Checker
 120131,Move 7.5m
 120132,Delay
 120133,Delay
 120134,Move 10m
-120135,Hit Front, Move Back
+120135,"Hit Front, Move Back"
 120136,Delay
 120137,Monster to Move
 120138,Monster to Move
@@ -52248,20 +52243,20 @@
 120149,Location Checker
 120150,Delay
 120151,Monster to Move
-120152,Hit Front, Move Back
+120152,"Hit Front, Move Back"
 120153,Delay
 120154,Delay
-120155,Hit Front, Move Back
+120155,"Hit Front, Move Back"
 120156,Delay
 120157,Location Checker
-120158,Hit Front, Move Back
+120158,"Hit Front, Move Back"
 120159,Delay
 120160,Location Checker
 120161,Move 7.5m
 120162,Delay
 120163,Delay
 120164,Move 10m
-120165,Hit Front, Move Back
+120165,"Hit Front, Move Back"
 120166,Delay
 120167,Monster to Move
 120168,Monster to Move
@@ -53125,7 +53120,6 @@
 121643,Defiled Ground
 121644,Defiled Ground
 121645,Defiled Ground
-121648,No IDLE regen
 121654,Displacement
 121655,Translation
 121656,Displacement
@@ -54690,7 +54684,7 @@
 124307,Flame Breath
 124308,Roll Dodge
 124310,Master's Shield
-124312,Burn, Fools!
+124312,"Burn, Fools!"
 124313,Streak
 124314,Spider at Top
 124315,Despawn
@@ -56885,7 +56879,7 @@
 127527,Stone Gaze
 127528,Pools closed
 127529,Time to Dispel
-127530,Witchfest Drink: Max MH, Flago
+127530,"Witchfest Drink: Max MH, Flago"
 127531,Corrupting Bloody Mara
 127532,Fully Fed
 127536,Special Food Eaten
@@ -56903,11 +56897,11 @@
 127567,Is Corrupting
 127568,Boss Is Corrupting
 127570,Frost Breath NW
-127571,Witchfest Drink: Max SH, Wolf Time
+127571,"Witchfest Drink: Max SH, Wolf Time"
 127572,Pack Leader's Bone Broth
 127577,Special Food Eaten
 127578,Increase Health
-127595,Witchfest Food: Max All, H Reg
+127595,"Witchfest Food: Max All, H Reg"
 127596,Bewitched Sugar Skulls
 127601,Special Food Eaten
 127602,Increase Health
@@ -57663,7 +57657,7 @@
 128554,Fallback
 128555,Removal
 128556,Q6400 FtB 2s Teleport
-128557,Fade to Black, Increment Quest
+128557,"Fade to Black, Increment Quest"
 128559,Facing
 128560,Facing
 128561,Blood Pool
@@ -63857,7 +63851,7 @@
 137729,Frequency Tracker
 137730,Branch
 137732,Ice Pillar
-137733,Alliance Skill Gain, Major
+137733,"Alliance Skill Gain, Major"
 137735,Fire a projectile
 137736,Cast Proj
 137738,Cast Proj
@@ -70619,7 +70613,7 @@
 147462,Pearls of Ehlnofey
 147465,Fake Boss Attack
 147466,Alliance Skill Gain
-147467,Alliance Skill Gain, Grand
+147467,"Alliance Skill Gain, Grand"
 147468,Capture
 147469,Capture
 147470,Capture
@@ -81668,7 +81662,7 @@
 162642,Blast Furnace
 162643,Punch
 162644,Magicka and Stamina Recovery
-162645,Light, Medium, Heavy and Bash
+162645,"Light, Medium, Heavy and Bash"
 162646,resurrects allies and shields
 162647,attacks amplify this effect
 162648,Sombren Weakened
@@ -96350,8 +96344,8 @@
 183820,Steal Knowledge
 183824,Target Tracker
 183827,Encounter Done
-183830,Tornados 1, 4
-183832,Tornados 2, 3
+183830,"Tornados 1, 4"
+183832,"Tornados 2, 3"
 183834,Incunabular Storm
 183835,Incunabular Storm
 183836,Incunabular Storm
@@ -113368,7 +113362,7 @@
 208416,Fire Lightning 1
 208423,Summon Runners
 208424,Blood Frenzy
-208425,GEN Teleport Down 1, 2
+208425,"GEN Teleport Down 1, 2"
 208426,Defer Targetable
 208427,Mirrormoor General Teleport Down
 208428,Targetable
@@ -116398,7 +116392,7 @@
 212348,Summon Adds 1
 212349,Summon Adds 1
 212350,Summon Adds 1
-212357,Remove All Loot, Targeted Trackers SELF
+212357,"Remove All Loot, Targeted Trackers SELF"
 212358,Wait
 212359,Kill Self AL
 212360,Acid Rain
@@ -116409,7 +116403,7 @@
 212376,Shard Volley
 212377,Loot Tracker BOSS
 212378,Loot Tracker Boss
-212383,Remove All Loot, Targeted Trackers ANY
+212383,"Remove All Loot, Targeted Trackers ANY"
 212391,Roar
 212392,Jump Down
 212393,Crush
@@ -118067,10 +118061,10 @@
 215094,Flame Weapon
 215095,Frost Weapon
 215096,Shock Weapon
-215097,Remove Frost, Shock
+215097,"Remove Frost, Shock"
 215098,Fracture
-215099,Remove Flame, Shock
-215100,Remove Flame, Frost
+215099,"Remove Flame, Shock"
+215100,"Remove Flame, Frost"
 215101,Choose
 215106,PEP0_Stage_Combat_Tracker
 215107,Tempest
@@ -121202,8 +121196,8 @@
 219251,VFX Build
 219252,Transited
 219254,Fear Feeding
-219256,Mirrormoor ""Channel"" Fx
-219257,Mirrormoor ""Channel""
+219256,"Mirrormoor ""Channel"" Fx"
+219257,"Mirrormoor ""Channel"
 219258,Mirrormoor Projectiles
 219264,Brimstone Hailfire
 219265,Brimstone Hailfire
@@ -121214,7 +121208,7 @@
 219272,Summon Adds
 219275,PE-NG Summon
 219276,Shield FX
-219277,Mirrormoor ""Channel"" Fx IDLE
+219277,"Mirrormoor ""Channel"" Fx IDLE"
 219280,Chase
 219281,Fear Feeding
 219282,Bleakquake
@@ -121584,12 +121578,12 @@
 219721,Recede
 219722,Recede
 219724,Recede
-219726,Return, My Twin
-219727,Return, My Twin
-219728,Return, My Twin
-219729,Return, My Twin
-219730,Return, My Twin
-219731,Return, My Twin
+219726,"Return, My Twin"
+219727,"Return, My Twin"
+219728,"Return, My Twin"
+219729,"Return, My Twin"
+219730,"Return, My Twin"
+219731,"Return, My Twin"
 219732,Ithelia Beam
 219740,Pounce
 219741,Pounce
@@ -123061,7 +123055,7 @@
 221488,Reconstruction
 221489,Reconstruction
 221490,Reconstruction
-221491,Return, My Twin
+221491,"Return, My Twin"
 221492,The Saint and the Seducer
 221493,Reconstruction
 221494,Reconstruction
@@ -127894,7 +127888,7 @@
 229295,Modify 2000 CD
 229296,Modify Whirlwind
 229297,Modify Piercing Dervish
-229298,Modify whirlwind, dervish
+229298,"Modify whirlwind, dervish"
 229299,Tremorous Rage
 229300,Scream
 229305,Sweep
@@ -151872,4 +151866,5 @@
 270475,Trolling Protection
 270517,Engulfing Dragonfire
 270615,Distance Immunity
-270752,"Remove Hunt Target"
+270752,Remove Hunt Target
+271165,Skeevaton

@@ -137,9 +137,9 @@ pub fn id_data(props: &IdProps) -> Html {
     let name_line = match abilities.get(&id) {
         Some(name) => {
             if let Some(document) = web_sys::window().and_then(|w| w.document()) {
-                document.set_title(format!("{} ({}) - ESO ID Dictionary", name, id).as_str());
+                document.set_title(format!("{} ({}) - ESO ID Dictionary", name.trim_matches('"'), id).as_str());
             }
-            html! { <h1>{ format!("{} ({})", name, id) }</h1> }
+            html! { <h1>{ format!("{} ({})", name.trim_matches('"'), id) }</h1> }
         },
         None => html! { <p>{ "ID has no recorded name" }</p> },
     };
@@ -240,16 +240,33 @@ pub fn id_data(props: &IdProps) -> Html {
                             </span>
                         </div>
                     }
-                    if skill.u8[2] != 0 && skill.u8[2] != skill.ability_id1 {
+                    if let Some(list25) = skill.list25.first() {
+                        if list25.base_ability_id > 0 && list25.base_ability_id != skill.ability_id1 && skill.base_data.scribing_index == 0 {
+                            <div>
+                                <span>{"Base ability: "}</span>
+                                <span>
+                                    {
+                                        render_ability_link(&list25.base_ability_id, format!(
+                                            "{} ({})",
+                                            list25.base_ability_id,
+                                            abilities
+                                                .get(&list25.base_ability_id)
+                                                .unwrap_or(&"Unknown Ability".to_string())))
+                                    }
+                                </span>
+                            </div>
+                        }
+                    }
+                    if skill.u8c != 0 && skill.u8c != skill.ability_id1 {
                         <div> 
                             <span>{"Replaces: "}</span>
                             <span>
                                     {
-                                        render_ability_link(&skill.u8[2], format!(
+                                        render_ability_link(&skill.u8c, format!(
                                             "{} ({})",
-                                            skill.u8[2],
+                                            skill.u8c,
                                             abilities
-                                                .get(&skill.u8[2])
+                                                .get(&skill.u8c)
                                                 .unwrap_or(&"Unknown Ability".to_string())
                                         ))
                                     }
@@ -320,10 +337,40 @@ pub fn id_data(props: &IdProps) -> Html {
                             }
                         }
                     }
+                    if let Some(list26) = skill.list26.first() {
+                        {
+                            if let Some(i) = list26.u2.first() {
+                                match i {
+                                    1 => {"Has effect when cast"},
+                                    4 => {"Affects magicka/stamina resource pool"},
+                                    7 => {"Affects duration of eaten food"},
+                                    8 => {"Affects ultimate pool"},
+                                    9 => {"Has effect when you heal yourself or a group member/ally"},
+                                    14 => {"Has effect when your attack is blocked"},
+                                    15 => {"Has effect when you successfully roll dodge (mixed category, not guaranteed)"},
+                                    18 => {"Has effect when you block"},
+                                    39 => {"Has effect when you cast a specific kind of ability"},
+                                    49 => {"Has effect when you deal critical damage"},
+                                    50 => {"Has effect when you take critical damage"},
+                                    76 => {"Tel Var District Bonus"},
+                                    78 => {"Has effect when you bash (or blade of woe?) an enemy"},
+                                    86 => {"Has effect every second in combat"},
+                                    88 => {"Increases your ability range"},
+                                    92 => {"Reduces chance for enchantment proc to reduce charge"},
+                                    93 => {"Reduces wayshrine recall cost"},
+                                    96 => {"Reduces the time it takes for a fish to bite"},
+                                    98 => {"Reduces the chance to consume a potion"},
+                                    _ => {""},
+                                }
+                            } else {
+                                {""}
+                            }
+                        }
+                    }
                     if let Some(tooltip) = tooltips.get(&skill.ability_id1) {
                         <h4>{"Tooltip"}</h4>
                         for t in tooltip {
-                            <div>{t.to_owned()}</div>
+                            <div>{t.trim_matches('"').to_owned()}</div>
                         }
                         { for skill.tooltip_data.iter().flat_map(|td| {
                             td.tooltip_ids.iter().zip(td.tooltip_types.iter()).enumerate().map(|(i, (id, ty))| {
@@ -418,7 +465,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 TooltipType::Knockback | TooltipType::SelfHeal => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.value1;
-                                                        (value != 0).then(|| format_distance(&value))
+                                                        (value != 0).then(|| format_distance(&get_value_adjusted(&value)))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
@@ -533,7 +580,7 @@ pub fn id_data(props: &IdProps) -> Html {
                         <div>
                             { for skill.causes_ids.iter().map(|cid: &u32| html! {
                                 <>
-                                    { 
+                                    {
                                         render_ability_link(cid, format!("{} ({})", cid, abilities.get(cid).unwrap_or(&"?".to_string())))
                                     }
                                 <br />
