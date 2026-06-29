@@ -8293,7 +8293,7 @@
 260255,"Envelop yourself in a protective cloak of razors, gaining <<1>> for <<2>>, reducing damage from area attacks by <<3>>","Every <<4>> the shrapnel will pulse, dealing <<5>> to all enemies within <<6>> meters","You also gain <<7>> for <<8>>, increasing your Movement Speed by <<9>>"
 260368,· Deals <<1>> to all enemies in front of you
 261185,"Violently drain the last spark of life from a corpse, dealing <<1>> over <<2>> to all enemies around the corpse and between you and the corpse","If the siphon lasts its full duration it causes the corpse to explode, dealing an additional <<3>> to all enemies around the corpse",This ability scales off your highest offensive stats,"While slotted, your damage done is increased by <<4>>"
-261285,"Increase your damage done with status effects by <<1>> for every <<2>> Ultimate you have, up to <<3>>","This effect is divided by 1 plus 1 if the target is a player, plus 1 if Feral Guardian is active","While you have <<4>> or more Ultimate, your Light and Heavy Attacks apply a random status effect, up to once every <<5>>","Applies <<6>> to you, consuming <<7>> Ultimate every <<8>> in combat"
+261285,"Increase your damage done to monsters with status effects by <<1>> for every <<2>> Ultimate you have, up to <<3>>",The cap is halved if Feral Guardian is active,"While you have <<4>> or more Ultimate, your Light and Heavy Attacks apply a random status effect, up to once every <<5>>","While equipped, applies <<6>> to you, consuming <<7>> Ultimate every <<8>> in combat"
 261388,"While under the effect of the Grasping Void, Health Regeneration is reduced to 0"
 261396,"While active, this effect reveals your presence to clairvoyant enemies"
 261404,"While active, this effect reveals your presence to nearby enemies"

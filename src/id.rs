@@ -205,7 +205,7 @@ pub fn id_data(props: &IdProps) -> Html {
                         12 => Some("Werewolf"),
                         _ => None,
                     } {
-                        <Field label="Skill Line [2]: " value={format!("{}", weapon_skill_line)} />
+                        <Field label="Skill Line 2: " value={format!("{}", weapon_skill_line)} />
                     }
                     if let Some(scribing_ability) = match skill.base_data.scribing_index {
                         0 => None,
