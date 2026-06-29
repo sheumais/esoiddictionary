@@ -338,32 +338,44 @@ pub fn id_data(props: &IdProps) -> Html {
                         }
                     }
                     if let Some(list26) = skill.list26.first() {
-                        {
-                            if let Some(i) = list26.u2.first() {
+                        if let Some(i) = list26.u2.first() {
+                            <div>{
                                 match i {
-                                    1 => {"Has effect when cast"},
-                                    4 => {"Affects magicka/stamina resource pool"},
-                                    7 => {"Affects duration of eaten food"},
-                                    8 => {"Affects ultimate pool"},
-                                    9 => {"Has effect when you heal yourself or a group member/ally"},
-                                    14 => {"Has effect when your attack is blocked"},
-                                    15 => {"Has effect when you successfully roll dodge (mixed category, not guaranteed)"},
-                                    18 => {"Has effect when you block"},
-                                    39 => {"Has effect when you cast a specific kind of ability"},
-                                    49 => {"Has effect when you deal critical damage"},
-                                    50 => {"Has effect when you take critical damage"},
-                                    76 => {"Tel Var District Bonus"},
-                                    78 => {"Has effect when you bash (or blade of woe?) an enemy"},
-                                    86 => {"Has effect every second in combat"},
-                                    88 => {"Increases your ability range"},
-                                    92 => {"Reduces chance for enchantment proc to reduce charge"},
-                                    93 => {"Reduces wayshrine recall cost"},
-                                    96 => {"Reduces the time it takes for a fish to bite"},
-                                    98 => {"Reduces the chance to consume a potion"},
-                                    _ => {""},
+                                    1  => "Has effect when cast",
+                                    4  => "Affects magicka/stamina resource pool",
+                                    7  => "Affects duration of eaten food",
+                                    8  => "Affects ultimate pool",
+                                    9  => "Has effect when you heal yourself or a group member/ally",
+                                    14 => "Has effect when your attack is blocked",
+                                    15 => "Has effect when you successfully roll dodge (mixed category, not guaranteed)",
+                                    18 => "Has effect when you block",
+                                    39 => "Has effect when you cast a specific kind of ability",
+                                    49 => "Has effect when you deal critical damage",
+                                    50 => "Has effect when you take critical damage",
+                                    76 => "Tel Var District Bonus",
+                                    78 => "Has effect when you bash (or blade of woe?) an enemy",
+                                    86 => "Has effect every second in combat",
+                                    88 => "Increases your ability range",
+                                    92 => "Reduces chance for enchantment proc to reduce charge",
+                                    93 => "Reduces wayshrine recall cost",
+                                    96 => "Reduces the time it takes for a fish to bite",
+                                    98 => "Reduces the chance to consume a potion",
+                                    _  => "",
                                 }
-                            } else {
-                                {""}
+                            }</div>
+                        }
+                        if let Some(i) = list26.u2.get(1) {
+                            if i != &0 {
+                                <div>
+                                    <span>{"Grants Synergy: "}</span>
+                                    <span>
+                                        {render_ability_link(i, format!(
+                                            "{} ({})",
+                                            i,
+                                            abilities.get(i).unwrap_or(&"Unknown Ability".to_string())
+                                        ))}
+                                    </span>
+                                </div>
                             }
                         }
                     }
