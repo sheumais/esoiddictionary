@@ -13,7 +13,7 @@ use yew::prelude::*;
 use yew_router::components::Link;
 use crate::Route::{self};
 use crate::fetch::{get_skill, read_bytes};
-use crate::format::{SkillEquationFormatter, format_angle, format_distance, format_duration, get_value_adjusted, render_ability_link, render_ability_link_current, resolve_id, with_skill};
+use crate::format::{SkillEquationFormatter, format_angle, format_distance, format_duration, get_value_adjusted, list26_u2_value, render_ability_link, render_ability_link_current, render_ability_reference, resolve_id, with_skill};
 use crate::index_state::{IndexState, find_entry};
 
 
@@ -226,19 +226,14 @@ pub fn id_data(props: &IdProps) -> Html {
                         <Field label="Scribing: " value={format!("{} ({})", scribing_ability, skill.base_data.scribing_index)} />
                     }
                     if skill.base_data.caused_by != 0 && skill.base_data.caused_by != skill.ability_id1 {
-                        <div> 
-                            <span>{"Caused By: "}</span>
-                            <span>
-                                {
-                                    render_ability_link(&skill.base_data.caused_by, format!(
-                                        "{} ({})", 
-                                        skill.base_data.caused_by,
-                                        abilities
-                                            .get(&skill.base_data.caused_by)
-                                            .unwrap_or(&"Unknown Ability".to_string())))
-                                }
-                            </span>
-                        </div>
+                        {render_ability_reference(
+                            "Caused By: ",
+                            skill.base_data.caused_by,
+                            abilities
+                                .get(&skill.base_data.caused_by)
+                                .map(String::as_str)
+                                .unwrap_or("Unknown Ability"),
+                        )}
                     }
                     if let Some(list25) = skill.list25.first() {
                         if list25.base_ability_id > 0 && list25.base_ability_id != skill.ability_id1 && skill.base_data.scribing_index == 0 {
@@ -258,25 +253,98 @@ pub fn id_data(props: &IdProps) -> Html {
                         }
                     }
                     if skill.u8c != 0 && skill.u8c != skill.ability_id1 {
-                        <div> 
-                            <span>{"Replaces: "}</span>
-                            <span>
-                                    {
-                                        render_ability_link(&skill.u8c, format!(
-                                            "{} ({})",
-                                            skill.u8c,
-                                            abilities
-                                                .get(&skill.u8c)
-                                                .unwrap_or(&"Unknown Ability".to_string())
-                                        ))
-                                    }
-                            </span>
-                        </div>
+                        {render_ability_reference(
+                            "Replaces: ",
+                            skill.u8c,
+                            abilities
+                                .get(&skill.u8c)
+                                .map(String::as_str)
+                                .unwrap_or("Unknown Ability"),
+                        )}
                     }
                     if let Some(ability_type) = AbilityType::from_id(&skill.base_data.ability_type) && skill.base_data.ability_type != 0 {
                         <Field label="Ability Type: " value={format!("{} ({})", ability_type, skill.base_data.ability_type)} />
-                    } else if skill.base_data.ability_type != 0 {
-                        <Field label="Ability Type: " value={format!("? ({})", skill.base_data.ability_type)} />
+                        {
+                            match ability_type {
+                                AbilityType::ActionList => list26_u2_value(skill, 0)
+                                    .map(|id| {
+                                        html! {
+                                            <div>
+                                                <span>{"Do action list #: "}</span>
+                                                <span>{format!("{id} (server-side function reference id)")}</span>
+                                            </div>
+                                        }
+                                    })
+                                    .unwrap_or_else(|| html! {}),
+
+                                AbilityType::GrantAbility => list26_u2_value(skill, 1)
+                                    .map(|id| {
+                                        render_ability_reference(
+                                            "Grants Synergy: ",
+                                            id,
+                                            abilities
+                                                .get(&id)
+                                                .map(String::as_str)
+                                                .unwrap_or("Unknown Ability"),
+                                        )
+                                    })
+                                    .unwrap_or_else(|| html! {}),
+
+                                AbilityType::CreateInventoryItem => list26_u2_value(skill, 1)
+                                    .map(|id| {
+                                        html! {
+                                            <div>
+                                                <span>{"Creates item: "}</span>
+                                                <span>
+                                                    <a href={format!("https://esoitem.uesp.net/itemLink.php?itemid={id}&summary")}>
+                                                        {id}
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        }
+                                    })
+                                    .unwrap_or_else(|| html! {}),
+
+                                AbilityType::AreaTeleport => list26_u2_value(skill, 1)
+                                    .map(|id| {
+                                        html! {
+                                            <div>
+                                                <span>{"Teleports players to location id: "}</span>
+                                                <span>{format!("{id}")}</span>
+                                            </div>
+                                        }
+                                    })
+                                    .unwrap_or_else(|| html! {}),
+
+                                AbilityType::SetCooldown | AbilityType::ModifyCooldown => list26_u2_value(skill, 1)
+                                    .map(|id| {
+                                        render_ability_reference(
+                                            "Sets cooldown of: ",
+                                            id,
+                                            abilities
+                                                .get(&id)
+                                                .map(String::as_str)
+                                                .unwrap_or("Unknown Ability"),
+                                        )
+                                    })
+                                    .unwrap_or_else(|| html! {}),
+
+                                AbilityType::RemoveType => list26_u2_value(skill, 1)
+                                    .map(|id| {
+                                        render_ability_reference(
+                                            "Removes the buff: ",
+                                            id,
+                                            abilities
+                                                .get(&id)
+                                                .map(String::as_str)
+                                                .unwrap_or("Unknown Ability"),
+                                        )
+                                    })
+                                    .unwrap_or_else(|| html! {}),
+
+                                _ => html! {},
+                            }
+                        }
                     }
                     if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) {
                         <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
@@ -363,20 +431,6 @@ pub fn id_data(props: &IdProps) -> Html {
                                     _  => "",
                                 }
                             }</div>
-                        }
-                        if let Some(i) = list26.u2.get(1) {
-                            if i != &0 {
-                                <div>
-                                    <span>{"Grants Synergy: "}</span>
-                                    <span>
-                                        {render_ability_link(i, format!(
-                                            "{} ({})",
-                                            i,
-                                            abilities.get(i).unwrap_or(&"Unknown Ability".to_string())
-                                        ))}
-                                    </span>
-                                </div>
-                            }
                         }
                     }
                     if let Some(tooltip) = tooltips.get(&skill.ability_id1) {

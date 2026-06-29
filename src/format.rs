@@ -183,3 +183,30 @@ pub fn resolve_id(initial_id: u32, get_skill: &impl Fn(&u32) -> Option<SkillData
     }
     current
 }
+
+pub fn render_ability_reference(label: &'static str, id: u32, ability_name: &str) -> Html {
+    html! {
+        <div>
+            <span>{label}</span>
+            <span>
+                {render_ability_link(
+                    &id,
+                    format!(
+                        "{} ({})",
+                        id,
+                        ability_name
+                    ),
+                )}
+            </span>
+        </div>
+    }
+}
+
+pub fn list26_u2_value(skill: &SkillData34, index: usize) -> Option<u32> {
+    skill
+        .list26
+        .first()
+        .and_then(|l26| l26.u2.get(index))
+        .copied()
+        .filter(|v| *v != 0)
+}
