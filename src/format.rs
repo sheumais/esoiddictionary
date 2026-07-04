@@ -1,4 +1,4 @@
-use eso_skill_data::{SkillCoef, SkillData34, enums::coefficient_type::CoefficientType};
+use eso_skill_data::{SkillCoef, SkillData34, enums::{coefficient_type::CoefficientType, major_minor::MajorMinorBuff, tooltip_type::TooltipType}};
 use yew::{Html, html};
 use yew_router::components::Link;
 
@@ -166,14 +166,58 @@ pub fn render_ability_link_current(id: &u32, display: String, is_current: bool) 
     }
 }
 
-pub fn resolve_id(initial_id: u32, get_skill: &impl Fn(&u32) -> Option<SkillData34>) -> u32 {
+fn tooltip_value_present(skill: &SkillData34, tooltip_type: TooltipType) -> bool {
+    match tooltip_type {
+        TooltipType::Percentage => {
+            get_value_adjusted(&skill.base_data.value1) != 0
+                || MajorMinorBuff::from_id(&(skill.major_minor_id as u32)).is_some()
+        }
+        TooltipType::StatPercentage | TooltipType::ReduceHeatPercent => {
+            get_value_adjusted(&skill.base_data.value1) != 0
+        }
+        TooltipType::Duration | TooltipType::DelayedStrike | TooltipType::DeprecatedZeroDuration => {
+            skill.base_data.duration != 0
+        }
+        TooltipType::MinimumCooldown => skill.base_data.value0 != 0,
+        TooltipType::IncreaseDurationOf
+        | TooltipType::Knockback
+        | TooltipType::SelfHeal
+        | TooltipType::ReduceCostIncreaseRecovery => skill.base_data.value1 != 0,
+        TooltipType::TickRate => skill.base_data.tick != 0,
+        TooltipType::MagicalDamage
+        | TooltipType::MartialDamage
+        | TooltipType::SingleTargetDoT
+        | TooltipType::AreaHoT
+        | TooltipType::SingleTargetHeal
+        | TooltipType::NoblesConquest
+        | TooltipType::DeprecatedMultiHit => SkillEquationFormatter::format(skill).is_some(),
+        TooltipType::ResourceGain => {
+            MajorMinorBuff::from_id(&(skill.major_minor_id as u32)).is_some()
+                || get_value_adjusted(&skill.base_data.value1) != 0
+                || SkillEquationFormatter::format(skill).is_some()
+        }
+        TooltipType::BonusUpToPercent => {
+            skill.list19.first().map_or(0, |i| i.bonus_up_to_pct) != 0
+        }
+        TooltipType::ThresholdBelowHealthPercent => {
+            skill.list19.first().map_or(0, |i| i.threshold_below_health_pct) != 0
+        }
+        _ => false,
+    }
+}
+
+pub fn resolve_id(initial_id: u32, tooltip_type: TooltipType, get_skill: &impl Fn(&u32) -> Option<SkillData34>) -> u32 {
     let mut current = initial_id;
     for _ in 0..=3 {
-        if let Some(s) = get_skill(&current) {
-            if s.causes_ids.len() == 1 {
-                current = s.causes_ids[0];
-            } else if let Some(t) = s.tooltip_data.first() {
-                if t.num_tooltip_ids == 1 {current = t.tooltip_ids.first().unwrap_or(&initial_id).clone()}
+        let Some(s) = get_skill(&current) else { break };
+        if tooltip_value_present(&s, tooltip_type) {
+            break;
+        }
+        if s.causes_ids.len() == 1 {
+            current = s.causes_ids[0];
+        } else if let Some(t) = s.tooltip_data.first() {
+            if t.num_tooltip_ids == 1 {
+                current = t.tooltip_ids.first().copied().unwrap_or(initial_id);
             } else {
                 break;
             }

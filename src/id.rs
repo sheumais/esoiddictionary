@@ -440,7 +440,8 @@ pub fn id_data(props: &IdProps) -> Html {
                         }
                         { for skill.tooltip_data.iter().flat_map(|td| {
                             td.tooltip_ids.iter().zip(td.tooltip_types.iter()).enumerate().map(|(i, (id, ty))| {
-                                let id = &resolve_id(*id, &get_skill);
+                                let tooltip_type = TooltipType::from_id(ty).unwrap();
+                                let id = &resolve_id(*id, tooltip_type, &get_skill);
                                 let tooltip_type = TooltipType::from_id(ty).unwrap();
                                 let label: String = format!("{} ({}): ", i + 1, tooltip_type).into();
 
