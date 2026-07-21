@@ -472,8 +472,13 @@ pub fn id_data(props: &IdProps) -> Html {
                                                         if value != 0 {
                                                             return Some(format!("{}%", value));
                                                         }
-                                                        MajorMinorBuff::from_id(&(skill.major_minor_id as u32))
-                                                            .map(|b| format!("{}%", b.tooltip_value()))
+                                                        if let Some(d) = SkillEquationFormatter::format(skill) {
+                                                            Some(d)
+                                                        } else {
+                                                            MajorMinorBuff::from_id(&(skill.major_minor_id as u32))
+                                                                .map(|b| format!("{}%", b.tooltip_value()))
+                                                        }
+
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
