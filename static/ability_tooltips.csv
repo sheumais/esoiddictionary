@@ -2374,7 +2374,6 @@
 58649,· Deals <<1>> to all enemies in front of you
 58734,Leave a trap that snares enemies within 8m by 80% for 2 seconds and pulses every 3 seconds,Deals 150 damage per pulse,Lasts 12 seconds
 58742,"Rip and tear into an enemy with your fangs, dealing <<1>> while applying Major Breach for <<2>> and the <<3>> status effect on the initial rip and <<4>> while tearing out, when it is done","The second hit deals up to <<5>>% more damage to enemies with less than <<6>>% Health and heals you for <<7>>, based off your Max Health",Consumes a stack of <<8>> to increase the initial damage and healing done by <<9>>
-58775,Increases your Light Attack damage by <<1>>
 58781,Increase Spell Resistance by <<1>>
 58782,"Reduces research times by 25%, limits research time to 10 days, and allows the research of three items at once"
 58783,"Reduces research times by 25%, limits research time to 10 days, and allows the research of three items at once"
@@ -5131,7 +5130,7 @@
 131346,Increases your Weapon Damage by <<1>>
 131350,Increases your Weapon Damage by <<1>>
 131351,"Cleanse yourself and your group, removing <<1>> negative effects and reducing the duration of any further negative effects by <<2>> for <<3>>"
-131353,Increases your Light Attack damage by <<1>>
+131353,Increases your damage done by <<1>>
 131383,Grants immunity to Snares and Immobilizes
 131478,Grants the ability to break magical seals placed by Voria,Magicka and Stamina Recovery is increased by <<1>>,As a Necromancer your Magicka and Stamina Recovery is increased by <<2>>
 131506,Maximum Health increased by <<1>> and reduces your damage taken by <<2>>,"As a Necromancer, Maximum Health increased by <<3>> and reduces your damage taken by <<4>>"
@@ -6444,7 +6443,6 @@
 188115,Leave a trap that snares enemies within 8m by 80% for 2 seconds and pulses every 3 seconds,Deals 150 damage per pulse,Lasts 12 seconds
 188188,You are on fire!
 188408,Increases your Light Attack damage by <<1>>
-188427,Increases your Light Attack damage by <<1>>
 188456,Overhealing yourself or an ally grants them <<1>> Armor for <<2>>,"Healing yourself or an ally grants them Minor Vitality for <<3>>, increasing their healing received and damage shield strength by <<4>>"
 188511,· <<1>> damage to enemy,"· Chill: Slow <<2>> per stack, lasts <<3>>"
 188529,Applying a Major or Minor Debuff to an enemy applies Star Venom to them for <<1>>,This effect can occur once every <<2>>,"Whenever an enemy with Star Venom is healed, they take <<3>> Oblivion Damage, up to once every <<4>>",An enemy can only be affected by one instance of Star Venom every <<2>>
@@ -8395,8 +8393,6 @@
 266268,Up to 6 living humanoids within 2.5 meters are disoriented and cannot witness crimes for <<1>>,Interacting with a target - including pickpocketing - will end the effect
 266377,"Consume your fury and unleash the beast, increasing your Movement Speed by <<1>>, damage done by <<2>>, and reducing the cost of your Werewolf Transformation and abilities by <<3>> for <<4>>",This effect is lost if you leave Werewolf form
 266733,When you have all three collectible fragments for the Mote of Furious Flame: Use to perform the ritual
-266849,Increases your Weapon and Spell Damage by <<1>>,"Grants you Major Resolve, increasing your Physical and Spell Resistance by <<2>>"
-266850,Increases your Weapon and Spell Damage by <<1>>,"Grants you Major Resolve, increasing your Physical and Spell Resistance by <<2>>"
 266856,"On dealing critical damage, increase your Max Magicka and Max Stamina by <<1>> for <<2>>, stacking up to 5 times","On dealing non-critical damage, increase your Health, Magicka, and Stamina Recovery by <<3>> for <<4>>, stacking up to 5 times",Either effect can occur up to once every <<5>>
 266859,"On dealing critical damage, increase your Max Magicka and Max Stamina by <<1>> for <<2>>, stacking up to 5 times","On dealing non-critical damage, increase your Health, Magicka, and Stamina Recovery by <<3>> for <<4>>, stacking up to 5 times",Either effect can occur up to once every <<5>>
 267248,A job well done is the only job you'll do,Increases your Critical Damage and Healing by <<1>>,This bonus bypasses the Critical cap and adds to it
