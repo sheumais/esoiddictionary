@@ -114,14 +114,6 @@ pub fn format_duration(ms: &u32) -> String {
     }
 }
 
-pub fn get_value_adjusted(value: &u32) -> u32 {
-    if value > &2_147_483_647u32 {
-        u32::MAX - value + 1
-    } else {
-        *value
-    }
-}
-
 pub fn format_distance(cm: &u32) -> String {
     format!("{}m", (*cm as f32 / 100.0))
 }
@@ -169,11 +161,11 @@ pub fn render_ability_link_current(id: &u32, display: String, is_current: bool) 
 fn tooltip_value_present(skill: &SkillData34, tooltip_type: TooltipType) -> bool {
     match tooltip_type {
         TooltipType::Percentage => {
-            get_value_adjusted(&skill.base_data.value1) != 0
+            skill.base_data.value1 != 0
                 || MajorMinorBuff::from_id(&(skill.major_minor_id as u32)).is_some()
         }
         TooltipType::StatPercentage | TooltipType::ReduceHeatPercent => {
-            get_value_adjusted(&skill.base_data.value1) != 0
+            skill.base_data.value1 != 0
         }
         TooltipType::Duration | TooltipType::DelayedStrike | TooltipType::DeprecatedZeroDuration => {
             skill.base_data.duration != 0
@@ -193,7 +185,7 @@ fn tooltip_value_present(skill: &SkillData34, tooltip_type: TooltipType) -> bool
         | TooltipType::DeprecatedMultiHit => SkillEquationFormatter::format(skill).is_some(),
         TooltipType::ResourceGain => {
             MajorMinorBuff::from_id(&(skill.major_minor_id as u32)).is_some()
-                || get_value_adjusted(&skill.base_data.value1) != 0
+                || skill.base_data.value1 != 0
                 || SkillEquationFormatter::format(skill).is_some()
         }
         TooltipType::BonusUpToPercent => {

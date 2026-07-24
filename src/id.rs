@@ -13,7 +13,7 @@ use yew::prelude::*;
 use yew_router::components::Link;
 use crate::Route::{self};
 use crate::fetch::{get_skill, read_bytes};
-use crate::format::{SkillEquationFormatter, format_angle, format_distance, format_duration, get_value_adjusted, list26_u2_value, render_ability_link, render_ability_link_current, render_ability_reference, resolve_id, with_skill};
+use crate::format::{SkillEquationFormatter, format_angle, format_distance, format_duration, list26_u2_value, render_ability_link, render_ability_link_current, render_ability_reference, resolve_id, with_skill};
 use crate::index_state::{IndexState, find_entry};
 
 
@@ -173,10 +173,9 @@ pub fn id_data(props: &IdProps) -> Html {
 
             let tags = html! { <Field label={"Ability Tags: "} value={ tags.join(", ") } /> };
 
-            fn render_value_field(label: &'static str, val: u32, prev: u32) -> Html {
+            fn render_value_field(label: &'static str, val: i32, prev: i32) -> Html {
                 if val != 0 && val != prev {
-                    let v = get_value_adjusted(&val);
-                    html! { <Field label={label} value={v.to_string()} /> }
+                    html! { <Field label={label} value={val.to_string()} /> }
                 } else {
                     html! {}
                 }
@@ -468,12 +467,11 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                 TooltipType::Percentage => {
                                                     let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = get_value_adjusted(&skill.base_data.value1);
-                                                        if value != 0 {
-                                                            return Some(format!("{}%", value));
-                                                        }
+                                                        let value = skill.base_data.value1;
                                                         if let Some(d) = SkillEquationFormatter::format(skill) {
-                                                            Some(d)
+                                                            return Some(d);
+                                                        } else if value != 0 {
+                                                            return Some(format!("{}%", value));
                                                         } else {
                                                             MajorMinorBuff::from_id(&(skill.major_minor_id as u32))
                                                                 .map(|b| format!("{}%", b.tooltip_value()))
@@ -486,7 +484,7 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                 TooltipType::StatPercentage => {
                                                     let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = get_value_adjusted(&skill.base_data.value1);
+                                                        let value = skill.base_data.value1;
                                                         (value != 0).then(|| format!("{}%", value))
                                                     });
 
@@ -495,14 +493,14 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                 TooltipType::ReduceHeatPercent => { // 79865
                                                     let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = get_value_adjusted(&skill.base_data.value1);
+                                                        let value = skill.base_data.value1;
                                                         (value != 0).then(|| format!("{}%", value / 10))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
-                                                                                                     // 47374
+                                                                                                    // 47374
                                                 TooltipType::Duration | TooltipType::DelayedStrike | TooltipType::DeprecatedZeroDuration => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.duration;
@@ -515,7 +513,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 TooltipType::MinimumCooldown => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.value0;
-                                                        (value != 0).then(|| format_duration(&value))
+                                                        (value != 0).then(|| format_duration(&(value as u32)))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
@@ -524,7 +522,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 TooltipType::IncreaseDurationOf => { // 45214
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.value1;
-                                                        (value != 0).then(|| format_duration(&value))
+                                                        (value != 0).then(|| format_duration(&(value as u32)))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
@@ -537,7 +535,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 TooltipType::Knockback | TooltipType::SelfHeal => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.value1;
-                                                        (value != 0).then(|| format_distance(&get_value_adjusted(&value)))
+                                                        (value != 0).then(|| format_distance(&(value as u32)))
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
@@ -579,9 +577,11 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         if let Some(major_minor_buff) = MajorMinorBuff::from_id(&(skill.major_minor_id as u32)) {
                                                             Some(format!("{}", major_minor_buff.tooltip_value()))
-                                                        } else if get_value_adjusted(&skill.base_data.value1) != 0 {
-                                                            Some(get_value_adjusted(&skill.base_data.value1).to_string())
-                                                        } else { SkillEquationFormatter::format(skill) }
+                                                        } else if let Some(d) = SkillEquationFormatter::format(skill) {
+                                                            Some(d)
+                                                        } else {
+                                                            Some(skill.base_data.value1.to_string())
+                                                        }
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)

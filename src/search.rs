@@ -13,7 +13,7 @@ use yew_router::hooks::use_navigator;
 
 use crate::Route;
 use crate::fetch::get_skill;
-use crate::format::{format_angle, format_distance, format_duration, get_value_adjusted, render_ability_link};
+use crate::format::{format_angle, format_distance, format_duration, render_ability_link};
 use crate::{SKILL_CSV, get_timestamps, id::get_abilities};
 
 static SKILL_GROUPS: OnceLock<BTreeMap<u32, Vec<u32>>> = OnceLock::new();
@@ -211,7 +211,7 @@ pub fn search(props: &SearchProps) -> Html {
                             (skill.base_data.angle != 0.0)
                                 .then(|| format_angle(&skill.base_data.angle)),
                             (skill.base_data.value1 != 0)
-                                .then(|| get_value_adjusted(&skill.base_data.value1).to_string()),
+                                .then(|| skill.base_data.value1.to_string()),
                         ]
                         .into_iter()
                         .flatten()
