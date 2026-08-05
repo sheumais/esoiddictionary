@@ -182,7 +182,7 @@ fn tooltip_value_present(skill: &SkillData34, tooltip_type: TooltipType) -> bool
         | TooltipType::AreaHoT
         | TooltipType::SingleTargetHeal
         | TooltipType::NoblesConquest
-        | TooltipType::DeprecatedMultiHit => SkillEquationFormatter::format(skill).is_some(),
+        | TooltipType::DeprecatedMultiHit => SkillEquationFormatter::format(skill).is_some() || skill.base_data.value1 != 0,
         TooltipType::ResourceGain => {
             MajorMinorBuff::from_id(&(skill.major_minor_id as u32)).is_some()
                 || skill.base_data.value1 != 0
@@ -191,6 +191,7 @@ fn tooltip_value_present(skill: &SkillData34, tooltip_type: TooltipType) -> bool
         TooltipType::BonusUpToPercent => {
             skill.list19.first().map_or(0, |i| i.bonus_up_to_pct) != 0
         }
+        TooltipType::TargetCap => skill.pre.u0 != 0,
         TooltipType::ThresholdBelowHealthPercent => {
             skill.list19.first().map_or(0, |i| i.threshold_below_health_pct) != 0
         }

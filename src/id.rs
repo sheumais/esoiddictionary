@@ -567,7 +567,12 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 | TooltipType::NoblesConquest
                                                 | TooltipType::DeprecatedMultiHit => {
                                                     let display = with_skill(id, &ability_name, |skill| {
-                                                        SkillEquationFormatter::format(skill)
+                                                        if let Some(v) = SkillEquationFormatter::format(skill) {
+                                                            Some(v)
+                                                        } else {
+                                                            let value = skill.base_data.value1;
+                                                            (value != 0).then(|| format!("{}", value))
+                                                        }
                                                     });
 
                                                     render_ability_link_current(id, display, is_current)
@@ -605,9 +610,19 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     render_ability_link_current(id, display, is_current)
                                                 }
 
+                                                TooltipType::TargetCap => {
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        let value = skill.pre.u0;
+                                                        (value != 0).then(|| format!("{}", &value))
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
                                                 TooltipType::BuffGain => {
                                                     render_ability_link_current(id, ability_name, is_current)
                                                 }
+
 
                                                 _ => {
                                                     if is_ability {
