@@ -46065,7 +46065,7 @@
 110418,Lunge
 110419,Lunge
 110420,Imbue Weapon
-110421,Elemental Weapon Restore
+110421,Elemental Weapon
 110422,Crushing Weapon Restore
 110423,Cleaving Eviction
 110425,Flare
@@ -153546,7 +153546,7 @@
 266234,Health Low
 266235,Health Low
 266236,Prowler's Talisman
-266240,Spawn
+266240,Trapped
 266243,Collision
 266244,Collision
 266245,Stun
@@ -153838,7 +153838,6 @@
 267500,Summon Cleanup
 267501,The Unblinking Eye
 267502,The Unblinking Eye
-267503,Stun Delay Tracker
 267504,The Unblinking Eye
 267505,Stun Delay Timer
 267506,The Unblinking Eye
@@ -153847,7 +153846,6 @@
 267516,Leap
 267522,Shell Game
 267531,Hazard Detection
-267532,Relay Message
 267533,Ticking AOE
 267534,Hazard Detection
 267536,Shell Game
@@ -153868,7 +153866,6 @@
 267555,Major Sorcery
 267559,vfx
 267563,Shell Game
-267565,Stun
 267570,Minor Berserk
 267571,Strike
 267572,Strike
@@ -154224,7 +154221,6 @@
 269035,Immune
 269036,From Spawn to Rested
 269061,Frenzied
-269064,test
 269067,test
 269101,Lacerate
 269102,Lacerate
@@ -154269,7 +154265,7 @@
 269255,Cooldown
 269256,Devour
 269257,Devour
-269341,"V-TW-04 Checkpoint (T, Right)"
+269341,V-TW-04 Checkpoint (End)
 269348,Leash
 269349,Containment
 269356,Bite and Tear
@@ -154789,26 +154785,26 @@
 273272,Pulverize
 273273,Thorn Toss
 273274,Slam
-273291,Lava Geyser
-273292,Lava Geyser
-273293,Lava Geyser
-273296,Lava Geyser
-273297,Lava Geyser
-273298,Lava Geyser
-273299,Lava Geyser
-273301,Lava Geyser
-273302,Lava Geyser
-273303,Lava Geyser
-273304,Lava Geyser
-273305,Lava Geyser
+273291,Molten Eruption
+273292,Molten Eruption
+273293,Molten Eruption
+273296,Molten Eruption
+273297,Molten Eruption
+273298,Molten Eruption
+273299,Molten Eruption
+273301,Molten Eruption
+273302,Molten Eruption
+273303,Molten Eruption
+273304,Molten Eruption
+273305,Molten Eruption
 273306,Molten Debris
 273307,Molten Debris
 273309,Sweltering Heat
 273310,Molten Debris
 273311,Molten Debris
-273312,Lava Geyser
+273312,Molten Eruption
 273313,Molten Debris
-273317,Lava Geyser
+273317,Molten Eruption
 273318,Jackpot Room 1
 273319,Jackpot Room 2
 273320,Bubbling Lava
@@ -154825,3 +154821,20 @@
 273358,Vault
 273359,Vault
 273360,Vault
+273368,Jackpot Room 2
+273369,Jackpot Room 1
+273370,Statue
+273371,Statue
+273372,Statue
+273373,Statue
+273374,Statue
+273375,Statue
+273436,Mark of the Pack
+273437,Mark of the Pack
+273439,Mark of the Pack
+273440,Mark of the Pack
+273579,Harpoon
+273580,Harpoon Cooldown
+273602,Unwavering Power
+273603,Diseased
+273618,Bell Immunity

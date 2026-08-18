@@ -349,7 +349,7 @@
 16442,If used on Enemy:,- Deal <<1>>,If used on Ally:,- Heal <<2>>
 16499,· Deals <<1>>
 16510,· Deals <<1>>,"· 20% off balance chance, occurs more frequently vs enemies under 30% health"
-16536,"Call a comet down from the constellations to blast an enemy, dealing <<1>> to all enemies in the area, knocking them down, and stunning them for <<2>>","After impact, enemies in the target area take <<3>> every <<4>> for <<5>>"
+16536,"Call a comet down from the constellations to blast an enemy, dealing <<1>> to all enemies in the area, knocking them down, and stunning them for <<2>>","One second after impact, enemies in the target area take <<3>> every <<4>> for <<5>>"
 16551,· Instantly stealth for <<1>>,· Increase move speed by <<2>>
 16565,"Unleash a surge of adrenaline to free yourself from Stun, Knockback, Disorient, Fear, Silence, and Attacker Reflect effects and gain immunity to them for <<1>>"
 16668,Immobilized,You cannot move while immobilized,Use Roll Dodge to remove immobilization
@@ -423,9 +423,9 @@
 20253,Immobilized,You cannot move while immobilized,Use Roll Dodge to remove immobilization
 20299,"Crouch into the shadows, becoming hidden over <<1>>","Attacking from stealth grants you 100% Critical Strike Chance, a <<2>> Melee Critical Damage bonus, <<3>> Ranged Critical Damage bonus, and stuns the target for <<4>>","While hidden and moving, costs <<5>> Stamina every <<6>> and Stamina Recovery is disabled"
 20309,"You are concealed from enemy sight, as long as you remain undetected","While Sneaking, your next Direct Damage attack will Critically Strike and gain bonus effects depending on the attack type, as long the target isn't facing you",- Melee Attacks stun the first enemy hit for <<1>> and gain maximum Critical Damage against monsters,- Ranged Attacks gain <<2>> Critical Damage against monsters
-20319,"Envelop your body in molten spikes to increase your damage done by <<1>> and gain <<2>>, increasing Physical and Spell Resistance by <<3>> for <<4>>"
-20323,"Envelop your body in molten spikes to increase your damage done by <<1>> and gain <<2>>, increasing Physical and Spell Resistance by <<3>> for <<4>>","As the armor forms you blast foes around you with shattered obsidian, causing them to take <<5>> over <<6>>","When this effect deals damage you gain a stack of <<7>>, up to once every <<8>>"
-20328,"Envelop your body in molten spikes to increase your damage done by <<1>> and gain <<2>>, increasing Physical and Spell Resistance by <<3>> for <<4>>","Power drawn from the heart of a volcano forms a damage shield around you that absorbs up to <<5>> damage for <<6>>, scaling off your Max Health"
+20319,"Envelop your body in molten spikes to increase your damage done to monsters by <<1>> and gain <<2>>, increasing Physical and Spell Resistance by <<3>> for <<4>>"
+20323,"Envelop your body in molten spikes to increase your damage done to monsters by <<1>> and gain <<2>>, increasing Physical and Spell Resistance by <<3>> for <<4>>","As the armor forms you blast foes around you with shattered obsidian, causing them to take <<5>> over <<6>>","When this effect deals damage you gain a stack of <<7>>, up to once every <<8>>"
+20328,"Envelop your body in molten spikes to increase your damage done to monsters by <<1>> and gain <<2>>, increasing Physical and Spell Resistance by <<3>> for <<4>>","Power drawn from the heart of a volcano forms a damage shield around you that absorbs up to <<5>> damage for <<6>>, scaling off your Max Health"
 20492,"Lash out with a flaming chain, pulling an enemy to you","The searing metal deals <<1>>, applies the <<2>> status effect, and taunts them for <<3>> if they are not already taunted",This attack cannot be dodged or reflected,"Also inflicts <<4>> on the enemy, reducing Weapon and Spell Damage by <<5>> for <<6>>"
 20496,"Lash out with a chain bound in Draconic runes, pulling an enemy to you","The enchanted metal deals <<1>>, applies the <<2>> status effect, and taunts them for <<3>> if they are not already taunted","If the target cannot be pulled, you restore the ability's Magicka cost",This attack cannot be dodged or reflected,"Also inflicts <<4>> on the enemy, reducing Weapon and Spell Damage by <<5>> for <<6>>"
 20499,"Lash out with a chain bound in jagged links, pulling yourself to an enemy",The searing metal deals <<1>> and applies the <<2>> status effect,This attack cannot be dodged or reflected,"Hitting the target grants you <<3>> for <<4>> and <<5>> for <<6>>, increasing damage done by <<7>> reducing damage taken from area attacks by <<8>>"
@@ -442,8 +442,8 @@
 20779,"Throw out a purifying flame, filling a large area with warmth for <<1>>",This fire heals you and your allies at the target location for <<2>> Health every <<3>>,This healing increases by 50% if you are in the area,"Healed targets gain <<4>> and <<5>> for <<6>>, increasing Health Recovery by <<7>> and generating <<8>> Ultimate every 1.5 seconds"
 20783,For <<1>>:,· Deals <<2>>,· Snare <<3>>
 20786,For <<1>>:,· Deals <<2>>,· Snare <<3>>
-20805,"Lash an enemy with flame, dealing <<1>>","Activating a different Dragonknight ability while in combat grants a stack of <<2>> up to 3 times, increasing the damage of your next <<3>> by <<4>> within <<5>>"
-20816,"Lash an enemy with flame, dealing <<1>> and healing for <<2>> Health","Hitting an Off Balance enemy grants <<3>> stacks of <<4>> for <<5>>, up to once every <<6>>",Activating again consumes a stack to deal <<7>> to your target and all nearby enemies and heals for <<8>> Health
+20805,"Lash an enemy with flame, dealing <<1>>","Activating a different Dragonknight ability while in combat grants a stack of <<2>> up to 3 times, increasing the damage of your next <<3>> by <<4>>, halving against players, within <<5>>"
+20816,"Lash an enemy with flame, dealing <<1>> and healing for <<2>> Health","Hitting an Off Balance enemy grants <<3>> stacks of <<4>> for <<5>>, up to once every <<6>>","After activating, you gain <<7>> damage done to monsters for <<8>>",Activating again consumes a stack to deal <<9>> to your target and all nearby enemies and heals for <<10>> Health
 20824,"Slam your whip down with tremendous force at an enemy, dealing <<1>> to them and all nearby enemies and healing you for <<2>> Health"
 20917,"Exhale a blast of draconic fire in front of you, dealing <<1>> and an additional <<2>> over <<3>> to enemies in your path"
 20919,"Focus your strength into a mighty swing, dealing <<1>> to enemies in front of you",You also gain a damage shield that absorbs <<2>> damage for <<3>>
@@ -798,7 +798,7 @@
 29457,Dragons leave naught but ash and ruin in their wake,Increases your damage done with area and over time attacks by <<1>>
 29460,The eldest Dragons are forces of nature,As are you,"Activating a Draconic Power ability grants you and group members <<1>> for <<2>>, increasing Weapon and Spell Damage by <<3>>","Increases your Health Recovery by up to <<4>>, based on your missing Health",Current amount: <<5>>
 29462,The syllables of that ancient tongue live in the mouth of every Dragonknight,"When you cast an Ultimate ability, you restore <<1>> Health, <<2>> Magicka, and <<2>> Stamina for every Ultimate spent",Each Dragonknight ability slotted increases this value by 3,Current amount:,<<3>> Health,<<4>> Magicka,<<5>> Stamina
-29463,"Given time, the smallest rock on the mountain can cascade into pure devastation","Whenever you deal damage you gain a stack of <<1>> which increases your damage done by <<2>> per stack, up to 10 times",This effect can occur once every <<3>>,"Every <<4>> you do not deal damage, you lose a stack"
+29463,"Given time, the smallest rock on the mountain can cascade into pure devastation","Whenever you deal damage you gain a stack of <<1>> which increases your damage done by <<2>> per stack, up to <<3>> times",This effect can occur once every <<4>>,"Every <<5>> you fail to generate a stack, you instead lose a stack"
 29468,"Rock and stone shield your heart, turning aside sharp blades and barbed words",Increases your Armor by <<1>>
 29472,Immobilized,You cannot move while immobilized
 29473,Where earth meets sky is a wellspring of power you can tap at will,When you cast or deal damage with an Earthen Heart ability in combat you generate <<1>> Ultimate,This effect can occur once every <<2>>,Increases your Critical Damage by <<3>>
@@ -895,7 +895,7 @@
 31422,Increases your damage done against enemies by 1% for every 20% current Health they have
 31425,Increases your Weapon and Spell Damage by <<1>> for each Sorcerer ability slotted,Current bonus: <<2>>
 31531,"Focus your staff's power to apply <<1>> to an enemy for <<2>>, healing you and your allies for <<3>> Health every <<4>> when damaging them"
-31565,"Increases your Weapon Damage, Spell Damage, and Armor by <<1>>"
+31565,Increases your Armor for each Templar ability slotted,Increases your Weapon and Spell Damage based on your total Armor and number of Templar abilities slotted,Current bonus:,<<1>> Armor,<<2>> Weapon and Spell Damage
 31632,"Inscribe a rune of cosmic fire on the earth, which takes 2 seconds to arm and lasts for <<1>>","When triggered, the rune blasts all enemies in the target area for <<2>>"
 31642,"Barter with Oblivion to trade vitality for power, sacrificing your Health in exchange for <<1>> Magicka",The exchange reduces your healing done and damage shield strength by <<2>> for <<3>>
 31698,Increases your Critical Damage by <<1>>,Increases your damage done to blocking players by <<2>>
@@ -1028,7 +1028,7 @@
 33220,Disguise yourself as a Forebear
 33221,Disguise yourself as a Crown
 33228,Reduces your damage done by <<1>>
-33291,"Steal an enemy's life force, dealing <<1>> and healing you or a nearby ally for <<2>>% of the damage inflicted every <<3>> for <<4>>"
+33291,"Steal an enemy's life force, dealing <<1>> and healing you or a nearby ally for <<2>>% of the damage inflicted every <<3>> for <<4>>","While active, increases your damage done by <<5>> for every <<6>> Health you have"
 33293,Increases your experience gain with the Heavy Armor skill line by 15%,Increases your crafting inspiration gained by <<1>>
 33294,Darkness draws your target into your grasp
 33301,Increases your Max Stamina by <<1>>
@@ -1068,8 +1068,8 @@
 34706,Immobilized,You cannot move while immobilized,Use Roll Dodge to remove immobilization
 34721,"Pour out your lifesblood and channel the arcane, healing yourself or an ally in front of you for <<1>> Health, while draining <<2>> Health from yourself over <<3>>"
 34727,"Pour out your lifesblood and channel the arcane, healing yourself or an ally in front of you for <<1>> Health, while draining <<2>> Health from yourself over <<3>>","After casting, gain Minor Mending for <<4>>, increasing your healing done by <<5>>"
-34835,"Steal an enemy's life force, dealing <<1>> and healing you for <<2>>% of the damage inflicted every <<3>> for <<4>>"
-34838,"Steal an enemy's life force, dealing <<1>> and healing you or 3 other nearby allies for <<2>>% of the damage inflicted every <<3>> for <<4>>"
+34835,"Steal an enemy's life force, dealing <<1>> and healing you for <<2>>% of the damage inflicted every <<3>> for <<4>>","While active, increases your damage done by <<5>> for every <<6>> Health you have"
+34838,"Steal an enemy's life force, dealing <<1>> and healing you or 3 other nearby allies for <<2>>% of the damage inflicted every <<3>> for <<4>>","While active, increases your damage done by <<5>> for every <<6>> Health you have"
 34843,"Thrust a caustic blade with lethal precision to stab an enemy, dealing <<1>>",Deals up to <<2>>% more damage to enemies with less than <<3>>% Health,Heals you for <<4>> if the enemy dies within <<5>> of being struck
 34851,"Throw a magic blade with lethal precision to strike an enemy, dealing <<1>>",Deals <<2>>% more damage to enemies below <<3>>% Health
 34876,Reduces your healing received and Health Recovery by <<1>>
@@ -1432,8 +1432,8 @@
 40470,"Inscribe a rune of cosmic fire on the earth, which takes 2 seconds to arm and lasts for <<1>>","When triggered, the rune blasts all enemies in the target area for <<2>>, knocks them into the air, and stuns them for <<3>>"
 40478,"Conjure a mote of magelight, revealing stealthed and invisible enemies around you for <<1>>",Exposed enemies cannot return to stealth or invisibility for <<2>>,The light is so brilliant that you cannot conceal your presence while active,"While slotted gain <<3>>, increasing Critical Chance by <<4>> and your Max Magicka is increased by <<5>>"
 40483,"Conjure a mote of magelight, revealing stealthed and invisible enemies around you for <<1>>",Exposed enemies cannot return to stealth or invisibility for <<2>>,The light is so radiant that you cannot conceal your presence while active,"While slotted gain <<3>>, increasing Critical Chance by <<4>>",You also prevent the stun from stealth attacks for you and nearby allies
-40489,"Call a comet down from the constellations to blast an enemy, dealing <<1>> to all enemies in the area, knocking them down, stunning them for <<2>>, and reducing their Movement Speed by <<3>> for <<4>>","After impact, enemies in the target area take <<5>> every <<6>> for <<7>>"
-40493,"Call a comet down from the constellations to blast an enemy, dealing <<1>> to all enemies in the area, knocking them down, and stunning them for <<2>>","After impact, enemies in the target area take <<3>> every <<4>> for <<5>>","You generate <<6>> Ultimate for each enemy hit by the initial blast, up to 6 times"
+40489,"Call a comet down from the constellations to blast an enemy, dealing <<1>> to all enemies in the area, knocking them down and stunning them for <<2>>","One second after impact, enemies in the target area take <<3>> every <<4>> for <<5>>",Enemies damaged by either portion have their Movement Speed reduced by <<6>> for <<7>>
+40493,"Call a comet down from the constellations to blast an enemy, dealing <<1>> to all enemies in the area, knocking them down, and stunning them for <<2>>","One second after impact, enemies in the target area take <<3>> every <<4>> for <<5>>","You generate <<6>> Ultimate for each enemy hit by the initial blast, up to 6 times"
 40525,You have bitten another player,"You may not do so again until the next Shadow of the Bloodmoon is available, which occurs once per week"
 41065,Magic School: Restoration Steals health from a single target at close range
 41325,Increases Movement Speed by 4%,Decreases Damage Taken by 10%
@@ -1512,7 +1512,7 @@
 44650,Allows the making of up to Champion 150 Recipes
 44721,"Gain <<1>> and <<2>> for <<3>>, increasing damage done and reducing damage taken by <<4>>"
 44730,When you deal damage you generate a stack of <<1>> for <<2>>,"After reaching 4 stacks, you deal <<3>> to your target",This effect can stack once every half second and scales off the higher of your Weapon or Spell Damage
-44732,"Increases your Weapon Damage, Spell Damage, and Armor by <<1>>"
+44732,Increases your Armor for each Templar ability slotted,Increases your Weapon and Spell Damage based on your total Armor and number of Templar abilities slotted,Current bonus:,<<1>> Armor,<<2>> Weapon and Spell Damage
 44828,Increases your Physical and Spell Resistance by <<1>>
 44836,Increases your Physical and Spell Resistance by <<1>>
 44854,Reduces your damage taken by <<1>>
@@ -1522,7 +1522,7 @@
 44933,Dragons leave naught but ash and ruin in their wake,Increases your damage done with area and over time attacks by <<1>>
 44951,The eldest Dragons are forces of nature,As are you,"Activating a Draconic Power ability grants you and group members <<1>> for <<2>>, increasing Weapon and Spell Damage by <<3>>","Increases your Health Recovery by up to <<4>>, based on your missing Health",Current amount: <<5>>
 44953,The syllables of that ancient tongue live in the mouth of every Dragonknight,"When you cast an Ultimate ability, you restore <<1>> Health, <<2>> Magicka, and <<2>> Stamina for every Ultimate spent",Each Dragonknight ability slotted increases this value by 6,Current amount:,<<3>> Health,<<4>> Magicka,<<5>> Stamina
-44984,"Given time, the smallest rock on the mountain can cascade into pure devastation","Whenever you deal damage you gain a stack of <<1>> which increases your damage done by <<2>> per stack, up to 10 times",This effect can occur once every <<3>>,"Every <<4>> you do not deal damage, you lose a stack"
+44984,"Given time, the smallest rock on the mountain can cascade into pure devastation","Whenever you deal damage you gain a stack of <<1>> which increases your damage done by <<2>> per stack, up to <<3>> times",This effect can occur once every <<4>>,"Every <<5>> you fail to generate a stack, you instead lose a stack"
 44996,"Rock and stone shield your heart, turning aside sharp blades and barbed words",Increases your Armor by <<1>>
 45001,Where earth meets sky is a wellspring of power you can tap at will,When you cast or deal damage with an Earthen Heart ability in combat you generate <<1>> Ultimate,This effect can occur once every <<2>>,Increases your Critical Damage by <<3>>
 45009,The strength of mountains fuels your mightiest blows,Dealing damage with a fully-charged Heavy Attack also applies Off Balance to the target and restores <<1>> Stamina,The Stamina restore can occur once every <<2>>
@@ -3867,7 +3867,7 @@
 86165,"Conjure icy shards around you to skewer enemies in the area, immobilizing them for <<1>> and dealing <<2>> every <<3>> for <<4>>","Enemies hit are overcome with bitter cold, reducing their Movement Speed by <<5>> for <<6>>",Damage done is based on your Max Health and has a higher chance to apply the Chilled status effect
 86169,"Conjure icy shards at the target location to skewer enemies in the area, dealing <<1>> every <<2>> for <<3>>",This damage increases by <<4>> if cast with a Destruction Staff equipped,"Enemies hit are overcome with bitter cold, reducing their Movement Speed by <<5>> for <<6>>",This ability has a higher chance to apply the Chilled status effect
 86175,"Conjure an ancient portal, which arms after 1.5 seconds and lasts for <<1>>",You cannot conceal your presence while active,"When triggered the enemy is teleported to you if within range, immobilized for <<2>>, and dealt <<3>>",You can have up to 3 Frozen Gates active at a time
-86179,"Conjure an ancient portal, which arms after 1.5 seconds and lasts for <<1>>",You cannot conceal your presence while active,"When triggered the enemy is teleported to you if within range, immobilized for <<2>>, dealt <<3>>, and afflicted with Major Maim, reducing their damage done by <<4>> for <<5>>",You can have up to |<<6>> <<7>>s active at a time
+86179,"Conjure an ancient portal, which arms after 1.5 seconds and lasts for <<1>>",You cannot conceal your presence while active,"When triggered the enemy is teleported to you if within range, immobilized for <<2>>, dealt <<3>>, and afflicted with Major Maim, reducing their damage done by <<4>> for <<5>>",You can have up to <<6>> <<7>>s active at a time
 86183,"Conjure an ancient portal, which arms after 1.5 seconds and lasts for <<1>>",You cannot conceal your presence while active,"When triggered the enemy is teleported to you if within range, immobilized for <<2>>, and dealt <<3>>","An ally in the area can activate the <<4>> synergy, teleporting them to you and granting them <<5>> for <<6>>",You can have up to <<7>> <<8>>s active at a time
 86189,Increases your Physical and Spell Resistance by <<1>> for each Winter's Embrace ability slotted,Current Bonus: <<2>>
 86190,Increases your Physical and Spell Resistance by <<1>> for each Winter's Embrace ability slotted,Current Bonus: <<2>>
@@ -4844,7 +4844,7 @@
 118623,"Sap the lingering life from fresh corpses, granting you <<1>> Ultimate and healing <<2>> Health every <<3>> for <<4>> per corpse consumed","While you have the heal effect, you gain Major Protection, reducing the damage you take by <<5>>",This ability scales off your Max Health,"While slotted, your damage taken is reduced by <<6>>"
 118629,Reduces your damage taken by <<1>>
 118639,"Sap the lingering life from fresh corpses, granting you <<1>> Ultimate and healing <<2>> Health every <<3>> for <<4>> per corpse consumed",This ability scales off your Max Health,"While slotted, your damage taken is reduced by <<5>>"
-118664,"Become a destructive Pummeling Goliath, increasing your Max Health by <<1>> for <<2>> and immediately restoring <<1>> Health",You cannot conceal your presence while active,"While transformed, damaging Light Attacks restore <<3>> Health and fully-charged Heavy Attacks restore <<4>> Health",This ability scales off your Max Health,Your Bash attacks hit in an area in front of you and deal <<5>>
+118664,"Become a destructive <<1>>, increasing your Max Health by <<2>> for <<3>>",You cannot conceal your presence while active,"While transformed, damaging Light Attacks restore <<4>> Health and fully-charged Heavy Attacks restore <<5>> Health, scaling off your Max Health","Your Bash attacks hit in an area in front of you, dealing <<6>>, but can be used once per second"
 118680,"Unearth a skeletal archer from the dirt to fight by your side for <<1>>, while granting you <<2>>, increasing your Weapon and Spell Damage by <<3>>","The archer attacks the closest enemy every 2 seconds, dealing <<4>>","Each time the archer deals damage, it deals <<5>> more damage than the previous attack",Creates a corpse on death if you are in combat
 118694,30% Increase to Movement Speed
 118726,"Unearth a skeletal mage from the dirt to fight by your side for <<1>>, while granting you <<2>>, increasing your Weapon and Spell Damage by <<3>>","The mage attacks the closest enemy every 2 seconds, dealing <<4>> to them and all other enemies nearby",Creates a corpse on death if you are in combat
@@ -4917,7 +4917,7 @@
 122295,Unearth a skeletal mage from the dirt to fight by your side for <<1>>,"The mage attacks the closest enemy, dealing <<2>> every <<3>>",Creates a corpse on death
 122388,Unleash a frostbitten Flesh Colossus to pulverize enemies in the area,"The Colossus smashes the ground three times over <<1>>, dealing <<2>> with each smash",The final smash stuns all enemies hit for <<3>>,"Dealing damage applies Major Vulnerability to any enemy hit for <<4>>, increasing their damage taken by <<5>>"
 122389,Increases your damage taken by <<1>>
-122395,Unleash a pestilent Flesh Colossus to pulverize enemies in the area,"The Colossus smashes the ground three times over <<1>>, dealing <<2>>, <<3>>, and <<4>> with the first, second, and third smash","Dealing damage applies the Diseased status effect and Major Vulnerability to any enemy hit for <<5>>, increasing their damage taken by <<6>>"
+122395,Unleash a pestilent Flesh Colossus to pulverize enemies in the area,"The Colossus smashes the ground three times over <<1>>, dealing <<2>>, <<3>>, and <<4>> with the first, second, and third smash",The final hit always applies the Diseased status effect,"Dealing damage applies Major Vulnerability to any enemy hit for <<5>>, increasing their damage taken by <<6>>"
 122397,Increases your damage taken by <<1>>
 122406,Damage taken by Fire Breath is increased
 122415,Leave a trap that snares enemies within 8m by 80% for 2 seconds and pulses every 3 seconds,Deals 150 damage per pulse,Lasts 12 seconds
@@ -5188,7 +5188,7 @@
 133363,Stunned,You are unable to attack or move while stunned
 133378,"While in combat, casting an ability with a cast time or channeling an ability grants you a damage shield that absorbs <<1>> damage for <<2>>","If the damage shield is broken, you restore <<3>> Magicka",This effect can occur once every <<4>>
 133380,Hold to charge up a heavy attack:,· Deals up to <<1>>
-133387,Increases your damage done by <<1>> but reduces your healing received by <<2>>,The damage bonus is halved against players
+133387,Increases your damage done by <<1>> but reduces your healing received by <<2>>,The bonuses are halved against targets with Battle Spirit
 133430,"Surround yourself with a stone aura while you are Bracing, hardening you and your nearby group members, increasing your Physical and Spell Resistance by <<1>>",This effect reveals you while active
 133490,"When you deal critical damage with a Martial melee attack, unleash a Lesser Aegis for <<1>>","After 2.5 seconds, the Lesser Aegis spins its blades, dealing <<2>> Bleed Damage every <<3>>","This effect can occur once every <<4>>, scales off the higher of your Weapon or Spell Damage, and is considered pet damage"
 133499,"Damaging an enemy with a Light Attack puts a <<1>> stack on them for <<2>>, up to once every <<3>>","At 5 stacks, an undodgeable skeletal hand attacks your enemy after <<4>>, knocking them into the air and stunning them for <<5>>, or dealing <<6>> if they cannot be stunned",Enemies then become immune to <<7>> stacks for <<8>>,The damage scales off the higher of your Weapon or Spell Damage
@@ -5198,7 +5198,7 @@
 133813,Reduces your damage done by <<1>>
 133877,"<<1>> is proving <<2>> with reduced damage taken, increased damage done, and is affecting movement and casting speed"
 134006,"Launch a fiery chain to grasp and pull you to an enemy, dealing <<1>> and granting you 2 uses of Empower, increasing the damage of your next 2 Light Attacks by <<2>>","Grants Major Expedition, increasing your Movement Speed by <<3>> for <<4>>",This attack cannot be dodged or reflected
-134017,"When you take critical damage, you apply <<1>> and Uncertainty to the enemy for <<2>>, reducing Critical Damage by <<3>> and Critical Chance by <<4>>",Enemies can only be affected by your Critical Riposte once every <<5>>
+134017,"When you take critical damage, you apply <<1>> and Uncertainty to the enemy for <<2>>, reducing Critical Damage by <<3>> and Critical Chance by <<4>>",Enemies can only be affected by Critical Riposte once every <<5>>
 134034,"Reduces your Weapon and Spell Critical rating by <<1>>,",reducing your Weapon and Spell Critical chance by 6%
 134040,Reduces your Critical Damage done by <<1>>
 134051,Take <<1>> additional damage from any <<2>>
@@ -7240,7 +7240,7 @@
 220194,Your speed is unmatched!,Your Movement Speed increases by <<1>>,"In addition, every <<2>> while you are moving you will leave a temporal echo in your wake which leeches speed from nearby enemies",5 temporal echoes can be up at a time
 220195,Careful consumption creates countless constricting elixirs!,Consuming a potion creates a shower of elixirs that target nearby enemies and random nearby locations,Enemies affected by an elixir are reduced in size for <<1>>,"During this time, their Damage Done is reduced by <<2>>, Damage Taken is increased by <<3>> and their movement speed is increased by <<4>>"
 220229,"<<1>> summons an effigy of bone at their feet for <<2>> that grants Minor Protection to them and their allies, reducing their damage taken by <<3>>","After <<4>>, the totem begins fearing nearby enemies every <<4>>, causing them to cower in place for <<5>>"
-220315,"Increase your Critical Chance by <<1>> for every Major Buff active on you, up to 1536 Critical Chance","Increase your Critical Damage done by <<2>> for every Minor Buff active on you, up to 12% Critical Damage done",Current Bonus: <<3>> Critical Chance and <<4>> Critical Damage
+220315,"Increase your Critical Chance by <<1>> for every Major Buff active on you, up to <<2>> Critical Chance","Increase your Critical Damage done by <<3>> for every Minor Buff active on you, up to <<4>> Critical Damage done",Current Bonus: <<5>> Critical Chance and <<6>> Critical Damage
 220339,Guard Captain Paratius saves you from death once every 10 minutes
 220340,"Blessed by Docent Domitus's teachings, your bash now creates a haunted object","Enemies hit by this object will be damaged, stunned, and knocked down"
 220341,Eliana Albus's rage lives on in you,"Every minute, your damage is increased by 25% for 10 seconds"
@@ -7317,7 +7317,7 @@
 223920,"<<1>> sacrifices their own power to repair damaged flesh, healing them or an ally in front of them for <<2>> Health but applying Minor Defile to themself for <<3>>, reducing their healing received and damage shield strength by <<4>>",Used when <<1>> or an ally is below 75% Health
 223921,"<<1>> slices into the enemy's life force, dealing <<2>>",They heal for <<3>> Health every <<4>> for <<5>>,The healing of this ability scales off your Max Health
 223923,Reduces your healing received and Health Recovery by <<1>>
-224084,Dealing damage with Burning Light twice within <<1>> creates a 5 meter area for <<2>>,This effect can occur once every <<3>>,"While in the area, dealing damage with an Aedric Spear ability launches a spear at your target, dealing <<4>> and applying Sundered and increasing your Weapon and Spell Damage by <<5>> for <<6>>",The damage scales off the higher of your Weapon or Spell Damage
+224084,Dealing damage with <<1>> twice within <<2>> creates a <<3>> meter area <<4>> in front of you for <<5>>,"Dealing damage an Aedric Spear skill within the area launches a spear at your target, dealing <<6>> and applying Sundered and increasing your Weapon and Spell Damage by <<7>> for <<8>>",The damage scales off the higher of your Weapon or Spell Damage
 224181,You are protected from <<1>>
 224242,"While you have a permanent summoned combat pet active, gain <<1>> Health and <<2>> Armor","While you do not have a permanent pet active, increase your Damage Done and Healing Done by <<3>>, reducing to <<4>> if Battle Spirit is active"
 224305,Increases your Movement Speed by <<1>>
@@ -8383,7 +8383,7 @@
 263411,Increases your Critical Damage and Critical Healing by <<1>> while you have one or more Crux
 263412,Master the archaic and forge new runes of conflict,Upgrades <<1>> to inflict <<2>> on your attacker while granting <<3>> to you and your group for <<4>>,You gain <<5>> Ultimate for every Crux you have,These effects can occur once every <<6>>
 263416,Illuminate body and mind with glimmering ink,"While in combat, when you heal or overheal a total of <<1>> Health, you generate a Crux and grant you and your group members <<2>> for <<3>>, increasing Critical Damage by <<4>>%"
-263448,"As an abattoir of death, no remnants of life are wasted","Upgrades rank 2 of <<1>> to also grant a stack of <<2>> for <<3>>, which increases your Max Health by <<4>> and Weapon and Spell Damage by <<5>> per stack, up to <<6>> times",Stacks decay three at a time instead of all at once
+263448,"As an abattoir of death, no remnants of life are wasted","Upgrades rank 2 of <<1>> to also grant a stack of <<2>> for <<3>>, which increases your Max Health by <<4>> and Weapon and Spell Damage by <<5>> per stack, up to <<6>> times",Stacks decay two at a time instead of all at once
 263465,Death's knell is a familiar song,Share it with your enemies,"Upgrades rank 2 of <<1>> to mark the closest non-player enemy to you with death's touch for <<2>>, allowing you to use a corpse consuming ability on them",Consuming or replacing this effect forcibly triggers rank 1 of <<1>>'s Ultimate generation and triggers rank 2 of <<3>>,This effect can occur once every <<4>>
 263509,"The cycle of life and death continues: you will live, others will die","Upgrades rank 2 of <<1>> to grant <<2>> for <<3>>, increasing the potency of your damage done by <<4>> for every <<4>> Health you have more than your target","The damage bonus caps at <<5>>, or <<6>> against players"
 263519,Expose your enemies to unrelenting cold,"Upgrades <<1>> to also apply <<2>> for <<3>>, increasing their Critical Damage taken by <<4>>%"
@@ -8481,11 +8481,11 @@
 267811,"On dealing critical damage, increase your Max Magicka and Max Stamina by <<1>> for <<2>>, stacking up to 5 times","On dealing non-critical damage, increase your Health, Magicka, and Stamina Recovery by <<3>> for <<4>>, stacking up to 5 times",Either effect can occur up to once every <<5>>
 267854,Teleports you to your alliance's base in the Imperial City Sewers,Only works in the Imperial City or the Sewers,"Effect broken by movement (if effect is broken, the stone is not consumed)"
 268123,"While in werewolf form, can devour humanoid corpses to regenerate ultimate"
-268232,"While you don't have Battle Spirit, taking direct damage causes your attacker to cower in Fear for <<1>>","Enemies immune to Fear are afflicted with <<2>> for <<3>> instead, reducing their Weapon and Spell Damage by <<4>>",This effect can occur once every <<5>>,An enemy can only gain <<2>> from this effect once every <<6>>
+268232,Taking direct damage while Battle Spirit is inactive causes your attacker to cower in Fear for <<1>>,"Enemies who are not Feared by this effect are instead afflicted with <<2>> for <<3>>, reducing Weapon and Spell Damage by <<4>>",Either effect can occur once every <<5>>
 268278,Immobilized,You cannot move while immobilized
 268591,The hunt has begun,Reduces your aggression radius from hostile monsters by <<1>> and grants you Stealth Detection for <<2>>
 268597,When you have all three collectible fragments for the Mote of Furious Flame: Use to perform the ritual
-268737,Dealing damage with a Class or Werewolf ability deals <<1>> to enemies within 8 meters of the target,<<2>>% of the damage done is restored to you as Stamina,This effect can occur once every <<3>>,"If you are a Werewolf, gain <<4>> Fury and <<5>> Blood Hunger when this set activates"
+268737,Dealing direct damage with a Class ability or Werewolf attack deals <<1>> to enemies within 8 meters of the target,You restore <<2>> of the damage done as Stamina,"This effect can occur once every <<3>>, scales off the higher of your Weapon or Spell Damage, and deals up to <<4>> more damage to monsters based on how full your Stamina is",While in Werewolf form you also gain <<5>> Fury and <<6>> <<7>>
 269254,Bestows more time in Werewolf Form by devouring humanoid corpses
 269724,increases Experience and Inspiration gain
 269749,Your presence is welcomed with two-fold the generosity,Enemies deal double damage to inflict major wounds
@@ -8536,8 +8536,8 @@
 270747,"By using 10 of these, you can unlock the Witches Festival Ghost Netch pet","If you already have this collectible, these serve only to earn the ""Haunted by Netches"" achievement",Progress: <<1>>/10
 271222,"Consume 25 Chameleon Tincture Phials to unlock the Skill Stylist: Evasion achievement and the Evasion, Cyan Blue Skill Style",Progress: <<1>>/25
 271231,"Consume 25 Spectral Distillation Ampoules to unlock the Skill Stylist: Summon Shade achievement and the Summon Shade, Cyan Blue Skill Style",Progress: <<1>>/25
-271250,PLACEHOLDER TEXT HERE,Progress: <<1>>/10
-271252,PLACEHOLDER TEXT HERE,Progress: <<1>>/10
+271250,"Consume 10 Wolf Totem Shards, along with 10 Hunter Totem Shards, to unlock the Skill Stylist IV: Werewolf Form achievement and the Werewolf Form, Red Skill Style!",Progress: <<1>>/10
+271252,"Consume 10 Hunter Totem Shards, along with 10 Wolf Totem Shards, to unlock the Skill Stylist IV: Werewolf Form achievement and the Werewolf Form, Red Skill Style!",Progress: <<1>>/10
 271351,"Increase Max Magicka by <<1>>, Max Health by <<2>>, and Magicka Recovery by <<3>> for <<4>>",These effects are scaled based on your level
 271352,Decreases ability cooldowns by <<1>> and damage taken by <<2>>
 271353,Increase Max Health by <<1>>
