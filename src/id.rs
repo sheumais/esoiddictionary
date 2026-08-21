@@ -11,7 +11,7 @@ use eso_skill_data::enums::tooltip_type::TooltipType;
 use eso_skill_data::SkillData34;
 use yew::prelude::*;
 use yew_router::components::Link;
-use crate::Route::{self};
+use crate::Route::{self, FlagsCompare};
 use crate::fetch::{get_skill, read_bytes};
 use crate::format::{SkillEquationFormatter, format_angle, format_distance, format_duration, list26_u2_value, render_ability_link, render_ability_link_current, render_ability_reference, resolve_id, with_skill};
 use crate::index_state::{IndexState, find_entry};
@@ -681,6 +681,11 @@ pub fn id_data(props: &IdProps) -> Html {
                             {serde_json::to_string_pretty(skill).unwrap_or_default()}
                         </div>
                     </div>
+                    <p>
+                        <Link<Route> to={FlagsCompare { ids: skill.ability_id1.to_string() }}>
+                            { "View ability flags" }
+                        </Link<Route>>
+                    </p>
                 </div>
             }
         },

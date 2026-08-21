@@ -1,8 +1,9 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::sync::OnceLock;
 
 use yew_router::prelude::*;
 use yew::prelude::*;
+use crate::flag::{FlagSummary, FlagsCompare, FlagsSummary};
 use crate::id::{IdData, get_abilities};
 use crate::index_state::{IndexState, init_index_cache};
 use crate::fetch::init_data;
@@ -13,8 +14,9 @@ mod fetch;
 mod index_state;
 mod format;
 mod search;
+mod flag;
 
-const SKILL_CSV: &str = include_str!("../static/player_abilities.csv");
+pub const SKILL_CSV: &str = include_str!("../static/player_abilities.csv");
 
 static TIMESTAMPS: OnceLock<Vec<(u32, Vec<u32>)>> = OnceLock::new();
 
@@ -37,6 +39,19 @@ pub fn get_timestamps() -> &'static Vec<(u32, Vec<u32>)> {
     })
 }
 
+
+static PLAYER_ABILITY_IDS: OnceLock<HashSet<u32>> = OnceLock::new();
+
+pub fn player_ability_ids() -> &'static HashSet<u32> {
+    PLAYER_ABILITY_IDS.get_or_init(|| {
+        SKILL_CSV
+            .lines()
+            .filter_map(|line| line.splitn(3, ',').next())
+            .filter_map(|id| id.trim().parse::<u32>().ok())
+            .collect()
+    })
+}
+
 #[derive(Clone, Routable, PartialEq)]
 enum Route {
     #[at("/")]
@@ -49,6 +64,15 @@ enum Route {
     Ability { id: u32 },
     #[at("/skill-line/:id")]
     SkillLine { id: u32 },
+    // ':index' carries both views: "3" -> flag set, "!3" -> flag excluded.
+    // (There used to be a separate FlagExclude route pinned to this exact
+    // same path, which the router could never actually reach.)
+    #[at("/flag/:index")]
+    Flag { index: String },
+    #[at("/flags")]
+    Flags,
+    #[at("/flags/:ids")]
+    FlagsCompare { ids: String },
     #[not_found]
     #[at("/404")]
     NotFound,
@@ -82,6 +106,9 @@ fn switch(route: Route, index: IndexState) -> Html {
         Route::Search => html! {<Search query={String::new()} />},
         Route::Ability { id } => html! { <IdData {id} {index} /> },
         Route::SkillLine { id } => html! { <SkillLineSummary {id} /> },
+        Route::Flag { index } => html! { <FlagSummary {index} /> },
+        Route::Flags => html! { <FlagsSummary /> },
+        Route::FlagsCompare { ids } => html! { <FlagsCompare {ids} /> },
         Route::NotFound => html! {
             <div>
                 <h1>{ "404" }</h1>
