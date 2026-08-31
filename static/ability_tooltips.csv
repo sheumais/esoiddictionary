@@ -1028,7 +1028,7 @@
 33220,Disguise yourself as a Forebear
 33221,Disguise yourself as a Crown
 33228,Reduces your damage done by <<1>>
-33291,"Steal an enemy's life force, dealing <<1>> and healing you or a nearby ally for <<2>>% of the damage inflicted every <<3>> for <<4>>","While active, increases your damage done by <<5>> for every <<6>> Health you have"
+33291,"Steal an enemy's life force, dealing <<1>> and healing you or a nearby ally for <<2>>% of the damage inflicted every <<3>> for <<4>>",Deals <<5>> more damage for every <<6>> Health you have
 33293,Increases your experience gain with the Heavy Armor skill line by 15%,Increases your crafting inspiration gained by <<1>>
 33294,Darkness draws your target into your grasp
 33301,Increases your Max Stamina by <<1>>
@@ -1068,8 +1068,8 @@
 34706,Immobilized,You cannot move while immobilized,Use Roll Dodge to remove immobilization
 34721,"Pour out your lifesblood and channel the arcane, healing yourself or an ally in front of you for <<1>> Health, while draining <<2>> Health from yourself over <<3>>"
 34727,"Pour out your lifesblood and channel the arcane, healing yourself or an ally in front of you for <<1>> Health, while draining <<2>> Health from yourself over <<3>>","After casting, gain Minor Mending for <<4>>, increasing your healing done by <<5>>"
-34835,"Steal an enemy's life force, dealing <<1>> and healing you for <<2>>% of the damage inflicted every <<3>> for <<4>>","While active, increases your damage done by <<5>> for every <<6>> Health you have"
-34838,"Steal an enemy's life force, dealing <<1>> and healing you or 3 other nearby allies for <<2>>% of the damage inflicted every <<3>> for <<4>>","While active, increases your damage done by <<5>> for every <<6>> Health you have"
+34835,"Steal an enemy's life force, dealing <<1>> and healing you for <<2>>% of the damage inflicted every <<3>> for <<4>>",Deals <<5>> more damage for every <<6>> Health you have
+34838,"Steal an enemy's life force, dealing <<1>> and healing you or 3 other nearby allies for <<2>>% of the damage inflicted every <<3>> for <<4>>",Deals <<5>> more damage for every <<6>> Health you have
 34843,"Thrust a caustic blade with lethal precision to stab an enemy, dealing <<1>>",Deals up to <<2>>% more damage to enemies with less than <<3>>% Health,Heals you for <<4>> if the enemy dies within <<5>> of being struck
 34851,"Throw a magic blade with lethal precision to strike an enemy, dealing <<1>>",Deals <<2>>% more damage to enemies below <<3>>% Health
 34876,Reduces your healing received and Health Recovery by <<1>>
@@ -1754,7 +1754,7 @@
 46252,"Applies <<1>> to you, reducing movement speed by <<2>> for <<3>>"
 46281,Disguise yourself as a Bloodthorn Cultist
 46324,"Conjure dark crystals to bombard an enemy, dealing <<1>>",Your next non-Ultimate ability cast within <<2>> costs <<3>> less,"While slotted on either bar, casting a non-Ultimate ability has a 33% chance of causing your next Crystal Fragments to be instant cast at half cost, dealing <<4>>"
-46331,"Encase your weapon in dark crystals for <<1>>, causing your next two Light or Heavy Attacks to deal additional damage and reduce the target's Armor by <<2>> for <<3>>",The first hit deals <<4>> and the second deals <<5>>,You cannot conceal your presence while active,"After casting, your next non-Ultimate ability used within <<6>> costs <<7>> less"
+46331,"Encase your weapon in dark crystals for <<1>>, causing your next <<2>> Light or Heavy Attacks to deal additional damage and reduce the target's Armor by <<3>> for <<4>>",The first hit deals <<5>> and the others deal <<6>>,You cannot conceal your presence while active,"After casting, your next non-Ultimate ability used within <<7>> costs <<8>> less"
 46340,"Focus all the elemental energies with your staff and blast an enemy for <<1>>, <<2>>, and <<3>>"
 46348,"Focus all the elemental energies with your staff and blast an enemy for <<1>>, <<2>>, and <<3>>","Enemies hit while casting are interrupted, set Off Balance, and stunned for <<4>>"
 46356,"Focus all the elemental energies with your staff and blast an enemy for <<1>>, <<2>>, and <<3>>",Up to 2 nearby enemies will take,<<4>> if they were already afflicted with a status effect
@@ -8408,7 +8408,7 @@
 263825,Increase Critical Damage taken by <<1>>
 263870,Spellcasting is second nature to you,A skill honed by tireless study,"Upgrades rank 2 of <<1>> to work with all abilities with a cost, excluding cost per tick abilities, and restores <<2>> Magicka and <<3>> Stamina when it activates",This effect scales off your Max Magicka and Stamina
 263871,Within you is a wellspring of near unlimited power,Upgrades rank 2 of <<1>> to work with any Sorcerer ability and increases your Weapon and Spell Damage by <<2>> for <<3>>,"The Weapon and Spell Damage increases by <<4>> for every <<5>> Max Magicka or Stamina you have, whichever is higher"
-263872,The battlefield crackles with untapped potential,Make use of it,"When you deal damage, you have a <<1>> chance to deal <<2>>, up to once every <<3>>",The chance increases by <<4>> for every <<4>> missing Health the target has,The chance is divided by 1 plus every permanent pet you have active
+263872,The battlefield crackles with untapped potential,Make use of it,"When you deal damage with a Sorcerer ability, you have a <<1>> chance to deal <<2>>, up to once every <<3>>",The chance increases by <<4>> for every <<4>> missing Health the target has,The total chance is divided by 1 plus every permanent pet you have active
 263873,Success is a certainty when nothing is left to chance,"While beginning to use a Sorcerer ability or an ability with a cast time, you gain a damage shield for <<1>> that can absorb <<2>> damage",This effect is based off your Max Health,"If the shield does not break, you and nearby group members gain <<3>> Weapon and Spell Damage for <<4>>"
 263874,"Magicka extends your reach, a benefit to those who fight beside you","Casting a damage shield on yourself or an ally grants an additional shield that absorbs up to <<1>> damage for <<2>> and <<3>> Health, Magicka, and Stamina Recovery for <<4>>","The shield scales off the higher of your Max Health or Max Magicka, and is capped at <<5>> of the target's Max Health"
 264060,30% Increase to Movement Speed
@@ -8494,7 +8494,7 @@
 269792,Your pain gives enemies the will to fight on,Inflicting direct damage on your enemies causes them to heal,This effect can happen every 3 seconds
 269799,"You forfeit part of your power, with only willpower left to drive you","Health, stamina, and magicka recovery are all reduced by <<1>>"
 269803,Healing is a crutch used by soft-bellied cowards,Reject it and fight like a warrior! Healing taken is reduced by <<1>>
-269804,Strength seeps away from your fingertips as you face your enemies,Light and heavy attacks now do zero damage
+269804,Strength seeps away from your fingertips as you face your enemies,You now deal 30% reduced damage from all sources
 269808,Every block and dodge only makes the next one harder to perform,Tread carefully,"While in combat, blocking is increased by <<1>> per use per stack",Dodging is increased by <<2>> per use per stack,"Once out of combat, blocking and dodging is reset"
 269814,"These aren't the Halls of Valor, so you'll need to make every swig count",Potion cool-down cost is increased by <<1>>
 269992,Weakness caused by water pool,Effects:,Added damage from Clackgrack's attacks,Major Vulnerability from Clackgrack's Cleave,Targeted by Clackgrack's Whirlpools
