@@ -160,6 +160,7 @@ pub fn render_ability_link_current(id: &u32, display: String, is_current: bool) 
 
 fn tooltip_value_present(skill: &SkillData34, tooltip_type: TooltipType) -> bool {
     match tooltip_type {
+        TooltipType::BuffGain => {true}
         TooltipType::Percentage => {
             skill.base_data.value1 != 0
                 || MajorMinorBuff::from_id(&(skill.major_minor_id as u32)).is_some()
