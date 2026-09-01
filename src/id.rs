@@ -532,7 +532,7 @@ pub fn id_data(props: &IdProps) -> Html {
                                                 //
                                                 //}
 
-                                                TooltipType::Knockback | TooltipType::SelfHeal => {
+                                                TooltipType::Knockback => {
                                                     let display = with_skill(id, &ability_name, |skill| {
                                                         let value = skill.base_data.value1;
                                                         (value != 0).then(|| format_distance(&(value as u32)))
@@ -540,6 +540,15 @@ pub fn id_data(props: &IdProps) -> Html {
 
                                                     render_ability_link_current(id, display, is_current)
                                                 }
+
+                                                TooltipType::SelfHeal => {
+                                                    let display = with_skill(id, &ability_name, |skill| {
+                                                        Some(skill.base_data.value1.to_string())
+                                                    });
+
+                                                    render_ability_link_current(id, display, is_current)
+                                                }
+
 
                                                 TooltipType::ReduceCostIncreaseRecovery => { // 132401
                                                     let display = with_skill(id, &ability_name, |skill| {
