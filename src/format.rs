@@ -1,4 +1,4 @@
-use eso_skill_data::{SkillCoef, SkillData34, enums::{coefficient_type::CoefficientType, major_minor::MajorMinorBuff, tooltip_type::TooltipType}};
+use eso_skill_data::{SkillCoef, SkillData34, enums::{ability_type::AbilityType, coefficient_type::CoefficientType, damage_type::DamageType, major_minor::MajorMinorBuff, skill_line::SkillLine, tooltip_type::TooltipType}};
 use yew::{Html, html};
 use yew_router::components::Link;
 
@@ -134,6 +134,46 @@ where
 
 pub fn fallback(ability_name: &str, id: &u32) -> String {
     format!("{} ({})", ability_name, id)
+}
+
+pub fn format_ability_summary(id: &u32) -> String {
+    match get_skill(id) {
+        Some(skill) => {
+            let parts: Vec<String> = [
+                AbilityType::from_id(&skill.base_data.ability_type)
+                    .filter(|f| f.ne(&AbilityType::None)).map(|a| format!("{}", a)),
+                DamageType::from_id(&skill.u4[3])
+                    .filter(|f| f.ne(&DamageType::Generic)).map(|d| format!("{}", d)),
+                SkillLine::from_id(&skill.base_data.skill_line_id)
+                    .map(|sl| format!("{}", sl)),
+                (skill.base_data.duration != 0)
+                    .then(|| format!("{}", format_duration(&skill.base_data.duration))),
+                (skill.base_data.range != 0)
+                    .then(|| format_distance(&skill.base_data.range)),
+                (skill.base_data.angle != 0.0)
+                    .then(|| format_angle(&skill.base_data.angle)),
+                (skill.base_data.value1 != 0)
+                    .then(|| skill.base_data.value1.to_string()),
+            ]
+            .into_iter()
+            .flatten()
+            .collect();
+
+            format!("  {}", parts.join("  "))
+        }
+        None => String::new(),
+    }
+}
+
+pub fn render_ability_with_summary(id: &u32, name: &str) -> Html {
+    let summary = format_ability_summary(id);
+    html! {
+        <>
+            { render_ability_link(id, format!("{} ({})", name, id)) }
+            <span> { summary } </span>
+            <br />
+        </>
+    }
 }
 
 pub fn render_ability_link(id: &u32, display: String) -> Html {

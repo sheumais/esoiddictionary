@@ -8,13 +8,14 @@ use yew_router::components::Link;
 
 use crate::{Route, player_ability_ids};
 use crate::fetch::get_skill;
-use crate::format::render_ability_link;
+use crate::format::{render_ability_link, render_ability_with_summary};
 use crate::id::get_abilities;
 
-const MAX_RESULTS: usize = 5000;
+const MAX_RESULTS: usize = 10000;
 
 fn flag_name(index: usize) -> Option<&'static str> {
     match index {
+        FLAG_UNCLEANSABLE => Some("UNcleansable"),
         FLAG_TOGGLED => Some("Toggled"),
         FLAG_COST_PER_TICK => Some("Cost drained per tick"),
         FLAG_CHANNELED_AOE => Some("Channeled AOE"),
@@ -116,17 +117,7 @@ fn render_id_list(ids: &[u32], ability_names: &HashMap<u32, String>) -> Html {
         <div>
             { for ids.iter().map(|id| html! {
                 <div style="margin: 1px;">
-                    {
-                        render_ability_link(
-                            id,
-                            format!(
-                                "{} ({})",
-                                ability_names.get(id).unwrap_or(&"???".to_string()),
-                                id,
-                            ),
-                        )
-                    }
-                    <br />
+                    { render_ability_with_summary(id, ability_names.get(id).map(String::as_str).unwrap_or("???")) }
                 </div>
             }) }
         </div>

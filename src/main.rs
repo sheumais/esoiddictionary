@@ -4,6 +4,7 @@ use std::sync::OnceLock;
 use yew_router::prelude::*;
 use yew::prelude::*;
 use crate::flag::{FlagSummary, FlagsCompare, FlagsSummary};
+use crate::tags::{TagSummary, TagsSummary};
 use crate::id::{IdData, get_abilities};
 use crate::index_state::{IndexState, init_index_cache};
 use crate::fetch::init_data;
@@ -15,6 +16,7 @@ mod index_state;
 mod format;
 mod search;
 mod flag;
+mod tags;
 
 pub const SKILL_CSV: &str = include_str!("../static/player_abilities.csv");
 
@@ -73,6 +75,10 @@ enum Route {
     Flags,
     #[at("/flags/:ids")]
     FlagsCompare { ids: String },
+    #[at("/tag/:index")]
+    Tag { index: String },
+    #[at("/tags")]
+    Tags,
     #[not_found]
     #[at("/404")]
     NotFound,
@@ -109,6 +115,8 @@ fn switch(route: Route, index: IndexState) -> Html {
         Route::Flag { index } => html! { <FlagSummary {index} /> },
         Route::Flags => html! { <FlagsSummary /> },
         Route::FlagsCompare { ids } => html! { <FlagsCompare {ids} /> },
+        Route::Tag { index } => html! { <TagSummary {index} /> },
+        Route::Tags => html! { <TagsSummary /> },
         Route::NotFound => html! {
             <div>
                 <h1>{ "404" }</h1>

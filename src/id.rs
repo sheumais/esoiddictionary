@@ -162,16 +162,28 @@ pub fn id_data(props: &IdProps) -> Html {
         FetchState::Done(skill) => {
             let equation = SkillEquationFormatter::format(skill);
 
-            let mut tags: Vec<String> = Vec::new();
-            for id in &skill.ability_tags {
+            let mut tags: Vec<Html> = Vec::new();
+            for (i, id) in skill.ability_tags.iter().enumerate() {
+                if i > 0 {
+                    tags.push(html! { {", "} });
+                }
                 let s = match AbilityTag::from_id(id) {
-                    Some(i) => {format!("{} ({})", i.as_str(), id)},
-                    None => {format!("{}", id)},
+                    Some(tag) => format!("{} ({})", tag.as_str(), id),
+                    None => format!("{}", id),
                 };
-                tags.push(s);
+                tags.push(html! {
+                    <Link<Route> to={Route::Tag { index: id.to_string() }}>
+                        { s }
+                    </Link<Route>>
+                });
             }
 
-            let tags = html! { <Field label={"Ability Tags: "} value={ tags.join(", ") } /> };
+            let tags = html! {
+                <div>
+                    <span>{"Ability Tags: "}</span>
+                    <span>{ for tags }</span>
+                </div>
+            };
 
             fn render_value_field(label: &'static str, val: i32, prev: i32) -> Html {
                 if val != 0 && val != prev {
@@ -191,21 +203,22 @@ pub fn id_data(props: &IdProps) -> Html {
                         <Field label="Skill Line: " value={format!("{} ({})", skill_line, skill.base_data.skill_line_id)} />
                     } else if skill.base_data.skill_line_id != 0 {
                         <Field label="Skill Line: " value={format!("? ({})", skill.base_data.skill_line_id)} />
-                    } else if let Some(weapon_skill_line) = match &skill.u18[8] { // 267785
-                        1 => Some("One Hand and Shield"),
-                        2 => Some("Dual Wield"),
-                        3 => Some("Two Handed"),
-                        4 => Some("Bow"),
-                        5 => Some("Destruction Staff (General)"),
-                        6 => Some("Restoration Staff"),
-                        7 => Some("Destruction Staff (Fire)"),
-                        8 => Some("Destruction Staff (Frost)"),
-                        9 => Some("Destruction Staff (Lightning)"),
-                        12 => Some("Werewolf"),
-                        _ => None,
-                    } {
-                        <Field label="Skill Line 2: " value={format!("{}", weapon_skill_line)} />
-                    }
+                    } 
+                    // else if let Some(weapon_skill_line) = match &skill.u18[8] { // 267785
+                    //     1 => Some("One Hand and Shield"),
+                    //     2 => Some("Dual Wield"),
+                    //     3 => Some("Two Handed"),
+                    //     4 => Some("Bow"),
+                    //     5 => Some("Destruction Staff (General)"),
+                    //     6 => Some("Restoration Staff"),
+                    //     7 => Some("Destruction Staff (Fire)"),
+                    //     8 => Some("Destruction Staff (Frost)"),
+                    //     9 => Some("Destruction Staff (Lightning)"),
+                    //     12 => Some("Werewolf"),
+                    //     _ => None,
+                    // } {
+                    //     <Field label="Skill Line 2: " value={format!("{}", weapon_skill_line)} />
+                    // }
                     if let Some(scribing_ability) = match skill.base_data.scribing_index {
                         0 => None,
                         1 => Some("Vault"),

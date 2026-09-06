@@ -2,8 +2,6 @@ use std::collections::BTreeMap;
 use std::{collections::HashMap, sync::OnceLock};
 
 use chrono::Datelike;
-use eso_skill_data::enums::ability_type::AbilityType;
-use eso_skill_data::enums::damage_type::DamageType;
 use eso_skill_data::enums::skill_line::SkillLine;
 use web_sys::HtmlInputElement;
 use yew::Html;
@@ -12,8 +10,7 @@ use yew_router::components::Link;
 use yew_router::hooks::use_navigator;
 
 use crate::Route;
-use crate::fetch::get_skill;
-use crate::format::{format_angle, format_distance, format_duration, render_ability_link};
+use crate::format::{render_ability_link, render_ability_with_summary};
 use crate::{SKILL_CSV, get_timestamps, id::get_abilities};
 
 static SKILL_GROUPS: OnceLock<BTreeMap<u32, Vec<u32>>> = OnceLock::new();
@@ -195,40 +192,8 @@ pub fn search(props: &SearchProps) -> Html {
 
             {
                 filtered.iter().map(|(id, name)|
-                {
-                    let summary = if let Some(skill) = get_skill(id) {
-                        let parts: Vec<String> = [
-                            AbilityType::from_id(&skill.base_data.ability_type)
-                                .filter(|f| f.ne(&AbilityType::None)).map(|a| format!("{}", a)),
-                            DamageType::from_id(&skill.u4[3])
-                                .filter(|f| f.ne(&DamageType::Generic)).map(|d| format!("{}", d)),
-                            SkillLine::from_id(&skill.base_data.skill_line_id)
-                                .map(|sl| format!("{}", sl)),
-                            (skill.base_data.duration != 0)
-                                .then(|| format!("{}", format_duration(&skill.base_data.duration))),
-                            (skill.base_data.range != 0)
-                                .then(|| format_distance(&skill.base_data.range)),
-                            (skill.base_data.angle != 0.0)
-                                .then(|| format_angle(&skill.base_data.angle)),
-                            (skill.base_data.value1 != 0)
-                                .then(|| skill.base_data.value1.to_string()),
-                        ]
-                        .into_iter()
-                        .flatten()
-                        .collect();
-
-                        format!("  {}", parts.join("  "))
-                    } else {
-                        String::new()
-                    };
-
-                    html! {
-                        <>
-                            { render_ability_link(id, format!("{} ({})", name, id)) }
-                            <span> { summary } </span>
-                            <br />
-                        </>
-                }}).collect::<Html>()
+                    render_ability_with_summary(id, name)
+                ).collect::<Html>()
             }
         </div>
     }
