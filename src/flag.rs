@@ -18,8 +18,9 @@ fn flag_name(index: usize) -> Option<&'static str> {
         FLAG_UNCLEANSABLE => Some("Uncleansable"),
         FLAG_TOGGLED => Some("Toggled"),
         FLAG_COST_PER_TICK => Some("Cost drained per tick"),
-        FLAG_CHANNELED_AOE => Some("Channeled AOE"),
+        FLAG_CHANNELED_AOE => Some("Channeled AOE Player Ability"),
         FLAG_PLAYER_SOURCED_EFFECT => Some("Player-sourced effect"),
+        FLAG_TRIGGER_ON_UNIT_DAMAGE_TAKEN => Some("Unit damage taken triggers"),
         _ => None,
     }
 }
@@ -201,16 +202,18 @@ pub fn flags_summary() -> Html {
                 </Link<Route>>
                 <span>{ " / Flags" }</span>
             </nav>
-            <table style="border-collapse: collapse; width: 100%; max-width: 40em;">
+            <table style="border-collapse: collapse; max-width: 40em;">
                 <thead>
                     <tr>
-                        <th style="text-align: left; border-bottom: 1px solid #888; padding: 0.25em 0.5em;">{"Flag"}</th>
-                        <th style="text-align: right; border-bottom: 1px solid #888; padding: 0.25em 0.5em;">{"Set"}</th>
-                        <th style="text-align: right; border-bottom: 1px solid #888; padding: 0.25em 0.5em;">{"Unset"}</th>
+                        <th style="text-align: left;  border-bottom: 1px solid #c9a97a; padding: 0.25em 0.5em;">{"Flag"}</th>
+                        <th style="text-align: right; border-bottom: 1px solid #c9a97a; padding: 0.25em 0.5em;">{"True"}</th>
+                        <th style="text-align: right; border-bottom: 1px solid #c9a97a; padding: 0.25em 0.5em;">{"False"}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    { for rows.iter().map(|(index, set, unset)| html! {
+                    { 
+                    for rows.iter().map(|(index, set, unset)|
+                        html! {
                         <tr key={*index}>
                             <td style="padding: 0.15em 0.5em;">
                                 {
@@ -222,12 +225,12 @@ pub fn flags_summary() -> Html {
                             </td>
                             <td style="text-align: right; padding: 0.15em 0.5em;">
                                 <Link<Route> to={Route::Flag { index: index.to_string() }}>
-                                    { set }
+                                    { format!("{}", if set < unset {set.to_string()} else {"...".to_string()}) }
                                 </Link<Route>>
                             </td>
-                            <td style="text-align: right; padding: 0.15em 0.5em;">
+                            <td style="text-align: left; padding: 0.15em 0.5em;">
                                 <Link<Route> to={Route::Flag { index: format!("!{}", index) }}>
-                                    { unset }
+                                    { format!("{}", if unset < set {unset.to_string()} else {"...".to_string()}) }
                                 </Link<Route>>
                             </td>
                         </tr>

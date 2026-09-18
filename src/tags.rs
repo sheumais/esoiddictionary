@@ -134,20 +134,21 @@ pub fn tags_summary() -> Html {
             <table style="border-collapse: collapse; width: 100%; max-width: 40em;">
                 <thead>
                     <tr>
-                        <th style="text-align: left; border-bottom: 1px solid #888; padding: 0.25em 0.5em;">{"Tag"}</th>
-                        <th style="text-align: right; border-bottom: 1px solid #888; padding: 0.25em 0.5em;">{"Count"}</th>
+                        <th style="text-align: right; border-bottom: 1px solid #c9a97a; padding: 0.25em 0.5em;">{"Count"}</th>
+                        <th style="text-align: left; border-bottom: 1px solid #c9a97a; padding: 0.25em 0.5em;">{"Tag Name"}</th>
                     </tr>
                 </thead>
                 <tbody>
                     { for rows.iter().map(|(id, count)| html! {
+                        
                         <tr key={*id}>
-                            <td style="padding: 0.15em 0.5em;">
-                                { tag_label(*id) }
-                            </td>
                             <td style="text-align: right; padding: 0.15em 0.5em;">
                                 <Link<Route> to={Route::Tag { index: id.to_string() }}>
                                     { count }
                                 </Link<Route>>
+                            </td>
+                            <td style="padding: 0.15em 0.5em;">
+                                { tag_label(*id) }
                             </td>
                         </tr>
                     }) }
