@@ -10,6 +10,7 @@ use yew_router::components::Link;
 use yew_router::hooks::use_navigator;
 
 use crate::Route;
+use crate::fetch::get_skill;
 use crate::format::{render_ability_link, render_ability_with_summary};
 use crate::{SKILL_CSV, get_timestamps, id::get_abilities};
 
@@ -211,13 +212,19 @@ pub fn skill_line(props: &SkillLineProps) -> Html {
     let skill_line = SkillLine::from_id(&skill_line_id);
     if let Some(sl) = skill_line {
         let ability_names = get_abilities();
-        let groups: Vec<u32> = get_groups()
+        let mut groups: Vec<u32> = get_groups()
             .get(&skill_line_id)
             .cloned()
             .unwrap_or_default();
         if let Some(document) = web_sys::window().and_then(|w| w.document()) {
             document.set_title(format!("{} - ESO ID Dictionary", sl.as_str()).as_str());
         }
+        groups.sort_by_key(|id| {
+            get_skill(id)
+                .map(|ability| ability.base_data.player_skill_index)
+                .unwrap_or(u32::MAX)
+        });
+
         html!{
             <>
                 <nav style="margin-bottom: 1em;">

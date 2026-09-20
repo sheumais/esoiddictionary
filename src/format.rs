@@ -35,7 +35,7 @@ impl SkillEquationFormatter {
             (c.type4, c.coef4),
         ]
         .into_iter()
-        .filter(|(ty, coef)| *ty > 0 && *coef > 0.0)
+        .filter(|(ty, coef)| *ty > 0 && *coef != 0.0)
         .collect();
 
         if terms.is_empty() {
@@ -68,6 +68,15 @@ impl SkillEquationFormatter {
             if c1 == c3
                 && Self::is_weapon_spell(*t1)
                 && Self::is_weapon_spell(*t3)
+            {
+                return Some(Self::paired_term(*t1, *t3, *c1));
+            }
+        }
+
+        if let [(t1, c1), (t3, c3)] = terms.as_slice() {
+            if c1 == c3
+                && Self::is_resource(*t1)
+                && Self::is_resource(*t3)
             {
                 return Some(Self::paired_term(*t1, *t3, *c1));
             }
@@ -204,6 +213,7 @@ fn tooltip_value_present(skill: &SkillData34, tooltip_type: TooltipType) -> bool
         TooltipType::Percentage => {
             skill.base_data.value1 != 0
                 || MajorMinorBuff::from_id(&(skill.major_minor_id as u32)).is_some()
+                || SkillEquationFormatter::format(skill).is_some()
         }
         TooltipType::StatPercentage | TooltipType::ReduceHeatPercent => {
             skill.base_data.value1 != 0
