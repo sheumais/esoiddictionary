@@ -182,7 +182,7 @@ fn home() -> Html {
     html! {
         <div style="max-width: 66%; margin: 0 auto;">
             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 10em; min-width: 275px;">
-                <img style="max-width: 10em; height: auto; text-align: center; user-select: none; -webkit-user-drag: none; -moz-user-select: none;" src="static/book.png" />
+                <img style="max-width: 10em; height: auto; text-align: center; user-select: none; -webkit-user-drag: none; -moz-user-select: none;" loading="eager" src="static/book.png" />
                 <header>
                     <h1>{ "ESO ID Dictionary" }</h1>
                 </header>

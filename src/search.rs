@@ -11,7 +11,7 @@ use yew_router::hooks::use_navigator;
 
 use crate::Route;
 use crate::fetch::get_skill;
-use crate::format::{render_ability_link, render_ability_with_summary};
+use crate::format::{render_ability_icon_by_id, render_ability_link, render_ability_with_summary};
 use crate::{SKILL_CSV, get_timestamps, id::get_abilities};
 
 static SKILL_GROUPS: OnceLock<BTreeMap<u32, Vec<u32>>> = OnceLock::new();
@@ -54,7 +54,7 @@ pub fn skill_line_index() -> Html {
         }
         let mut months: Vec<((i32, u32), Vec<u32>)> = month_map.into_iter().collect();
         months.sort_by(|(a, _), (b, _)| b.cmp(a));
-        months.truncate(6);
+        months.truncate(4);
         for (_, ids) in &mut months {
             ids.sort();
         }
@@ -86,6 +86,7 @@ pub fn skill_line_index() -> Html {
                             .filter(|i| !ability_names.get(i).map_or("?", |f| f.as_str()).contains("Vengeance"))
                             .map(|id| html! {
                                 <div style="font-size: 0.9em; margin: 1px;">
+                                    { render_ability_icon_by_id(id, 16) }
                                     {
                                         render_ability_link(id, ability_names.get(id).unwrap_or(&"???".to_string()).to_string())
                                     }
@@ -155,7 +156,7 @@ pub fn search(props: &SearchProps) -> Html {
         if q.is_empty() {
             let mut v: Vec<_> = ability_names.iter().collect();
             v.sort_by_key(|(id, _)| *id);
-            v.into_iter().take(50).collect()
+            v.into_iter().take(500).collect()
         } else if q.trim().len() <= 5 {
             let mut v: Vec<_> = ability_names.iter()
                 .filter(|(id, name)| {
@@ -163,7 +164,7 @@ pub fn search(props: &SearchProps) -> Html {
                 })
                 .collect();
             v.sort_by_key(|(id, _)| *id);
-            v.into_iter().take(50).collect()
+            v.into_iter().take(500).collect()
         } else {
             let mut v: Vec<_> = ability_names.iter()
                 .filter(|(id, name)| {
@@ -236,6 +237,7 @@ pub fn skill_line(props: &SkillLineProps) -> Html {
                 <div>
                     { for groups.iter().map(|id| html! {
                         <div style="margin: 1px;">
+                            { render_ability_icon_by_id(id, 24) }
                             {
                                 render_ability_link(
                                     id,

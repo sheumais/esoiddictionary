@@ -2,7 +2,7 @@ use eso_skill_data::{SkillCoef, SkillData34, enums::{ability_type::AbilityType, 
 use yew::{Html, html};
 use yew_router::components::Link;
 
-use crate::{Route::{self, Ability}, fetch::get_skill};
+use crate::{Route::{self, Ability}, fetch::get_skill, id::get_icons};
 
 pub struct SkillEquationFormatter;
 
@@ -145,7 +145,7 @@ pub fn fallback(ability_name: &str, id: &u32) -> String {
     format!("{} ({})", ability_name, id)
 }
 
-pub fn format_ability_summary(id: &u32) -> String {
+pub fn format_ability_summary(id: &u32) -> Html {
     match get_skill(id) {
         Some(skill) => {
             let parts: Vec<String> = [
@@ -168,9 +168,14 @@ pub fn format_ability_summary(id: &u32) -> String {
             .flatten()
             .collect();
 
-            format!("  {}", parts.join("  "))
+            html! {
+                <>
+                    { render_ability_icon(&skill, 20) }
+                    <span>{ format!(" {}", parts.join(" ")) }</span>
+                </>
+            }
         }
-        None => String::new(),
+        None => html! {},
     }
 }
 
@@ -297,4 +302,38 @@ pub fn list26_u2_value(skill: &SkillData34, index: usize) -> Option<u32> {
         .and_then(|l26| l26.u2.get(index))
         .copied()
         .filter(|v| *v != 0)
+}
+
+const ICON_DIR: &str = "static/icons";
+
+pub fn render_ability_icon(skill: &SkillData34, size: u32) -> Html {
+    match get_icons().get(&(skill.u8b as u32)) {
+        Some(icon) => html! {
+            <img
+                src={format!("{}/{}", ICON_DIR, icon)}
+                width={size.to_string()}
+                height={size.to_string()}
+                loading="lazy"
+                alt=""
+                style="vertical-align: middle; margin-left: 0.4em; margin-right: 0.4em;"
+            />
+        },
+        None => html! {
+            <img
+                src={format!("{}/{}", ICON_DIR, "icon_missing.png")}
+                width={size.to_string()}
+                height={size.to_string()}
+                loading="lazy"
+                alt=""
+                style="vertical-align: middle; margin-left: 0.4em; margin-right: 0.4em;"
+            />
+        },
+    }
+}
+
+pub fn render_ability_icon_by_id(id: &u32, size: u32) -> Html {
+    match get_skill(id) {
+        Some(skill) => render_ability_icon(&skill, size),
+        None => html! {},
+    }
 }

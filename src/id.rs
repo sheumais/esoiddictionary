@@ -19,6 +19,8 @@ use crate::index_state::{IndexState, find_entry};
 
 const ABILITY_CSV: &str = include_str!("../static/ability_names.csv");
 const TOOLTIP_CSV: &str = include_str!("../static/ability_tooltips.csv");
+/// Based on u8b in the ability struct definition which points to a eso manifest file (https://en.uesp.net/wiki/ESO_Mod:MNF_File_Format) file entry of the icon
+const ICONS_CSV: &str   = include_str!("../static/icons.csv");
 
 static ABILITIES: OnceLock<HashMap<u32, String>> = OnceLock::new();
 static TOOLTIPS:  OnceLock<HashMap<u32, Vec<String>>> = OnceLock::new();
@@ -46,6 +48,20 @@ pub fn get_tooltips() -> &'static HashMap<u32, Vec<String>> {
                 let id: u32 = parts.first()?.trim().parse().ok()?;
                 let tooltip = parts[1..].iter().map(|s| s.trim_matches('"').to_string()).collect::<Vec<String>>();
                 Some((id, tooltip))
+            })
+            .collect()
+    })
+}
+
+static ICONS: OnceLock<HashMap<u32, String>> = OnceLock::new();
+
+pub fn get_icons() -> &'static HashMap<u32, String> {
+    ICONS.get_or_init(|| {
+        ICONS_CSV
+            .lines()
+            .filter_map(|line| {
+                let (idx, name) = line.split_once(',')?;
+                Some((idx.trim().parse().ok()?, name.trim().to_string()))
             })
             .collect()
     })
@@ -87,6 +103,7 @@ pub struct IdProps {
 pub fn id_data(props: &IdProps) -> Html {
     let abilities = get_abilities();
     let tooltips = get_tooltips();
+    let icons = get_icons();
     let skill_state = use_state(|| FetchState::<SkillData34>::Idle);
     let id = props.id;
 
@@ -195,6 +212,30 @@ pub fn id_data(props: &IdProps) -> Html {
 
             html! {
                 <div>
+                    {
+                        match icons.get(&(skill.u8b as u32)) { 
+                            Some(icon) => {
+                                html!{
+                                    <img
+                                        src={format!("static/icons/{}", icon)}
+                                        alt={format!("/esoui/art/icons/{}.dds", icon.trim_end_matches(".png").to_string())}
+                                        width="64"
+                                        height="64"
+                                    />
+                                }
+                            },
+                            None => {
+                                html!{
+                                    <img
+                                        src={format!("static/icons/icon_missing.png")}
+                                        alt={format!("/esoui/art/icons/icon_missing.dds")}
+                                        width="64"
+                                        height="64"
+                                    />
+                                }
+                            }
+                        }
+                    }
                     <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.base_data.date_time.into(), 0).unwrap())} />
                     if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
                         <Field label="Mechanic: " value={format!("{} ({})", mech, skill.mechanic.to_string())} />
