@@ -307,7 +307,7 @@ pub fn list26_u2_value(skill: &SkillData34, index: usize) -> Option<u32> {
 const ICON_DIR: &str = "static/icons";
 
 pub fn render_ability_icon(skill: &SkillData34, size: u32) -> Html {
-    match get_icons().get(&(skill.u8b as u32)) {
+    match get_icons().get(&(skill.icon_file_index as u32)) {
         Some(icon) => html! {
             <img
                 src={format!("{}/{}", ICON_DIR, icon)}

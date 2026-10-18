@@ -213,7 +213,7 @@ pub fn id_data(props: &IdProps) -> Html {
             html! {
                 <div>
                     {
-                        match icons.get(&(skill.u8b as u32)) { 
+                        match icons.get(&(skill.icon_file_index as u32)) {
                             Some(icon) => {
                                 html!{
                                     <img
@@ -399,6 +399,20 @@ pub fn id_data(props: &IdProps) -> Html {
                             }
                         }
                     }
+                    <Field label="Target Type: " value={format!("{} ({})", 
+                        match skill.base_data.target_type {
+                            0 => "Enemy",
+                            1 => { if skill.base_data.angle != 0f32 {"Cone"} else {"Area"}},
+                            2 => "Area",
+                            8 => "Ground",
+                            9 => "One ally", // 256490
+                            14 => "Corpse",
+                            32 => "You or an ally",
+                            33 => "Entire group near player",
+                            34 => "One ally", // guard
+                            _ => {"???"},
+                        }, skill.base_data.target_type)}
+                    />
                     if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) {
                         <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
                     }
@@ -441,6 +455,14 @@ pub fn id_data(props: &IdProps) -> Html {
                     }
                     if skill.flags[FLAG_COST_PER_TICK] == 1 {
                         <Field label="Cost drained multiple times over activation: " value={"True"} />
+                    }
+                    if skill.base_data.z6a != 0 {
+                        <Field label="CC Immunity Type: " value={match skill.base_data.z6a {
+                            3 => "All",
+                            2 => "Immobilisation",
+                            1 => "Interrupt",
+                            _ => "???",
+                        }} />
                     }
                     if !skill.ability_tags.is_empty() {
                         { tags }
@@ -485,6 +507,18 @@ pub fn id_data(props: &IdProps) -> Html {
                                 }
                             }</div>
                         }
+                    }
+                    if skill.base_data.z6b != 0 {
+                        <div style="color: red;">
+                        {
+                            format!("Criminal {} ability", match skill.base_data.z6b {
+                                18 => "Necromancer",
+                                19 => "Vampire",
+                                20 => "Werewolf",
+                                _ => "???",
+                            })
+                        }
+                        </div>
                     }
                     if let Some(tooltip) = tooltips.get(&skill.ability_id1) {
                         <h4>{"Tooltip"}</h4>
@@ -728,15 +762,15 @@ pub fn id_data(props: &IdProps) -> Html {
                     if !skill.causes_ids.is_empty() {
                         <h4>{ "Causes IDs" }</h4>
                         <div>
-                            { for skill.causes_ids.iter().map(|cid: &u32| html! {
+                            { for skill.causes_ids.iter().zip(skill.link_types.iter()).map(|(cid, t)| html! {
                                 <>
-                                    {
-                                        render_ability_link(cid, format!("{} ({})", cid, abilities.get(cid).unwrap_or(&"?".to_string())))
-                                    }
-                                <br />
+                                    { render_ability_link(cid, format!("{} ({}) [{}]", cid, abilities.get(cid).unwrap_or(&"?".to_string()), t)) }
+                                    <br />
                                 </>
                             })}
                         </div>
+                    } else {
+                        { html! {} }
                     }
                     <div style="overflow: wrap;">
                         <h4>{"Raw JSON Data"}</h4>
