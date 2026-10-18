@@ -1,19 +1,13 @@
 use std::{collections::HashMap, sync::OnceLock};
 use chrono::DateTime;
-use eso_skill_data::enums::ability_tag::AbilityTag;
-use eso_skill_data::enums::ability_type::AbilityType;
-use eso_skill_data::enums::damage_type::DamageType;
-use eso_skill_data::enums::flags::*;
 use eso_skill_data::enums::major_minor::MajorMinorBuff;
-use eso_skill_data::enums::mechanic::Mechanic;
-use eso_skill_data::enums::skill_line::SkillLine;
 use eso_skill_data::enums::tooltip_type::TooltipType;
-use eso_skill_data::SkillData34;
+use eso_skill_data::{SkillData34, TypeLink};
 use yew::prelude::*;
 use yew_router::components::Link;
 use crate::Route::{self, FlagsCompare};
 use crate::fetch::{get_skill, read_bytes};
-use crate::format::{SkillEquationFormatter, format_angle, format_distance, format_duration, list26_u2_value, render_ability_link, render_ability_link_current, render_ability_reference, resolve_id, with_skill};
+use crate::format::{format_angle, format_distance, format_duration, render_ability_link, render_ability_link_current, render_ability_reference, resolve_id, with_skill};
 use crate::index_state::{IndexState, find_entry};
 
 
@@ -177,17 +171,18 @@ pub fn id_data(props: &IdProps) -> Html {
             </div>
         },
         FetchState::Done(skill) => {
-            let equation = SkillEquationFormatter::format(skill);
+            let equation = skill.equation();
+
+            let name_of = |id: u32| -> &'static str {
+                abilities.get(&id).map(String::as_str).unwrap_or("Unknown Ability")
+            };
 
             let mut tags: Vec<Html> = Vec::new();
             for (i, id) in skill.ability_tags.iter().enumerate() {
                 if i > 0 {
                     tags.push(html! { {", "} });
                 }
-                let s = match AbilityTag::from_id(id) {
-                    Some(tag) => format!("{} ({})", tag.as_str(), id),
-                    None => format!("{}", id),
-                };
+                let s = SkillData34::tag_label(*id);
                 tags.push(html! {
                     <Link<Route> to={Route::Tag { index: id.to_string() }}>
                         { s }
@@ -236,191 +231,95 @@ pub fn id_data(props: &IdProps) -> Html {
                             }
                         }
                     }
-                    <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.base_data.date_time.into(), 0).unwrap())} />
-                    if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
+                    <Field label="Last Edited: " value={format!("{}", DateTime::from_timestamp(skill.last_edited_timestamp(), 0).unwrap())} />
+                    if let Some(mech) = skill.mechanic() {
                         <Field label="Mechanic: " value={format!("{} ({})", mech, skill.mechanic.to_string())} />
                     }
-                    if let Some(skill_line) = SkillLine::from_id(&skill.base_data.skill_line_id) {
+                    if let Some(skill_line) = skill.skill_line() {
                         <Field label="Skill Line: " value={format!("{} ({})", skill_line, skill.base_data.skill_line_id)} />
                     } else if skill.base_data.skill_line_id != 0 {
                         <Field label="Skill Line: " value={format!("? ({})", skill.base_data.skill_line_id)} />
-                    } 
-                    // else if let Some(weapon_skill_line) = match &skill.u18[8] { // 267785
-                    //     1 => Some("One Hand and Shield"),
-                    //     2 => Some("Dual Wield"),
-                    //     3 => Some("Two Handed"),
-                    //     4 => Some("Bow"),
-                    //     5 => Some("Destruction Staff (General)"),
-                    //     6 => Some("Restoration Staff"),
-                    //     7 => Some("Destruction Staff (Fire)"),
-                    //     8 => Some("Destruction Staff (Frost)"),
-                    //     9 => Some("Destruction Staff (Lightning)"),
-                    //     12 => Some("Werewolf"),
-                    //     _ => None,
-                    // } {
-                    //     <Field label="Skill Line 2: " value={format!("{}", weapon_skill_line)} />
-                    // }
-                    if let Some(scribing_ability) = match skill.base_data.scribing_index {
-                        0 => None,
-                        1 => Some("Vault"),
-                        2 => Some("Wield Soul"),
-                        3 => Some("Shield Throw"),
-                        4 => Some("Smash"),
-                        5 => Some("Elemental Explosion"),
-                        6 => Some("Mender's Bond"),
-                        7 => Some("Travelling Knife"),
-                        8 => Some("Soul Burst"),
-                        9 => Some("Ulfsild's Contingency"),
-                        10 => Some("Torchbearer"),
-                        11 => Some("Trample"),
-                        12 => Some("Banner Bearer"),
-                        _ => Some("Unknown Scribing Ability")
-                    } {
+                    }
+                    if let Some(scribing_ability) = skill.scribing_ability_name() {
                         <Field label="Scribing: " value={format!("{} ({})", scribing_ability, skill.base_data.scribing_index)} />
                     }
-                    if skill.base_data.caused_by != 0 && skill.base_data.caused_by != skill.ability_id1 {
+                    if let Some(caused_by) = skill.caused_by_id() {
                         {render_ability_reference(
                             "Caused By: ",
-                            skill.base_data.caused_by,
+                            caused_by,
                             abilities
-                                .get(&skill.base_data.caused_by)
+                                .get(&caused_by)
                                 .map(String::as_str)
                                 .unwrap_or("Unknown Ability"),
                         )}
                     }
-                    if let Some(list25) = skill.list25.first() {
-                        if list25.base_ability_id > 0 && list25.base_ability_id != skill.ability_id1 && skill.base_data.scribing_index == 0 {
-                            <div>
-                                <span>{"Base ability: "}</span>
-                                <span>
-                                    {
-                                        render_ability_link(&list25.base_ability_id, format!(
-                                            "{} ({})",
-                                            list25.base_ability_id,
-                                            abilities
-                                                .get(&list25.base_ability_id)
-                                                .unwrap_or(&"Unknown Ability".to_string())))
-                                    }
-                                </span>
-                            </div>
-                        }
+                    if let Some(base_id) = skill.base_ability_id() {
+                        <div>
+                            <span>{"Base ability: "}</span>
+                            <span>
+                                {
+                                    render_ability_link(&base_id, format!(
+                                        "{} ({})",
+                                        base_id,
+                                        abilities
+                                            .get(&base_id)
+                                            .unwrap_or(&"Unknown Ability".to_string())))
+                                }
+                            </span>
+                        </div>
                     }
-                    if skill.u8c != 0 && skill.u8c != skill.ability_id1 {
+                    if let Some(replaces) = skill.replaces_id() {
                         {render_ability_reference(
                             "Replaces: ",
-                            skill.u8c,
+                            replaces,
                             abilities
-                                .get(&skill.u8c)
+                                .get(&replaces)
                                 .map(String::as_str)
                                 .unwrap_or("Unknown Ability"),
                         )}
                     }
-                    if let Some(ability_type) = AbilityType::from_id(&skill.base_data.ability_type) && skill.base_data.ability_type != 0 {
+                    if let Some(ability_type) = skill.ability_type() {
                         <Field label="Ability Type: " value={format!("{} ({})", ability_type, skill.base_data.ability_type)} />
                         {
-                            match ability_type {
-                                AbilityType::ActionList => list26_u2_value(skill, 0)
-                                    .map(|id| {
-                                        html! {
-                                            <div>
-                                                <span>{"Do action list #: "}</span>
-                                                <span>{format!("{id} (server-side function reference id)")}</span>
-                                            </div>
-                                        }
-                                    })
-                                    .unwrap_or_else(|| html! {}),
-
-                                AbilityType::GrantAbility => list26_u2_value(skill, 1)
-                                    .map(|id| {
-                                        render_ability_reference(
-                                            "Grants Synergy: ",
-                                            id,
-                                            abilities
-                                                .get(&id)
-                                                .map(String::as_str)
-                                                .unwrap_or("Unknown Ability"),
-                                        )
-                                    })
-                                    .unwrap_or_else(|| html! {}),
-
-                                AbilityType::CreateInventoryItem => list26_u2_value(skill, 1)
-                                    .map(|id| {
-                                        html! {
-                                            <div>
-                                                <span>{"Creates item: "}</span>
-                                                <span>
-                                                    <a href={format!("https://esoitem.uesp.net/itemLink.php?itemid={id}&summary")}>
-                                                        {id}
-                                                    </a>
-                                                </span>
-                                            </div>
-                                        }
-                                    })
-                                    .unwrap_or_else(|| html! {}),
-
-                                AbilityType::AreaTeleport => list26_u2_value(skill, 1)
-                                    .map(|id| {
-                                        html! {
-                                            <div>
-                                                <span>{"Teleports players to location id: "}</span>
-                                                <span>{format!("{id}")}</span>
-                                            </div>
-                                        }
-                                    })
-                                    .unwrap_or_else(|| html! {}),
-
-                                AbilityType::SetCooldown | AbilityType::ModifyCooldown => list26_u2_value(skill, 1)
-                                    .map(|id| {
-                                        render_ability_reference(
-                                            "Sets cooldown of: ",
-                                            id,
-                                            abilities
-                                                .get(&id)
-                                                .map(String::as_str)
-                                                .unwrap_or("Unknown Ability"),
-                                        )
-                                    })
-                                    .unwrap_or_else(|| html! {}),
-
-                                AbilityType::RemoveType => list26_u2_value(skill, 1)
-                                    .map(|id| {
-                                        render_ability_reference(
-                                            "Removes the buff: ",
-                                            id,
-                                            abilities
-                                                .get(&id)
-                                                .map(String::as_str)
-                                                .unwrap_or("Unknown Ability"),
-                                        )
-                                    })
-                                    .unwrap_or_else(|| html! {}),
-
-                                _ => html! {},
+                            match skill.type_link() {
+                                Some(TypeLink::ActionList(id)) => html! {
+                                    <div>
+                                        <span>{"Do action list #: "}</span>
+                                        <span>{format!("{id} (server-side function reference id)")}</span>
+                                    </div>
+                                },
+                                Some(TypeLink::GrantsSynergy(id)) => render_ability_reference("Grants Synergy: ", id, name_of(id)),
+                                Some(TypeLink::CreatesItem(id)) => html! {
+                                    <div>
+                                        <span>{"Creates item: "}</span>
+                                        <span>
+                                            <a href={format!("https://esoitem.uesp.net/itemLink.php?itemid={id}&summary")}>
+                                                {id}
+                                            </a>
+                                        </span>
+                                    </div>
+                                },
+                                Some(TypeLink::AreaTeleport(id)) => html! {
+                                    <div>
+                                        <span>{"Teleports players to location id: "}</span>
+                                        <span>{format!("{id}")}</span>
+                                    </div>
+                                },
+                                Some(TypeLink::SetsCooldown(id)) => render_ability_reference("Sets cooldown of: ", id, name_of(id)),
+                                Some(TypeLink::RemovesBuff(id)) => render_ability_reference("Removes the buff: ", id, name_of(id)),
+                                None => html! {},
                             }
                         }
                     }
-                    <Field label="Target Type: " value={format!("{} ({})", 
-                        match skill.base_data.target_type {
-                            0 => "Enemy",
-                            1 => { if skill.base_data.angle != 0f32 {"Cone"} else {"Area"}},
-                            2 => "Area",
-                            8 => "Ground",
-                            9 => "One ally", // 256490
-                            14 => "Corpse",
-                            32 => "You or an ally",
-                            33 => "Entire group near player",
-                            34 => "One ally", // guard
-                            _ => {"???"},
-                        }, skill.base_data.target_type)}
-                    />
-                    if let Some(damage_type) = DamageType::from_id(&skill.u4[3]) {
-                        <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.u4[3])} />
+                    <Field label="Target Type: " value={format!("{} ({})", skill.target_type_label(), skill.base_data.target_type)} />
+                    if let Some(damage_type) = skill.damage_type() {
+                        <Field label="Damage Type: " value={format!("{} ({})", damage_type, skill.damage_type_id())} />
                     }
                     <>
                         {render_value_field("Value 0: ", skill.base_data.value0, 0)}
                         {render_value_field("Value 1: ", skill.base_data.value1, skill.base_data.value0)}
                         {render_value_field("Value 2: ", skill.base_data.value2, skill.base_data.value1)}
-                        if let Some(major_minor_buff) = MajorMinorBuff::from_id(&(skill.major_minor_id as u32)) { // 103564
+                        if let Some(major_minor_buff) = skill.major_minor_buff() {
                             <Field label="Major/Minor buff: " value={format!("{} ({})", major_minor_buff.as_str(), major_minor_buff.to_id())} />
                         }
                     </>
@@ -445,24 +344,19 @@ pub fn id_data(props: &IdProps) -> Html {
                     if skill.base_data.angle != 0.0 {
                         <Field label="Angle: " value={format_angle(&skill.base_data.angle)} />
                     }
-                    if let Some(mech) = Mechanic::from_id(&skill.mechanic) {
+                    if let Some(mech) = skill.mechanic() {
                         if skill.base_data.cost != 0 {
                             <Field label="Resource Cost: " value={format!("{} ({})", skill.base_data.cost.to_string(), mech)} />
                         }
                     }
-                    if skill.flags[FLAG_TOGGLED] == 1 {
+                    if skill.is_toggled() {
                         <Field label="Toggled: " value={"True"} />
                     }
-                    if skill.flags[FLAG_COST_PER_TICK] == 1 {
+                    if skill.is_cost_per_tick() {
                         <Field label="Cost drained multiple times over activation: " value={"True"} />
                     }
-                    if skill.base_data.z6a != 0 {
-                        <Field label="CC Immunity Type: " value={match skill.base_data.z6a {
-                            3 => "All",
-                            2 => "Immobilisation",
-                            1 => "Interrupt",
-                            _ => "???",
-                        }} />
+                    if let Some(cc) = skill.cc_immunity_label() {
+                        <Field label="CC Immunity Type: " value={cc} />
                     }
                     if !skill.ability_tags.is_empty() {
                         { tags }
@@ -470,55 +364,22 @@ pub fn id_data(props: &IdProps) -> Html {
                     if let Some(eq) = equation {
                         <Field label="Equation: " value={eq} />
                     }
-                    if skill.size19 == 1 { // always 1 or 0, guaranteed by debug_assert in SkillData34 struct
-                        if let Some(entry) = skill.list19.first() {
-                            if entry.threshold_below_health_pct > 0 {
-                                <Field label="Increase equation below health: " value={format!("{}%", entry.threshold_below_health_pct.to_string())} />
-                            }
-                            if entry.bonus_up_to_pct > 0 {
-                                <Field label="Increase equation by up to: " value={format!("{}%", entry.bonus_up_to_pct.to_string())} />
-                            }
-                        }
+                    if skill.threshold_below_health_pct() > 0 {
+                        <Field label="Increase equation below health: " value={format!("{}%", skill.threshold_below_health_pct())} />
                     }
-                    if let Some(list26) = skill.list26.first() {
-                        if let Some(i) = list26.u2.first() {
-                            <div>{
-                                match i {
-                                    1  => "Has effect when cast",
-                                    4  => "Affects magicka/stamina resource pool",
-                                    7  => "Affects duration of eaten food",
-                                    8  => "Affects ultimate pool",
-                                    9  => "Has effect when you heal yourself or a group member/ally",
-                                    14 => "Has effect when your attack is blocked",
-                                    15 => "Has effect when you successfully roll dodge (mixed category, not guaranteed)",
-                                    18 => "Has effect when you block",
-                                    39 => "Has effect when you cast a specific kind of ability",
-                                    49 => "Has effect when you deal critical damage",
-                                    50 => "Has effect when you take critical damage",
-                                    76 => "Tel Var District Bonus",
-                                    78 => "Has effect when you bash (or blade of woe?) an enemy",
-                                    86 => "Has effect every second in combat",
-                                    88 => "Increases your ability range",
-                                    92 => "Reduces chance for enchantment proc to reduce charge",
-                                    93 => "Reduces wayshrine recall cost",
-                                    96 => "Reduces the time it takes for a fish to bite",
-                                    98 => "Reduces the chance to consume a potion",
-                                    _  => "",
-                                }
-                            }</div>
-                        }
+                    if skill.bonus_up_to_pct() > 0 {
+                        <Field label="Increase equation by up to: " value={format!("{}%", skill.bonus_up_to_pct())} />
                     }
-                    if skill.base_data.z6b != 0 {
+                    if let Some(label) = skill.list26_trigger_label() {
+                        <div>{ label }</div>
+                    }
+                    if let Some(class) = skill.crime_label() {
                         <div style="color: red;">
-                        {
-                            format!("Criminal {} ability", match skill.base_data.z6b {
-                                18 => "Necromancer",
-                                19 => "Vampire",
-                                20 => "Werewolf",
-                                _ => "???",
-                            })
-                        }
+                            { format!("Criminal {} ability", class) }
                         </div>
+                    }
+                    if skill.target_cap() != 0 {
+                        <Field label="Target Cap: " value={skill.target_cap().to_string()} />
                     }
                     if let Some(tooltip) = tooltips.get(&skill.ability_id1) {
                         <h4>{"Tooltip"}</h4>
@@ -553,165 +414,8 @@ pub fn id_data(props: &IdProps) -> Html {
                                                     html! { <span>{ format!("{}%", id) }</span> }
                                                 }
 
-                                                TooltipType::Percentage => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.value1;
-                                                        if let Some(d) = SkillEquationFormatter::format(skill) {
-                                                            return Some(d);
-                                                        } else if value != 0 {
-                                                            return Some(format!("{}%", value));
-                                                        } else {
-                                                            MajorMinorBuff::from_id(&(skill.major_minor_id as u32))
-                                                                .map(|b| format!("{}%", b.tooltip_value()))
-                                                        }
-
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::StatPercentage => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.value1;
-                                                        (value != 0).then(|| format!("{}%", value))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::ReduceHeatPercent => { // 79865
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.value1;
-                                                        (value != 0).then(|| format!("{}%", value / 10))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                                                                    // 47374
-                                                TooltipType::Duration | TooltipType::DelayedStrike | TooltipType::DeprecatedZeroDuration => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.duration;
-                                                        (value != 0).then(|| format_duration(&value))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::MinimumCooldown => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.value0;
-                                                        (value != 0).then(|| format_duration(&(value as u32)))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::IncreaseDurationOf => { // 45214
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.value1;
-                                                        (value != 0).then(|| format_duration(&(value as u32)))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                //TooltipType:: IncreasedDurationVsMonsters => { // 107202, 39076
-                                                //
-                                                //}
-
-                                                TooltipType::Knockback => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.value1;
-                                                        (value != 0).then(|| format_distance(&(value as u32)))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::SelfHeal => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        Some(skill.base_data.value1.to_string())
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-
-                                                TooltipType::ReduceCostIncreaseRecovery => { // 132401
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.value1;
-                                                        (value != 0).then(|| format!("{}", value))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::TickRate => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.base_data.tick;
-                                                        (value != 0).then(|| format_duration(&value))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::MagicalDamage
-                                                | TooltipType::MartialDamage
-                                                | TooltipType::SingleTargetDoT
-                                                | TooltipType::AreaHoT
-                                                | TooltipType::SingleTargetHeal
-                                                | TooltipType::NoblesConquest
-                                                | TooltipType::DeprecatedMultiHit => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        if let Some(v) = SkillEquationFormatter::format(skill) {
-                                                            Some(v)
-                                                        } else {
-                                                            let value = skill.base_data.value1;
-                                                            (value != 0).then(|| format!("{}", value))
-                                                        }
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::ResourceGain => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        if let Some(major_minor_buff) = MajorMinorBuff::from_id(&(skill.major_minor_id as u32)) {
-                                                            Some(format!("{}", major_minor_buff.tooltip_value()))
-                                                        } else if let Some(d) = SkillEquationFormatter::format(skill) {
-                                                            Some(d)
-                                                        } else {
-                                                            Some(skill.base_data.value1.to_string())
-                                                        }
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::BonusUpToPercent => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = if let Some(i) = skill.list19.first(){i.bonus_up_to_pct} else {0};
-                                                        (value != 0).then(|| format!("{}%", &value))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::ThresholdBelowHealthPercent => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = if let Some(i) = skill.list19.first(){i.threshold_below_health_pct} else {0};
-                                                        (value != 0).then(|| format!("{}%", &value))
-                                                    });
-
-                                                    render_ability_link_current(id, display, is_current)
-                                                }
-
-                                                TooltipType::TargetCap => {
-                                                    let display = with_skill(id, &ability_name, |skill| {
-                                                        let value = skill.pre.u0;
-                                                        (value != 0).then(|| format!("{}", &value))
-                                                    });
+                                                t if SkillData34::is_value_tooltip(t) => {
+                                                    let display = with_skill(id, &ability_name, |s| s.tooltip_value(t));
 
                                                     render_ability_link_current(id, display, is_current)
                                                 }
@@ -762,11 +466,20 @@ pub fn id_data(props: &IdProps) -> Html {
                     if !skill.causes_ids.is_empty() {
                         <h4>{ "Causes IDs" }</h4>
                         <div>
-                            { for skill.causes_ids.iter().zip(skill.link_types.iter()).map(|(cid, t)| html! {
-                                <>
-                                    { render_ability_link(cid, format!("{} ({}) [{}]", cid, abilities.get(cid).unwrap_or(&"?".to_string()), t)) }
-                                    <br />
-                                </>
+                            { for skill.links().into_iter().map(|(cid, t, label)| {
+                                let cid = &cid;
+                                let name = abilities.get(cid).map(|s| s.as_str()).unwrap_or("?");
+                                let text = match label {
+                                    Some(l) => format!("{} ({}) {}", cid, name, l),
+                                    None => format!("{} ({}) [{}]", cid, name, t),
+                                };
+
+                                html! {
+                                    <>
+                                        { render_ability_link(cid, text) }
+                                        <br />
+                                    </>
+                                }
                             })}
                         </div>
                     } else {
