@@ -341,6 +341,9 @@ pub fn id_data(props: &IdProps) -> Html {
                     if skill.base_data.radius != 0 {
                         <Field label="Radius: " value={format_distance(&skill.base_data.radius)} />
                     }
+                    if skill.half_width != 0 {
+                        <Field label="Width: " value={format_distance(&(skill.half_width as u32 * 2))} />
+                    }
                     if skill.base_data.angle != 0.0 {
                         <Field label="Angle: " value={format_angle(&skill.base_data.angle)} />
                     }
