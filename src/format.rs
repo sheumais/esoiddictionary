@@ -102,6 +102,8 @@ pub fn resolve_id(initial_id: u32, tooltip_type: TooltipType, get_skill: &impl F
         } else if let Some(t) = s.tooltip_data.first() {
             if t.num_tooltip_ids == 1 {
                 current = t.tooltip_ids.first().copied().unwrap_or(initial_id);
+            } else if s.u15.u34c_ability_id > 0 {
+                current = s.u15.u34c_ability_id;
             } else {
                 break;
             }

@@ -16,6 +16,7 @@ const MAX_RESULTS: usize = 10000;
 fn flag_name(index: usize) -> Option<&'static str> {
     match index {
         FLAG_UNCLEANSABLE => Some("Uncleansable"),
+        FLAG_CONSUMES_CORPSES => Some("Consumes Corpses"),
         FLAG_TOGGLED => Some("Toggled"),
         FLAG_COST_PER_TICK => Some("Cost drained per tick"),
         FLAG_CHANNELED_AOE => Some("Channeled AOE Player Ability"),
