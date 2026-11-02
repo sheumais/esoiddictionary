@@ -322,6 +322,9 @@ pub fn id_data(props: &IdProps) -> Html {
                         if let Some(major_minor_buff) = skill.major_minor_buff() {
                             <Field label="Major/Minor buff: " value={format!("{} ({})", major_minor_buff.as_str(), major_minor_buff.to_id())} />
                         }
+                        if skill.u2b != 0 {
+                            <Field label="Server-side Value Calculation Function ID: " value={format!("{}", skill.u2b)} />
+                        }
                     </>
                     if skill.base_data.cast_time != 0 {
                         <Field label="Cast Time: " value={format_duration(&skill.base_data.cast_time) } />
