@@ -448,6 +448,13 @@ pub fn id_data(props: &IdProps) -> Html {
                                                                         format!("Missing Tooltip Major/Minor Buff ({})", id)
                                                                     })
                                                             }
+                                                            TooltipType::CompanionEffect => {
+                                                                if id == &0 {
+                                                                    format!("Your Companion")
+                                                                } else {
+                                                                    format!("Missing Tooltip Data")
+                                                                }
+                                                            }
                                                             _ => {
                                                                 MajorMinorBuff::from_id(id)
                                                                     .map(|b| b.to_string())

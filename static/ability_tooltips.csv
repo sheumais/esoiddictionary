@@ -477,7 +477,7 @@
 21592,A fire's gently crackling warmth has fortified you against the cold
 21675,Immune to All Damage
 21726,"Blast an enemy with a charge of radiant heat, dealing <<1>>, and an additional <<2>> over <<3>>","Upon activation you gain <<4>> for <<5>>, increasing Critical Chance by <<6>>"
-21729,"Blast an enemy with a charge of radiant heat, dealing <<1>>, and an additional <<2>> over <<3>> against players or <<4>> over <<5>> against monsters","Upon activation you gain <<6>> for <<7>>, increasing Critical Chance by <<8>>"
+21729,"Blast an enemy with a charge of radiant heat, dealing <<1>>, and an additional <<2>> over <<3>>","Upon activation you gain <<4>> for <<5>>, increasing Critical Chance by <<6>>"
 21732,"Blast up to three enemies with a charge of radiant heat, dealing <<1>>, an additional <<2>> over <<3>>, and reducing their Movement Speed by <<4>> for <<5>>","Upon activation you gain <<6>> for <<7>>, increasing Critical Chance by <<8>>"
 21736,For <<1>>:,"· Enemy's miss chance increased to 100%, each miss reduces this penality"
 21748,For <<1>>:,"· Enemy's miss chance increased to 100%, each miss reduces this penality",· Enemy takes <<2>> each miss
@@ -487,8 +487,8 @@
 21757,Reduces your damage done by 30%
 21758,"Call down a fragment of the sun, dealing <<1>> every <<2>> for <<3>> to enemies in the area and applying <<4>> to them for <<5>>, reducing their damage done by <<6>>","An ally near the fragment can activate the <<7>> synergy, dealing <<8>> to all enemies in the area and stunning them for <<9>>"
 21760,Reduces your damage done by 30%
-21761,"Exact divine judgment upon an enemy for <<1>>, or <<2>> against monsters, dealing <<3>> every <<4>>","The damage increases based on the amount of damage you dealt to them over the duration, up to <<5>>, resetting after every hit",<<6>> is considered direct damage and you can only have one active at a time
-21763,"Exact divine judgment upon an enemy for <<1>>, or <<2>> against monsters, dealing <<3>> and applying the <<4>> status effect every <<5>>","The damage increases based on the amount of damage you dealt to them over the duration, up to <<6>>, resetting after every hit",<<7>> is considered direct damage and you can have only one active at a time
+21761,"Exact divine judgment upon an enemy for <<1>>, dealing <<2>> every <<3>>","The damage increases based on the amount of damage you dealt to them over the duration, up to <<4>>, resetting after every hit",<<5>> is considered direct damage and you can only have one active at a time
+21763,"Exact divine judgment upon an enemy for <<1>>, dealing <<2>> and applying the <<3>> status effect every <<4>>","The damage increases based on the amount of damage you dealt to them over the duration, up to <<5>>, resetting after every hit",<<6>> is considered direct damage and you can have only one active at a time
 21765,"Exact divine judgment upon an enemy for <<1>>, or <<2>> against monsters, dealing <<3>> and healing you and nearby allies for <<4>> Health every <<5>>","The damage increases based on the amount of damage you dealt to them over the duration, up to <<6>>, resetting after every hit",The healing can occur once every <<5>>,<<7>> is considered direct damage and you can have only one active at a time
 21776,"Envelop an enemy in a lightless sphere for <<1>>, that harms them with growing intensity anytime they use a direct damage attack",Limited to one,"Their first attack reduces their Movement Speed by <<2>> for <<3>>, their second attack immobilizes them for <<4>>, and their third attack stuns them for <<5>>",The effects can activate once every <<6>>
 21809,Leave a trap that snares enemies within 8m by 80% for 2 seconds and pulses every 3 seconds,Deals 150 damage per pulse,Lasts 12 seconds
@@ -788,7 +788,7 @@
 29391,Increases your Stamina Recovery by <<1>> for <<2>> after killing a target
 29397,Increases your Weapon and Spell Damage by <<1>>% and the amount of damage you can block by <<2>>
 29399,Increases the amount of damage you can block from projectiles and ranged attacks by <<1>>
-29415,Reduces the cost of Bash by <<1>>,"If your Defensive stats are higher than your Offensive stats, increases your damage done to monsters by <<2>>, based on your Health plus total Armor"
+29415,"Improves your standard Bash attacks, causing them to deal <<1>> more damage and cost <<2>> less Stamina"
 29420,Reduces the Stamina cost of your One Hand and Shield abilities by <<1>> and reduces the cost of blocking by 18%
 29422,Reduces the Movement Speed penalty of Bracing,Current penalty: 48%
 29424,"To you, flame is fuel","When you apply Burning, you restore <<1>> Magicka and Stamina",This effect can occur once every <<2>>
@@ -799,7 +799,7 @@
 29457,Dragons leave naught but ash and ruin in their wake,Increases your damage done with area and over time attacks by <<1>>
 29460,The eldest Dragons are forces of nature,As are you,"Activating a Draconic Power ability grants you and group members <<1>> for <<2>>, increasing Weapon and Spell Damage by <<3>>","Increases your Health Recovery by up to <<4>>, based on your missing Health",Current amount: <<5>>
 29462,The syllables of that ancient tongue live in the mouth of every Dragonknight,"When you cast an Ultimate ability, you restore <<1>> Health, <<2>> Magicka, and <<2>> Stamina for every Ultimate spent",Each Dragonknight ability slotted increases this value by 3,Current amount:,<<3>> Health,<<4>> Magicka,<<5>> Stamina
-29463,"Given time, the smallest rock on the mountain can cascade into pure devastation","Whenever you deal damage you gain a stack of <<1>> which increases your damage done by <<2>> per stack, up to <<3>> times",This effect can occur once every <<4>>,"Every <<5>> you fail to generate a stack, you instead lose a stack"
+29463,"Given time, the smallest rock on the mountain can cascade into pure devastation","Whenever you deal damage you gain a stack of <<1>> which increases your damage done by <<2>> per stack, reduced to <<2>> per two stacks against players, up to <<3>> times",This effect can occur once every <<4>>,"Every <<5>> you fail to generate a stack, you instead lose a stack"
 29468,"Rock and stone shield your heart, turning aside sharp blades and barbed words",Increases your Armor by <<1>>
 29472,Immobilized,You cannot move while immobilized
 29473,Where earth meets sky is a wellspring of power you can tap at will,When you cast or deal damage with an Earthen Heart ability in combat you generate <<1>> Ultimate,This effect can occur once every <<2>>,Increases your Critical Damage by <<3>>
@@ -1451,7 +1451,7 @@
 42038,"Project a globe of regeneration that slowly floats forward, healing for <<1>> Health every <<2>> to you and nearby allies","An ally near the globe can activate the <<3>> synergy, causing the orb to explode and heal for <<4>> Health to nearby allies and restoring <<5>> Magicka or Stamina to the activator, whichever maximum is higher"
 42054,"Allows you to feed on an unsuspecting target, killing them and increasing your Vampire Stage",Higher Stages make you a stronger Vampire at the cost of your humanity,Stages decrease over long periods of time,Stage 1/2/3/4,Health Recovery: -10%/-30%/-60%/-100%,Flame Damage Taken: +5%/+8%/+13%/+20%,Regular Ability Costs: +3%/+5%/+8%/+12%,Vampire Ability Costs: -6%/-10%/-16%/-24%
 42056,"Ignite the fires of hate in an enemy's heart, dealing <<1>> and taunting them to attack you for <<2>>","Up to 3 allies targeting the taunted enemy can activate the <<3>> synergy, dealing <<4>> to them over <<5>> and then an additional <<6>> to them and other nearby enemies"
-42060,"Ignite your fires of hate and deal <<1>> to up to 6 enemies, pulling them to you, and applying <<2>> and <<3>> for <<4>>, reducing their damage done and increasing their damage taken by <<5>>",This attack cannot be reflected,"An ally targeting the initial enemy can activate the <<6>> synergy, dealing <<7>> to them over <<8>> and then an additional <<9>> to them and other nearby enemies"
+42060,"Ignite your fires of hate and deal <<1>> to up to 6 enemies, pulling monsters to you, and applying <<2>> and <<3>> for <<4>>, reducing their damage done and increasing their damage taken by <<5>>",This attack cannot be reflected,"An ally targeting the initial enemy can activate the <<6>> synergy, dealing <<7>> to them over <<8>> and then an additional <<9>> to them and other nearby enemies"
 42096,Transform into a Werewolf causing nearby enemies to run in fear,· Increases Stamin,· Increases Armor,· Increase Run Speed,· Attack damage is derrived from Max Stamina
 42138,"Surround yourself with a whirlwind of bones, gaining a damage shield that absorbs up to <<1>> damage for <<2>> and returns <<3>>% of direct damage absorbed back to the enemy",This ability scales off your Max Health,"An ally near you can activate the <<4>> synergy, granting the ally and up to 5 other allies a damage shield equal to <<5>> of their Max Health for <<6>>"
 42176,"Surround yourself with a whirlwind of bones, gaining a damage shield that absorbs up to <<1>> damage for <<2>>",This ability scales off your Max Health,"An ally near you can activate the <<3>> synergy, granting up to 6 allies a damage shield that absorbs up to <<4>> of their Max Health for <<5>> and <<6>>, increasing their healing received and damage shield strength by <<7>>"
@@ -1523,7 +1523,7 @@
 44933,Dragons leave naught but ash and ruin in their wake,Increases your damage done with area and over time attacks by <<1>>
 44951,The eldest Dragons are forces of nature,As are you,"Activating a Draconic Power ability grants you and group members <<1>> for <<2>>, increasing Weapon and Spell Damage by <<3>>","Increases your Health Recovery by up to <<4>>, based on your missing Health",Current amount: <<5>>
 44953,The syllables of that ancient tongue live in the mouth of every Dragonknight,"When you cast an Ultimate ability, you restore <<1>> Health, <<2>> Magicka, and <<2>> Stamina for every Ultimate spent",Each Dragonknight ability slotted increases this value by 6,Current amount:,<<3>> Health,<<4>> Magicka,<<5>> Stamina
-44984,"Given time, the smallest rock on the mountain can cascade into pure devastation","Whenever you deal damage you gain a stack of <<1>> which increases your damage done by <<2>> per stack, up to <<3>> times",This effect can occur once every <<4>>,"Every <<5>> you fail to generate a stack, you instead lose a stack"
+44984,"Given time, the smallest rock on the mountain can cascade into pure devastation","Whenever you deal damage you gain a stack of <<1>> which increases your damage done by <<2>> per stack, reduced to <<2>> per two stacks against players, up to <<3>> times",This effect can occur once every <<4>>,"Every <<5>> you fail to generate a stack, you instead lose a stack"
 44996,"Rock and stone shield your heart, turning aside sharp blades and barbed words",Increases your Armor by <<1>>
 45001,Where earth meets sky is a wellspring of power you can tap at will,When you cast or deal damage with an Earthen Heart ability in combat you generate <<1>> Ultimate,This effect can occur once every <<2>>,Increases your Critical Damage by <<3>>
 45009,The strength of mountains fuels your mightiest blows,Dealing damage with a fully-charged Heavy Attack also applies Off Balance to the target and restores <<1>> Stamina,The Stamina restore can occur once every <<2>>
@@ -1644,7 +1644,7 @@
 45460,Vanish for <<1>>
 45463,You are immune to knockback and disabling effects
 45466,Grants you <<1>> which gives you <<2>> Weapon and Spell Critical Rating for <<3>>
-45469,Reduces the cost of Bash by <<1>>,"If your Defensive stats are higher than your Offensive stats, increases your damage done to monsters by <<2>>, based on your Health plus total Armor"
+45469,"Improves your standard Bash attacks, causing them to deal <<1>> more damage and cost <<2>> less Stamina"
 45471,Reduces the Stamina cost of your One Hand and Shield abilities by <<1>> and reduces the cost of blocking by 36%
 45472,Increases the amount of damage you can block from projectiles and ranged attacks by <<1>>
 45473,Reduces the Movement Speed penalty of Bracing,Current penalty: 36%
@@ -1675,7 +1675,7 @@
 45531,Increases your Physical and Spell Resistance by <<1>> for each piece of Heavy Armor equipped,Current bonus: <<2>>
 45533,Increases your Physical and Spell Resistance by <<1>> for each piece of Heavy Armor equipped,Current bonus: <<2>>
 45542,Allows the Alchemist to use Natural Water and Grease to make Level 3 potions and poisons and Clear Water and Ichor to make Level 10 potions and poisons
-45546,Increases your Max Health by <<1>> for each piece of Heavy Armor equipped,Current bonus: <<2>>,"If you have <<3>> or more pieces equipped and your Defensive stats are higher than your Offensive stats, your damage done to monsters is increased by <<4>>, based on your Health plus Armor"
+45546,Increases your Max Health by <<1>> for each piece of Heavy Armor equipped,Current bonus: <<2>>
 45547,Allows the Alchemist to use Pristine Water and Slime to make Level 20 potions and poisons
 45548,Reduces the effectiveness of snares applied to you by <<1>> for each piece of Light Armor worn,Current bonus: <<2>>,Reduces the cost of Sprint by <<3>> for each piece of Light Armor worn,Current bonus: <<4>>
 45549,Reduces the effectiveness of snares applied to you by <<1>> for each piece of Light Armor worn,Current bonus: <<2>>,Reduces the cost of Sprint by <<3>> for each piece of Light Armor worn,Current bonus: <<4>>
@@ -3078,9 +3078,9 @@
 71180,"When you deal Bash damage, gain a stack of <<1>> for <<2>>, up to once every <<3>>","After <<4>> stacks, you consume <<1>> and deflect the next direct damage attack made against you within <<5>>, avoiding it completely"
 71191,Increases your damage done by <<1>> while you have a damage shield active,"When you deal damage, you gain a damage shield that absorbs up to <<2>> damage for <<3>>","This effect scales off the higher of your Weapon or Spell Damage, can occur once every <<4>>, and leaving combat resets the cooldown"
 71199,Deals <<1>>,-Makes target Brittle,"-Adds up to 2 entropy stacks, each reduce damage you take by <<2>>%,"
-71248,"Whenever you deal Flame, Shock, or Frost Damage, you gain <<1>> Weapon and Spell Damage for Flame, Shock, or Frost Damage for <<2>>",Each effect is picked randomly and an effect that is already active cannot refresh
+71248,"Whenever you deal Flame, Shock, or Frost Damage, you gain <<1>> Weapon and Spell Damage for Flame, Shock, or Frost Damage for <<2>>",Each effect is picked randomly and each effect can occur once every <<3>>
 71603,"When you deal damage, you mark an enemy for <<1>>, causing any of your pet damage to heal you for <<2>> Health while restoring <<3>> Magicka and <<4>> Stamina",This effect can occur once per attack and each outcome scales off its respective stat
-71644,"When you deal Frost Damage, you crystallize an ice pillar beneath your foe that deals <<1>> to all enemies in a 3 meter radius",The ice pillar persists for <<2>> and reduces the Movement Speed of all enemies within the radius by <<3>>,This effect can occur once every <<4>> and the damage scales off the higher of your Weapon or Spell Damage
+71644,"When you deal Frost Damage, you crystallize an ice pillar beneath your foe for <<1>>",Enemies within <<2>> meters have their Movement Speed reduced by <<3>>,"When the ice pillar ends, it shatters, dealing <<4>> to enemies in the area",This effect can occur once every <<5>>
 71648,· Gain invisibility for <<1>>,· You don't regenerate magicka while invisible
 71656,"When you cast a damage shield, you call down a fragment of Trinimac that heals you and group members for <<1>> Health and damages enemies for <<2>> in a 5 meter radius after a 2 second delay",This effect can occur once every <<3>> and scales with the higher of your Max Magicka or Stamina
 71670,"When you deal damage with a Light or Heavy Attack, you summon an animated weapon to attack your enemies for <<1>>, up to once every <<2>>",The animated weapon attacks once every <<3>> seconds,"Its Light Attack deals <<4>>, while its Heavy Attack deals <<5>> in a cone in front of it",The damage scales off the higher of your Weapon or Spell Damage
@@ -4127,7 +4127,7 @@
 92899,Immobilized,You cannot move while immobilized,Use Roll Dodge to remove immobilization
 92908,"While Sprinting you gain Major Expedition and Major Protection, increasing your Movement Speed by <<1>> and reducing your damage taken by <<2>>"
 92909,Reduces your damage taken by <<1>>
-92914,"When you taunt an enemy player, they deal 35% less damage to all other players but 35% more damage to you for <<1>>","This effect is lost if you enter Sneak, invisibility, or move further than 28 meters away from them"
+92914,"When you taunt an enemy player, they deal 35% less damage to all other players but 35% more damage to you for <<1>>","This effect can occur once per cast and is lost if you enter Sneak, invisibility, or move further than 28 meters away from them"
 92920,"When you take direct Critical Damage, you apply <<1>> to the enemy for <<2>>, reducing their Critical Damage done by <<3>>"
 92921,Reduces your Critical Damage done by <<1>>
 92938,Reduces each in progress Blacksmithing Research Timer by 15 days,"If a Research Timer has less than 15 days remaining, it will be completed"
@@ -5440,7 +5440,7 @@
 142006,Increases your Critical Damage done by 2% per stage against enemies you are flanking
 142007,When you deal direct damage you heal for <<1>> of the damage done
 142010,"Whenever you kill an enemy under the effect of a status effect, they violently explode for <<1>> Oblivion Damage per stage to all other enemies in a 4 meter radius, and applying a random status effect to each enemy hit",This effect can occur once every second
-142012,You deal <<1>> to attackers whenever they damage you with a direct damage attack within melee range,This effect scales off the higher of your Physical or Spell Resistance and can activate your Weapon Enchantments and Poisons,"If your Defensive stats are higher than your Offensive stats, your damage done to monsters increases by <<2>>, based on your Health plus total Armor"
+142012,You deal <<1>> to attackers whenever they damage you with a direct damage attack within melee range,This effect scales off the higher of your Physical or Spell Resistance and can activate your Weapon Enchantments and Poisons
 142034,Grants 28 Max Health per stage
 142035,Grants 34.6 Armor per stage
 142074,"Grants 1.8 Health, Magicka, and Stamina Recovery per stage"
@@ -7008,7 +7008,7 @@
 211270,Takes increased damage
 211522,"Slam your staff down to activate its blessings, healing you and your allies in front of you for <<1>> Health","Also grants <<2>>, increasing you and your allies' Physical Resistance and Spell Resistance by <<3>> for <<4>>"
 211544,Increases your healing received by <<1>>
-211546,"When you deal damage with a <<1>> ability, you gain a stack of <<2>> for <<3>>, once per attack and up to <<4>> times",Each stack grants <<5>> Magicka Recovery,"When at max stacks, stacks no longer refresh, your Templar skill line abilities deal <<6>> bonus damage but is reduced to <<7>> against players, and a Wrathful Nova is cast on the enemy","When <<2>> expires at max stacks, you lose <<8>> of your current Magicka"
+211546,"Dealing damage with a <<1>> skill grants you a stack of <<2>> for <<3>>, once per attack and up to <<4>> times",Each stack grants <<5>> Magicka Recovery,"At max stacks, stacks no longer refresh, your Templar skills deal <<6>> bonus damage, reduced to <<7>> against players, and a Wrathful Nova is cast on the enemy","When <<2>> expires at max stacks, you lose <<8>> of your current Magicka"
 211662,Learn all Furniture Plans from Vvardenfell to Necrom
 211730,Hermaeus Mora ties you to another Thread of Fate!,You gain an additional attempt in Infinite Archive,You can only accept this gift once
 211817,Faster and lasts longer
@@ -8583,24 +8583,25 @@
 272554,"Increases your Spell Critical rating by <<1>>, increasing your Spell Critical chance by 12%"
 273191,"While you have a summoned combat pet active, your Max Magicka is increased by <<1>>"
 273309,You are burning up! Stay out of the fire to lessen damage taken from Molten Debris!
-273438,"Increase your Health, Magicka, and Stamina Recovery by <<1>>"
-273441,Increase your Max Health by <<1>>
-273442,Increase your Max Magicka by <<1>>
-273443,Increase your Max Stamina by <<1>>
-273444,Increase your Critical Chance by <<1>>
-273445,Increase your Armor by <<1>>
-273446,Increase your Critical Resistance by <<1>>
-273447,Reduce your core ability costs by <<1>>
-273448,Increase your Movement Speed by <<1>>
-273453,Gain a <<1>> dodge chance
+273438,"Increase your Health, Magicka, and Stamina Recovery by <<1>> while in Jerall Pass"
+273441,Increase your Max Health by <<1>> while in Jerall Pass
+273442,Increase your Max Magicka by <<1>> while in Jerall Pass
+273443,Increase your Max Stamina by <<1>> while in Jerall Pass
+273444,Increase your Critical Chance by <<1>> while in Jerall Pass
+273445,Increase your Armor by <<1>> while in Jerall Pass
+273446,Increase your Critical Resistance by <<1>> while in Jerall Pass
+273447,Reduce your core ability costs by <<1>> while in Jerall Pass
+273448,Increase your Movement Speed by <<1>> while in Jerall Pass
+273453,Gain a <<1>> dodge chance while in Jerall Pass
 273501,Warmth surrounds you,You are protected from the effects of Frigid Chill
-273606,Increase your Offensive Penetration by <<1>>
-273629,Increase your Weapon and Spell Damage by <<1>>
-273633,Increase your Critical Damage and Critical Healing by <<1>>
-273929,Increase your Healing Taken by <<1>>
+273606,Increase your Offensive Penetration by <<1>> while in Jerall Pass
+273629,Increase your Weapon and Spell Damage by <<1>> while in Jerall Pass
+273633,Increase your Critical Damage and Critical Healing by <<1>> while in Jerall Pass
+273929,Increase your Healing Taken by <<1>> while in Jerall Pass
 274005,Extreme cold surrounds you,Your sprint speed is reduced
 274007,Extreme cold surrounds you,Your Attribute Recoveries are reduced
 274010,Extreme cold surrounds you,Your Attributes are reduced
 274185,Extreme cold surrounds you,You will take increased damage from all sources
 274187,Extreme cold surrounds you,You will deal reduced damage
 274188,Extreme cold surrounds you,You lose 1 Ultimate every 1.5 seconds
+275755,You have proven your mettle against Zirtiz the Pyre Lord,Alliance Points gain increased by <<1>> for <<2>> while in Jerall Pass

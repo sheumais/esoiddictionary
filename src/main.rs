@@ -3,6 +3,8 @@ use std::sync::OnceLock;
 
 use yew_router::prelude::*;
 use yew::prelude::*;
+use crate::coefs::CoefsSummary;
+use crate::date::DateSummary;
 use crate::flag::{FlagSummary, FlagsCompare, FlagsSummary};
 use crate::tags::{TagSummary, TagsSummary};
 use crate::id::{IdData, get_abilities};
@@ -17,6 +19,8 @@ mod format;
 mod search;
 mod flag;
 mod tags;
+mod coefs;
+mod date;
 
 pub const SKILL_CSV: &str = include_str!("../static/player_abilities.csv");
 
@@ -79,6 +83,10 @@ enum Route {
     Tag { index: String },
     #[at("/tags")]
     Tags,
+    #[at("/coefs")]
+    Coefs,
+    #[at("/date")]
+    Date,
     #[not_found]
     #[at("/404")]
     NotFound,
@@ -117,6 +125,8 @@ fn switch(route: Route, index: IndexState) -> Html {
         Route::FlagsCompare { ids } => html! { <FlagsCompare {ids} /> },
         Route::Tag { index } => html! { <TagSummary {index} /> },
         Route::Tags => html! { <TagsSummary /> },
+        Route::Coefs => html! { <CoefsSummary /> },
+        Route::Date => html! { <DateSummary /> },
         Route::NotFound => html! {
             <div>
                 <h1>{ "404" }</h1>

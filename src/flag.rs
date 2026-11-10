@@ -22,6 +22,7 @@ fn flag_name(index: usize) -> Option<&'static str> {
         FLAG_CHANNELED_AOE => Some("Channeled AOE Player Ability"),
         FLAG_PLAYER_SOURCED_EFFECT => Some("Player-sourced effect"),
         FLAG_TRIGGER_ON_UNIT_DAMAGE_TAKEN => Some("Unit damage taken triggers"),
+        FLAG_SYNERGY => Some("Synergy"),
         _ => None,
     }
 }
