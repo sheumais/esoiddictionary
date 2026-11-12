@@ -15,14 +15,24 @@ const MAX_RESULTS: usize = 10000;
 
 fn flag_name(index: usize) -> Option<&'static str> {
     match index {
+        FLAG_CHANNELED => Some("Channeled"),
+        FLAG_DOUBLE_BARRED => Some("Double Barred"),
         FLAG_UNCLEANSABLE => Some("Uncleansable"),
+        FLAG_RESURRECT => Some("Resurrect"),
         FLAG_CONSUMES_CORPSES => Some("Consumes Corpses"),
+        FLAG_HEAVY_ATTACK => Some("Heavy Attack"),
+        FLAG_IA_VERSE_VISION => Some("Verse/Vision"),
+        FLAG_IA_DEFENSIVE_VERSE_VISION => Some("Defensive Verse/Vision"),
         FLAG_TOGGLED => Some("Toggled"),
-        FLAG_COST_PER_TICK => Some("Cost drained per tick"),
-        FLAG_CHANNELED_AOE => Some("Channeled AOE Player Ability"),
-        FLAG_PLAYER_SOURCED_EFFECT => Some("Player-sourced effect"),
+        FLAG_IA_UNLOCKING_VISION => Some("Unlocking Vision Pre-requisite"),
         FLAG_TRIGGER_ON_UNIT_DAMAGE_TAKEN => Some("Unit damage taken triggers"),
         FLAG_SYNERGY => Some("Synergy"),
+        FLAG_PLAYER_SOURCED_EFFECT => Some("Player-sourced effect"),
+        FLAG_COST_PER_TICK => Some("Cost drained per tick"),
+        FLAG_WEAPON_ATTACK => Some("Weapon Ability Attack"),
+        FLAG_SIEGE_ATTACK => Some("Siege Attack"),
+        FLAG_ENCHANT_POISON_EFFECT => Some("Enchant/Poison Effect"),
+        FLAG_CHANNELED_AOE => Some("Channeled AOE Player Ability"),
         _ => None,
     }
 }
